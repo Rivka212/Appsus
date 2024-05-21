@@ -1,6 +1,11 @@
+const { useState, useEffect } = React
+import { NoteHeader } from './NoteHeader.jsx'
+
 
 export function NoteIndex() {
-    return <section><div>note app</div>
+    return <section>
+        <NoteHeader />
+        <i className="fa-regular fa-gear" />
         <i className="fa-regular fa-trash-can" />
         <i className="fa-regular fa-palette" />
         <i className="fa-light fa-palette" />
@@ -12,5 +17,7 @@ export function NoteIndex() {
         <i className="fa-brands fa-youtube" />
         <i className="fa-regular fa-pen" />
         <i className="fa-solid fa-pen-to-square" />
+
+
     </section>
 }

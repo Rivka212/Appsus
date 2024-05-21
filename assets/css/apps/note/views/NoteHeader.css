@@ -1,0 +1,49 @@
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    color: #797d81;
+    padding: 10px;
+    /* color:#c0c5c9; */
+}
+
+.note-header h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT';
+    font-size: 30px;
+    font-weight: 100;
+    color: #525558;
+}
+
+.note-header .horizontal-line {
+    border-bottom: 1px solid rgb(125, 118, 118);
+    width: 100%;
+}
+
+.note-header img {
+    max-width: 10%;
+    margin: 10px;
+}
+
+.note-header .header-action i {
+    margin: 5px;
+}
+
+.note-header .note-logo{
+    display: flex;
+    margin-inline-end: 0px;
+}
+
+.note-header .note-logo i{
+    padding: 10px;
+}
+
+/* 
+color: #f3e3b6;
+color: #9cbfd7;
+color: #f39b78;
+color:#c0c5c9;
+color: #fff5c3;
+color: #d5fddb;
+color: #d7daff;
+color: #bfe4ff;
+color: #ffccd2;  */
