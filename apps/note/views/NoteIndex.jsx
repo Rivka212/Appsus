@@ -1,23 +1,25 @@
 const { useState, useEffect } = React
-import { NoteHeader } from './NoteHeader.jsx'
 
+import { noteService } from '../services/note.service.js'
+import { NoteHeader } from './NoteHeader.jsx'
+import {NotePreview} from '../cmps/NotePreview.jsx'
+import {NoteList} from '../cmps/NoteList.jsx'
 
 export function NoteIndex() {
+
+    const [notes, setNotes] = useState([])
+    // const [filterBy, setFilterBy] = useState(noteService.getFilterBy())
+
+    useEffect(() => {
+        // console.log(filterBy)
+        noteService.query()
+            .then(notes => setNotes(notes))
+    }, [])
+
+
+
     return <section>
         <NoteHeader />
-        <i className="fa-regular fa-gear" />
-        <i className="fa-regular fa-trash-can" />
-        <i className="fa-regular fa-palette" />
-        <i className="fa-light fa-palette" />
-        <i className="fa-regular fa-image" />
-        <i className="fa-solid fa-thumbtack" />
-        <i className="fa-sharp fa-regular fa-lightbulb" />
-        <i className="fa-sharp fa-regular fa-bell" />
-        <i className="fa-sharp fa-regular fa-pen" />
-        <i className="fa-brands fa-youtube" />
-        <i className="fa-regular fa-pen" />
-        <i className="fa-solid fa-pen-to-square" />
-
-
+        <NoteList notes={notes}/>
     </section>
 }
