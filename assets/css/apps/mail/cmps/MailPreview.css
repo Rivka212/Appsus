@@ -1,0 +1,14 @@
+.mail-preview{
+    display: flex;
+    gap: 30px;
+}
+
+.sender{
+    width: 46px;
+}
+
+.subject {
+    margin-left: 10px;
+    white-space: nowrap;
+
+}

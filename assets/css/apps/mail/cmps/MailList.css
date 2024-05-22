@@ -1,1 +1,22 @@
  /* mail list */
+ .mail-list ul {
+   padding: 10px;
+    list-style: none;
+    line-height: 20px;
+    background-color: var(--mail-bg2);
+    font-family: Roboto-Bold;
+    /* overflow-y: scroll; */
+ }
+
+ .mail-list li{
+   display: flex;
+   justify-items: center;
+   gap: 10px;
+
+   padding-block: 10px;
+ }
+
+ .mail-list img{
+width:20px;
+height:20px;
+ }

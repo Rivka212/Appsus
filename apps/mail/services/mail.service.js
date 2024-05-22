@@ -19,6 +19,7 @@ function _saveMailsToStorage(mails) {
     storageService.saveToStorage(STORAGE_KEY, mails)
 }
 function query(filterBy = null) {
+
     let emails = _createMails()
     if (filterBy) emails = _getFilteredMails(emails, filterBy)
     return Promise.resolve(emails)
@@ -41,6 +42,7 @@ function _getFilteredMails(books, filterBy) {
 function _createMails() {
     let emails = _loadMailsFromStorage()
     if (!emails || !emails.length) {
+        debugger
         emails = [
             {
                 id: utilService.makeId(),
@@ -50,7 +52,8 @@ function _createMails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                inbox: isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -67,7 +70,8 @@ function _createMails() {
                 sentAt: 1551133930601,
                 removedAt: null,
                 from: 'john@momo.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                inbox: isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -85,7 +89,8 @@ function _createMails() {
                 sentAt: 1661133930601,
                 removedAt: null,
                 from: 'emma@momo.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                inbox: isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -100,7 +105,8 @@ function _createMails() {
                 sentAt: 1662533930601,
                 removedAt: null,
                 from: 'mike@momo.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                inbox: isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -116,7 +122,8 @@ function _createMails() {
                 sentAt: 1662533930601,
                 removedAt: null,
                 from: 'user@appsus.com',
-                to: 'sarah@momo.com'
+                to: 'sarah@momo.com',
+            inbox: isInbox('sarah@momo.com')
             },
             {
                 id: utilService.makeId(),
@@ -132,7 +139,8 @@ function _createMails() {
                 sentAt: 1662713930601,
                 removedAt: null,
                 from: 'user@appsus.com',
-                to: 'john@momo.com'
+                to: 'john@momo.com',
+            inbox: isInbox('john@momo.com')
             },
             {
                 id: utilService.makeId(),
@@ -147,7 +155,8 @@ function _createMails() {
                 sentAt: 1382713930601,
                 removedAt: null,
                 from: 'user@appsus.com',
-                to: 'mili@momo.com'
+                to: 'mili@momo.com',
+            inbox: isInbox('mili@momo.com')
             },
             {
                 id: utilService.makeId(),
@@ -162,7 +171,8 @@ function _createMails() {
                 sentAt: 1382713930901,
                 removedAt: null,
                 from: 'user@appsus.com',
-                to: 'jake@momo.com', 
+                to: 'jake@momo.com',
+                inbox: isInbox('jake@momo.com')
             },
             {
                 id: utilService.makeId(),
@@ -177,11 +187,17 @@ function _createMails() {
                 sentAt: 1582713930901,
                 removedAt: null,
                 from: 'user@appsus.com',
-                to: 'emma@momo.com', 
+                to: 'emma@momo.com',
+                inbox: isInbox('emma@momo.com')
             },
         ]
         _saveMailsToStorage(emails)
-        return emails
-
     }
+    return emails
+
+}
+
+function isInbox(to) {
+    if(to === loggedinUser.email) return true
+    else return false
 }

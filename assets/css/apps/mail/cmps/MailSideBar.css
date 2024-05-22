@@ -1,0 +1,66 @@
+.mail-sidebar {
+    max-width: 256px;
+}
+.mail-sidebar .compose-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+
+    padding: 25px;
+    margin-inline-start: 8px;
+    margin-block-start: 8px;
+
+    border:none;
+    border-radius: 15px;
+    width: 145px;
+    height: 60px;
+
+    font-size: 15px;
+    font-family: Roboto-Bold;
+    background-color: var(--mail2);
+    color: var(--mail-txt1);
+
+}
+
+.mail-sidebar .compose-btn img{
+    width: 22px;
+    height:22px
+}
+
+
+.mail-sidebar ul {
+    display: flex;
+    flex-direction: column;
+    padding-inline-start: 0;
+    padding-inline-end: 8px;
+
+    /* justify-content: center; */
+}
+
+.mail-sidebar .mail-item{
+    padding-inline-start: 26px;
+
+    padding-block: 6px;
+}
+
+.mail-sidebar .mail-item:hover{
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+    background-color: var(--mail-hover);
+}
+
+.mail-sidebar .mail-item button{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    border: none;
+    background-color: transparent;
+}
+
+.menu-icon {
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    margin-right: 10px; /* Adjust as needed */
+}

@@ -16,11 +16,13 @@
 
     --mail-txt1: #001d35; 
     --mail-txt2: #47484A;
+    --mail-txt3: #202124;
 
-    --mail-bg1:#FFFFFF;
-    --mail-bg2: #f6f8fc;
+    --mail-bg1: #f6f8fc;
+    --mail-bg2:#FFFFFF;
     --mail-bg3: #d3e3fd;
-    
+
+    --mail-hover: rgba(32, 33, 36, 0.06);
 
     
 
