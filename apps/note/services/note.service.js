@@ -42,7 +42,7 @@ function getDefaultFilter(filterBy = { title: '', minAmount: 0 }) {
 //     }
 // }
 
-function getEmptyNote(info = { title: '', txt: '' }) {
+function getEmptyNote(title = '', txt = '') {
     return {
         createdAt: new Date().toISOString().slice(0, 10),
         type: 'NoteTxt',
@@ -51,8 +51,8 @@ function getEmptyNote(info = { title: '', txt: '' }) {
             backgroundColor: '#ffffff'
         },
         info: {
-            title: info.title,
-            txt: info.txt
+            title: title,
+            txt: txt
         }
     }
 }
