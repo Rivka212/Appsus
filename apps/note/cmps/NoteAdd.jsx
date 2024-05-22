@@ -1,10 +1,11 @@
-import { noteService } from "../services/note.service"
+import { noteService } from '../services/note.service.js'
+
 
 const { useState, useEffect, useRef } = React
 
 export function NoteAdd() {
     const [note, setNote] = useState(null)
-        // const [noteToAdd, setnoteToAdd] = useState(noteService.getEmptyNote())
+    // const [noteToAdd, setnoteToAdd] = useState(noteService.getEmptyNote())
 
     const [noteToAdd, setnoteToAdd] = useState({
         createdAt: new Date().toISOString().slice(0, 10),
@@ -18,6 +19,15 @@ export function NoteAdd() {
             txt: ''
         }
     })
+
+
+    // useEffect(() => {
+    //     if (!params.noteId) return
+    //     noteService.get(params.noteId)
+    //         .then(note => setNote(note))
+    // }, [])
+
+
 
     console.log(noteToAdd);
     // console.log(note);
@@ -40,12 +50,13 @@ export function NoteAdd() {
             info: { ...note.info, title: noteToAdd.title, txt: noteToAdd.txt }
         }
         noteService.save(noteToSave)
-            .then(() => { console.log(note);
+            .then(() => {
+                console.log(note);
                 setNote(note)
                 setnoteToAdd(noteToAdd)
             })
 
-           
+
         // .catch(() => {
         //     // showErrorMsg('Couldnt save')
         //     navigate('/note')
