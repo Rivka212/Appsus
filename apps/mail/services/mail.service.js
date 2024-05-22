@@ -1,4 +1,3 @@
-import { storageService } from '../../../services/storage.service.js'
 import { utilService } from '../../../services/util.service.js'
 
 const STORAGE_KEY = 'emailsDB'
@@ -12,11 +11,11 @@ export const mailService = {
 }
 
 function _loadMailsFromStorage() {
-    return storageService.loadFromStorage(STORAGE_KEY)
+    return utilService.loadFromStorage(STORAGE_KEY)
 }
 
 function _saveMailsToStorage(mails) {
-    storageService.saveToStorage(STORAGE_KEY, mails)
+    utilService.saveToStorage(STORAGE_KEY, mails)
 }
 function query(filterBy = null) {
 
@@ -40,6 +39,7 @@ function _getFilteredMails(books, filterBy) {
 }
 
 function _createMails() {
+    debugger
     let emails = _loadMailsFromStorage()
     if (!emails || !emails.length) {
         debugger
