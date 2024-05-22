@@ -1,0 +1,13 @@
+.note-preview {
+    /* display: grid;
+    gap: 10px;
+   text-decoration: none;   */
+
+}
+
+
+.note-preview h3 {
+    font-family: 'Arial';
+    color: rgb(56, 55, 55);
+    font-weight: 200;
+}
