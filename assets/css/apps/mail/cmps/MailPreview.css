@@ -1,0 +1,16 @@
+.mail-preview{
+    display: flex;
+    gap: 30px;
+}
+
+.sender{
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subject {
+    margin-left: 10px;
+    white-space: nowrap;
+
+}
