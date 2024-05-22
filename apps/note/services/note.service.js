@@ -1,7 +1,7 @@
 // note service
 
 import { utilService } from '../../../services/util.service.js'
-import {storageService } from '../../../services/async-storage.service.js'
+import { storageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
 _createNotes()
@@ -13,7 +13,7 @@ export const noteService = {
     remove,
     save,
     getDefaultFilter,
-
+    getEmptyNote,
 }
 
 function query(filterBy = {}) {
@@ -42,6 +42,26 @@ function getDefaultFilter(filterBy = { title: '', minAmount: 0 }) {
 //     }
 // }
 
+function getEmptyNote(info = { title: '', txt: '' }) {
+    return {
+        createdAt: new Date().toISOString().slice(0, 10),
+        type: 'NoteTxt',
+        isPinned: false,
+        style: {
+            backgroundColor: '#ffffff'
+        },
+        info: {
+            title: info.title,
+            txt: info.txt
+        }
+    }
+}
+
+// info: {
+//     title: '',
+//     txt: ''
+// }
+
 
 
 function get(noteId, note) {
@@ -64,10 +84,6 @@ function save(note) {
         return storageService.post(NOTE_KEY, note)
     }
 }
-
-
-
-
 
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
@@ -135,5 +151,5 @@ function _createNotes() {
             }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)
-    } 
+    }
 }

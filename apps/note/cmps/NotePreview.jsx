@@ -1,5 +1,5 @@
 export function NotePreview({note}){
-console.log(note);
+// console.log(note);
 
 return (
     <article className="note-preview">
