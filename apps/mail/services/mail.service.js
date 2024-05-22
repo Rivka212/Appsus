@@ -187,7 +187,7 @@ function _createMails() {
                 sentAt: 1582713930901,
                 removedAt: null,
                 from: 'user@appsus.com',
-                to: 'emma@momo.com',
+                to: 'MentalWellnessLibra@momo.com',
                 inbox: isInbox('emma@momo.com')
             },
         ]

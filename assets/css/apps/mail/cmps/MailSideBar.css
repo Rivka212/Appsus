@@ -23,6 +23,11 @@
 
 }
 
+.mail-sidebar .compose-btn:hover{
+    box-shadow: 2px 3px 8px #8785856e;
+    transition: 0.2s;
+}
+
 .mail-sidebar .compose-btn img{
     width: 22px;
     height:22px
