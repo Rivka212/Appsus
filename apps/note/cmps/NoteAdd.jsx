@@ -6,105 +6,39 @@ import { AccordionInput } from './AccordionInput.jsx'
 
 export function NoteAdd() {
     const [note, setNote] = useState(null)
-    const [noteToAdd, setnoteToAdd] = useState(noteService.getEmptyNote())
+    const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
 
     const params = useParams()
     const navigate = useNavigate()
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+    const [isExpanded, setIsExpanded] = useState(false)
 
-    function handleInputClick(){
+    function handleInputClick() {
         setIsExpanded(!isExpanded)
     }
 
-
-    var res = noteService.getEmptyNote()
-    console.log(res);
-    // const [noteToAdd, setnoteToAdd] = useState({
-    //     createdAt: new Date().toISOString().slice(0, 10),
-    //     type: 'NoteTxt',
-    //     isPinned: false,
-    //     style: {
-    //         backgroundColor: '#ffffff'
-    //     },
-    //     info: {
-    //         title: '',
-    //         txt: ''
-    //     }
-    // })
-
-
-    // useEffect(() => {
-    //     if (!params.noteId) return
-    //     noteService.get(params.noteId)
-    //         .then(note => setNote(note))
-    // }, [])
-    // console.log(noteToAdd);
-    // console.log(note);
-
-    // useEffect(() => {
-    //     noteService.getEmptyNote().then((note) => {
-    //     // const noteToAdd = { title: note.info.title, txt: note.info.txt }
-    // //     // noteService.get(params.noteId)
-    //             setNote(note)
-    //             setnoteToAdd(noteToAdd)
-    //         })
-    // }, [])
-
-    console.log(noteToAdd);
     function onAddNote(ev) {
         setIsExpanded(!isExpanded)
         console.log(ev);
-
         ev.preventDefault()
-        const noteToSave = {
-            ...note,
-            info: { ...note.info, title: noteToAdd.title, txt: noteToAdd.txt }
-        }
-        console.log(noteToSave);
-        noteService.save(noteToSave)
+        noteService.save(noteToAdd)
             .then(() => {
-                console.log(note);
-                setNote(note)
-                setnoteToAdd(noteToAdd)
+                setNoteToAdd(noteToAdd)
             })
-
         // .catch(() => {
         //     // showErrorMsg('Couldnt save')
-        //     navigate('/note')
         // })
-        // onSaveNote(note)
-        // onToggleNoteModal()
     }
 
     function handleChange({ target }) {
-
-        const { type, name: prop } = target
-        let { value } = target
-        console.log('name', prop);
-
-        switch (type) {
-            case 'range':
-            case 'number':
-                value = +value
-                break;
-
-            case 'checkbox':
-                value = target.checked
-                break;
-        }
-        setnoteToAdd((prevNote) => ({ ...prevNote, [prop]: value }))
+        const { name, value } = target
+        setNoteToAdd(prevNote => ({
+            ...prevNote,
+            info: {
+                ...prevNote.info,
+                [name]: value
+            }
+        }))
     }
-
-    // console.log(note);
-    // function handleChange({ target }) {
-    //     const { value, name: prop } = target
-    //     setNote((prevNote) => ({ ...prevNote, [prop]: value }))
-    // }
-
-    // const { info } = note
-    // const noteToAdd = { title: note.info.title, txt: note.info.txt }
 
     return (
         <section className="note-add">
@@ -112,20 +46,21 @@ export function NoteAdd() {
                 <label htmlFor='title'></label>
                 {isExpanded && <React.Fragment>
                     <form onSubmit={onAddNote} className='note-form'>
+                        <div className="square-input">
+                            <label htmlFor="txt"></label>
+                            <input className="input-txt"
+                                onChange={handleChange} value={noteToAdd.info.txt}
+                                id="txt" name="txt" autoComplete="off"
+                                type="text" placeholder="title" />
 
-                        <label htmlFor="txt"></label>
-                        <input className="input-txt"
-                            onChange={handleChange} value={noteToAdd.txt}
-                            id="txt" name="txt"
-                            type="text" placeholder="title" />
-
-                        <label htmlFor='title'></label>
-                        <input className="input-title"
-                            onChange={handleChange} value={noteToAdd.title}
-                            id="title" name="title"
-                            type="text" placeholder="new note..." />
-                        <button>closure</button> 
-                         </form>
+                            <label htmlFor='title'></label>
+                            <input className="input-title"
+                                onChange={handleChange} value={noteToAdd.info.title}
+                                id="title" name="title"
+                                type="text" placeholder="new note..." />
+                        </div>
+                        <button>closure</button>
+                    </form>
                 </React.Fragment>}
                 {!isExpanded && <React.Fragment><input
                     className="input-title"
@@ -138,7 +73,3 @@ export function NoteAdd() {
         </section>
     )
 }
-
-
-
-// export default NoteAdd;

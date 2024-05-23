@@ -15,8 +15,23 @@ export function NoteIndex() {
     // const [newNote, setNewNote] = useState(null)
     // const [filterBy, setFilterBy] = useState(noteService.getFilterBy())
 
+
+    function openModal(note) {
+        console.log('hi');
+        setSelectedNote(note)
+    }
+
+    function closeModal() {
+        setSelectedNote(null)
+    }
+
+    // useEffect (()=> {
+    //     setSelectedNote(note)
+
+    // })
+
+
     useEffect(() => {
-        // console.log(filterBy)
         noteService.query()
             .then(notes => setNotes(notes))
     }, [])
@@ -34,8 +49,6 @@ export function NoteIndex() {
     }
 
     function handleNoteClick(note) {
-        console.log(note);
-        openModal(note)
         setSelectedNote(note)
     }
 
@@ -55,6 +68,9 @@ export function NoteIndex() {
         <NoteHeader />
         <NoteAdd />
         <NoteList notes={notes} onRemove={removeNote} onChange={handleNoteClick} />
+        {/* {selectedNote && <NoteAdd note={selectedNote} />} */}
         {selectedNote && <NoteAdd note={selectedNote} />}
+
     </section>
 }
+
