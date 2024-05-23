@@ -7,11 +7,13 @@ const { useState, useEffect } = React
 export function MailIndex() {
 const [mails, setMails] = useState([])
 
-useEffect (() => {
-    
-mailService.query()
-.then(mails => setMails(mails))
-},[])
+useEffect(() => {
+    mailService.query().then(fetchedMails => {
+        const sortedMails = mailService.sortEmailsByDate(fetchedMails);
+        setMails(sortedMails)
+    })
+}, [])
+
 
 return <section className="mail-index">
 <MailSideBar/>

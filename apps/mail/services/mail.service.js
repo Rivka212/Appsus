@@ -7,7 +7,8 @@ const loggedinUser = {
 }
 
 export const mailService = {
-    query
+    query,
+    sortEmailsByDate,
 }
 
 function _loadMailsFromStorage() {
@@ -39,10 +40,9 @@ function _getFilteredMails(books, filterBy) {
 }
 
 function _createMails() {
-    debugger
     let emails = _loadMailsFromStorage()
     if (!emails || !emails.length) {
-        debugger
+        
         emails = [
             {
                 id: utilService.makeId(),
@@ -53,7 +53,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'momo@momo.com',
                 to: 'user@appsus.com',
-                inbox: isInbox('user@appsus.com')
+                inbox: _isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -71,7 +71,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'john@momo.com',
                 to: 'user@appsus.com',
-                inbox: isInbox('user@appsus.com')
+                inbox: _isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -86,11 +86,11 @@ function _createMails() {
                 Best regards,
                 Emma`,
                 isRead: false,
-                sentAt: 1661133930601,
+                sentAt: 1705276800000,
                 removedAt: null,
                 from: 'emma@momo.com',
                 to: 'user@appsus.com',
-                inbox: isInbox('user@appsus.com')
+                inbox: _isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -106,7 +106,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'mike@momo.com',
                 to: 'user@appsus.com',
-                inbox: isInbox('user@appsus.com')
+                inbox: _isInbox('user@appsus.com')
             },
             {
                 id: utilService.makeId(),
@@ -123,7 +123,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'user@appsus.com',
                 to: 'sarah@momo.com',
-            inbox: isInbox('sarah@momo.com')
+            inbox: _isInbox('sarah@momo.com')
             },
             {
                 id: utilService.makeId(),
@@ -136,11 +136,11 @@ function _createMails() {
                 Best regards,
                 Sivan`,
                 isRead: true,
-                sentAt: 1662713930601,
+                sentAt:1716449332523,
                 removedAt: null,
                 from: 'user@appsus.com',
                 to: 'john@momo.com',
-            inbox: isInbox('john@momo.com')
+            inbox: _isInbox('john@momo.com')
             },
             {
                 id: utilService.makeId(),
@@ -156,7 +156,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'user@appsus.com',
                 to: 'mili@momo.com',
-            inbox: isInbox('mili@momo.com')
+            inbox: _isInbox('mili@momo.com')
             },
             {
                 id: utilService.makeId(),
@@ -172,14 +172,14 @@ function _createMails() {
                 removedAt: null,
                 from: 'user@appsus.com',
                 to: 'jake@momo.com',
-                inbox: isInbox('jake@momo.com')
+                inbox: _isInbox('jake@momo.com')
             },
             {
                 id: utilService.makeId(),
                 subject: 'Re: invitation to workshop',
                 body: `Hi Emma,
                 Thank you so much for the invitation. 
-                The workshop sounds fantastic, and I would love to attend. 
+                The work_shop sounds fantastic, and I would love to attend. 
                 Please send me the details, and I will make sure to mark it on my calendar.
                 Best,
                 Sivan`,
@@ -188,7 +188,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'user@appsus.com',
                 to: 'MentalWellnessLibra@momo.com',
-                inbox: isInbox('emma@momo.com')
+                inbox: _isInbox('emma@momo.com')
             },
         ]
         _saveMailsToStorage(emails)
@@ -197,7 +197,11 @@ function _createMails() {
 
 }
 
-function isInbox(to) {
+function _isInbox(to) {
     if(to === loggedinUser.email) return true
     else return false
+}
+
+function sortEmailsByDate(emails) {
+    return emails.sort((a, b) => b.sentAt - a.sentAt)
 }
