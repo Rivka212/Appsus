@@ -5,10 +5,10 @@
    grid-auto-flow: column;
    grid-template-columns: 256px auto;
 
+   padding-inline: 10px;
    height: 100vh;
     font-family: Roboto-Regular;
     font-size: 14px;
     background-color: var(--mail-bg1);
     color: var(--mail-txt3);
-    line-height: 20px;
  }

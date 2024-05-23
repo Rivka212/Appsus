@@ -1,8 +1,13 @@
 .mail-preview{
-    display: flex;
-    gap: 30px;
+    display: grid;
+    grid-template-columns:  1fr minmax(200px, 600px) 1fr;
+    align-items: center;
+    gap: 10px;
 }
-
+.mail-preview div {
+    display: flex;
+    gap: 10px;
+}
 .sender{
     width: 80px;
     overflow: hidden;
@@ -12,5 +17,15 @@
 .subject {
     margin-left: 10px;
     white-space: nowrap;
+}
 
+.body{
+    height: 14px;
+
+    overflow: hidden;
+    font-family: Roboto-Regular;
+}
+
+.sent-time {
+   justify-self: end; /* Align the content to the right */
 }
