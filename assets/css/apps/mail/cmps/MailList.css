@@ -20,7 +20,7 @@
 
     height: 20px;
     padding-block: 10px;
-    border-bottom: 1px solid rgba(184, 181, 181, 0.26); /* Add this line */
+    border-bottom: 1px solid var(--mail-border)
 
  }
 

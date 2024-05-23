@@ -1,3 +1,5 @@
+import {ComposeMail} from './ComposeMail.jsx'
+
 export function MailSideBar() {
     const icons = {
         inbox: '../../../../icons/inbox.png',
@@ -24,9 +26,7 @@ export function MailSideBar() {
     ]
 
     return <section className="mail-sidebar">
-        <button className="compose-btn">
-            <img src="../../../../icons/compose.png"/>
-            Compose</button>
+        <ComposeMail/>
         <ul>
             {menuItems.map(item => (
                 <li key={item.name} className="mail-item">

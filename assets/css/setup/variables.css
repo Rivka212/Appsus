@@ -13,18 +13,21 @@
     --mail1: eaf1fb;
     --mail2: #c2e7ff;
     --mail3: #F2F5FC;
+    --mail4: #f2f6fc;
 
-    --mail-txt1: #001d35; 
+    --mail-txt1: #001d35;
     --mail-txt2: #47484A;
     --mail-txt3: #202124;
 
     --mail-bg1: #f6f8fc;
-    --mail-bg2:#FFFFFF;
+    --mail-bg2: #FFFFFF;
     --mail-bg3: #d3e3fd;
-
+    --mail--bg4: #0b57d0;
+    
     --mail-hover: rgba(32, 33, 36, 0.06);
 
-    
+    --mail-border: rgba(184, 181, 181, 0.26);
+
 
 
 

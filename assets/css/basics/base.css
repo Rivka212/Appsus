@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    box-sizing: border-box;
+
 }
 
 h1,
@@ -25,4 +27,8 @@ img {
 ul {
     list-style: none;
     cursor: pointer;
+}
+
+.hidden{
+    display: none;
 }

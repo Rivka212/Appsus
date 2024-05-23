@@ -1,6 +1,6 @@
 .mail-preview{
     display: grid;
-    grid-template-columns:  1fr minmax(200px, 600px) 1fr;
+    grid-template-columns:  1fr minmax(200px, 55vw) 1fr;
     align-items: center;
     gap: 10px;
 }
