@@ -7,7 +7,8 @@ const loggedinUser = {
 }
 
 export const mailService = {
-    query
+    query,
+    sortEmailsByDate,
 }
 
 function _loadMailsFromStorage() {
@@ -199,4 +200,8 @@ function _createMails() {
 function _isInbox(to) {
     if(to === loggedinUser.email) return true
     else return false
+}
+
+function sortEmailsByDate(emails) {
+    return emails.sort((a, b) => b.sentAt - a.sentAt)
 }
