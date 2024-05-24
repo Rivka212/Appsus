@@ -8,8 +8,8 @@ export function NoteAdd() {
     const [note, setNote] = useState(null)
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
 
-    const params = useParams()
-    const navigate = useNavigate()
+    // const params = useParams()
+    // const navigate = useNavigate()
     const [isExpanded, setIsExpanded] = useState(false)
 
     function handleInputClick() {

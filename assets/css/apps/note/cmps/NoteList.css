@@ -14,3 +14,7 @@
      border-radius: 5px;
      list-style-type: none;
  }
+
+ .note-list li:hover:not(article){
+    box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
+ }

@@ -16,19 +16,19 @@ export function NoteIndex() {
     // const [filterBy, setFilterBy] = useState(noteService.getFilterBy())
 
 
-    function openModal(note) {
-        console.log('hi');
-        setSelectedNote(note)
-    }
-
-    function closeModal() {
-        setSelectedNote(null)
-    }
-
-    // useEffect (()=> {
+    // function openModal(note) {
+    //     console.log('hi');
     //     setSelectedNote(note)
+    // }
 
-    // })
+    // function closeModal() {
+    //     setSelectedNote(null)
+    // }
+
+    useEffect (()=> {
+        setSelectedNote(selectedNote)
+        console.log(selectedNote);
+    })
 
 
     useEffect(() => {
@@ -48,28 +48,30 @@ export function NoteIndex() {
             })
     }
 
-    function handleNoteClick(note) {
-        setSelectedNote(note)
-    }
-
-    // function onSaveNote(noteToAdd) {
-    //     console.log(noteToAdd)
-    //     noteService.save(noteToAdd)
-    //         .then((note) => {
-    //             // const note = [note, ...notes]
-    //             setNotes({ ...note, notes })
-    //         })
-    //         .catch(() => {
-    //             // console.log('err:', err)
-    //             showErrorMsg(`Note to Failed!`, noteId)
-    //         })
+    // function handleNoteClick(note) {
+    //     setSelectedNote(note)
     // }
+
+
+    // const handleClick = () => {
+    //     setSelected(true);
+    //     onClick(note);
+    // };
+
     return <section>
+    {/* <i className="fa-regular fa-trash-can" />
+   
+    <i className="fa-sharp fa-regular fa-lightbulb" />
+    <i className="fa-sharp fa-regular fa-bell" />
+    <i className="fa-brands fa-youtube" />
+    <i className="fa-solid fa-pen-to-square" /> */}
+
+    {/* onChange={handleNoteClick} */}
         <NoteHeader />
         <NoteAdd />
-        <NoteList notes={notes} onRemove={removeNote} onChange={handleNoteClick} />
+        <NoteList notes={notes} onRemove={removeNote}  />
         {/* {selectedNote && <NoteAdd note={selectedNote} />} */}
-        {selectedNote && <NoteAdd note={selectedNote} />}
+        {selectedNote && <NoteEdit note={selectedNote} />}
 
     </section>
 }

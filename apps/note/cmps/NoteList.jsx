@@ -6,7 +6,9 @@ export function NoteList({ notes, onRemove, onChange }) {
         <ul>
             {notes.map(note =>
                 <li key={note.id}>
-                    <NotePreview note={note} onClick={onChange}/>
+                    <NotePreview note={note} />
+                                        {/* <NotePreview note={note} onClick={onChange}/> */}
+
                     <button onClick={() => onRemove(note.id)}>x</button>
                 </li>
             )}
@@ -15,7 +17,7 @@ export function NoteList({ notes, onRemove, onChange }) {
 }
 
 
-onClick={handleNoteClick}
+// onClick={handleNoteClick}
 //  { const handleNoteClick = (note) => { onChange(note); };
 
 {/* <NoteList notes={notes} onRemove={removeNote} onChange={handleNoteClick} /> */}

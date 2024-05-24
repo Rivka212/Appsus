@@ -11,3 +11,15 @@
     color: rgb(56, 55, 55);
     font-weight: 215;
 }
+
+.note-preview i{
+    color: rgb(100, 97, 97);
+}
+
+.note-preview:hover .action-note{
+    display:block;
+}
+
+.note-preview .action-note i{
+    margin-inline-start: 10px;
+}
