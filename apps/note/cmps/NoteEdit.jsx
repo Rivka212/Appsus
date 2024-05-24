@@ -1,26 +1,41 @@
 const { useState, useEffect } = React
+const { useParams, useNavigate } = ReactRouter
+
+const { Link } = ReactRouterDOM
 
 
 // import { showErrorMsg } from '../services/event-bus.service.js'
 // import { NoteIndex } from '../views/NoteIndex.jsx'
 import { noteService } from '../services/note.service.js'
 
-export function NoteEdit({ note, onSave }) {
+export function NoteEdit() {
 
-    const [notetoEdit, setNotetoEdit] = useState()
+    const [note, setNote] = useState(noteService.getEmptyNote())
+    const navigate = useNavigate()
+    const params = useParams()
+    console.log(params);
 
-    function onSave(ev) {
+    useEffect(() => {
+        if (!params.noteId) return
+        console.log(params.noteId);
+        noteService.get(params.noteId)
+            .then(note => setNote(note))
+    }, [])
+
+    function onSaveNote(ev) {
         ev.preventDefault()
         // onSave(reviewData)
         // onToggleReviewModal()
         noteService.save(note)
-            .then(() => {
-                setNote(note)
+            .then(() => { navigate('/note')
+                // setNote(note)
             })
         // .catch(() => {
         //     // showErrorMsg('Couldnt save')
         // })
     }
+
+    console.log(note);
 
     function handleChange({ target }) {
         const { name, value } = target
@@ -49,7 +64,7 @@ export function NoteEdit({ note, onSave }) {
                     <input className="input-title"
                         onChange={handleChange} value={note.info.title}
                         id="title" name="title"
-                        type="text" placeholder="Take a note..." />
+                        type="text" placeholder="note" />
                 <button>Close</button>
             </form>
             </div>

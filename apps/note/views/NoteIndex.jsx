@@ -1,4 +1,8 @@
 const { useState, useEffect } = React
+const { useParams, useNavigate } = ReactRouter
+
+const { Link } = ReactRouterDOM
+
 
 import { noteService } from '../services/note.service.js'
 import { NoteHeader } from './NoteHeader.jsx'
@@ -13,21 +17,22 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
   
-  
-
     // const [newNote, setNewNote] = useState(null)
     // const [filterBy, setFilterBy] = useState(noteService.getFilterBy())
     
+    const params = useParams()
+    const navigate = useNavigate()
+
+    console.log(params);
+
         // useEffect(() => {
         //     console.log(selectedNote);
         // }, [selectedNote])
     
-    
-
-    // useEffect (()=> {
-    //     setSelectedNote(selectedNote)
-    //     console.log(selectedNote);
-    // })
+    useEffect (()=> {
+        setSelectedNote(selectedNote)
+        console.log(selectedNote);
+    })
 
 
     useEffect(() => {
