@@ -9,6 +9,7 @@ const loggedinUser = {
 export const mailService = {
     query,
     sortEmailsByDate,
+    getMail,
 }
 
 function _loadMailsFromStorage() {
@@ -23,6 +24,12 @@ function query(filterBy = null) {
     let emails = _createMails()
     if (filterBy) emails = _getFilteredMails(emails, filterBy)
     return Promise.resolve(emails)
+}
+
+function getMail(mailId) {
+    const mails = _loadMailsFromStorage()
+    const mail = mails.find((mail) => mail.id === mailId)
+    return Promise.resolve(mail)
 }
 
 function _getFilteredMails(books, filterBy) {
