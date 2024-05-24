@@ -6,11 +6,11 @@ import { noteService } from '../services/note.service.js'
 
     const [note, setNote] = useState()
 
-      useEffect(() => {
-        if (!note) return
-        noteService.getNoteById(noteId)
-            .then(note => setNote(note))
-    }, [])
+    //   useEffect(() => {
+    //     if (!note) return
+    //     noteService.getNoteById(noteId)
+    //         .then(note => setNote(note))
+    // }, [])
 
 
 

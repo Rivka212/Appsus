@@ -9,7 +9,7 @@ import { NoteEdit } from "../cmps/NoteEdit.jsx";
 
 
 export function NoteIndex() {
-
+debugger
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
     // const [newNote, setNewNote] = useState(null)
