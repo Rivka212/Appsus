@@ -26,5 +26,6 @@
 @import './apps/note/cmps/NoteList.css';
 @import './apps/note/cmps/NoteAdd.css';
 @import './apps/note/cmps/AccordionInput.css';
+@import './apps/note/cmps/NoteEdit.css';
 
 /* @import './apps/mail/cmps/MailList.css'; */

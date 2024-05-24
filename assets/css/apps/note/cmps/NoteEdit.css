@@ -1,0 +1,20 @@
+.note-edit{
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #474e5d7a;
+    padding-top: 50px;
+}
+
+.note-edit .edit-modal{
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    border: 1px solid #888;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+}

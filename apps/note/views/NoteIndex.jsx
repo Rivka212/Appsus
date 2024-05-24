@@ -9,26 +9,25 @@ import { NoteEdit } from "../cmps/NoteEdit.jsx";
 
 
 export function NoteIndex() {
-debugger
+// debugger
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
+  
+  
+
     // const [newNote, setNewNote] = useState(null)
     // const [filterBy, setFilterBy] = useState(noteService.getFilterBy())
+    
+        // useEffect(() => {
+        //     console.log(selectedNote);
+        // }, [selectedNote])
+    
+    
 
-
-    // function openModal(note) {
-    //     console.log('hi');
-    //     setSelectedNote(note)
-    // }
-
-    // function closeModal() {
-    //     setSelectedNote(null)
-    // }
-
-    useEffect (()=> {
-        setSelectedNote(selectedNote)
-        console.log(selectedNote);
-    })
+    // useEffect (()=> {
+    //     setSelectedNote(selectedNote)
+    //     console.log(selectedNote);
+    // })
 
 
     useEffect(() => {
@@ -48,30 +47,20 @@ debugger
             })
     }
 
-    // function handleNoteClick(note) {
-    //     setSelectedNote(note)
-    // }
 
 
-    // const handleClick = () => {
-    //     setSelected(true);
-    //     onClick(note);
-    // };
+    function handleNoteClick(noteId) {
+        setSelectedNote(noteId)
+    }
 
+    console.log(selectedNote);
+    // console.log(noteId);
     return <section>
-    {/* <i className="fa-regular fa-trash-can" />
-   
-    <i className="fa-sharp fa-regular fa-lightbulb" />
-    <i className="fa-sharp fa-regular fa-bell" />
-    <i className="fa-brands fa-youtube" />
-    <i className="fa-solid fa-pen-to-square" /> */}
 
-    {/* onChange={handleNoteClick} */}
         <NoteHeader />
-        <NoteAdd />
-        <NoteList notes={notes} onRemove={removeNote}  />
-        {/* {selectedNote && <NoteAdd note={selectedNote} />} */}
-        {selectedNote && <NoteEdit note={selectedNote} />}
+        <NoteAdd noteId={selectedNote}/>
+        <NoteList notes={notes} onRemove={removeNote} onChange={handleNoteClick} />
+        {/* {isShowModal && <AddReview onToggleModal={onToggleModal} onSave={onSave}/>} */}
 
     </section>
 }

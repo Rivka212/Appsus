@@ -1,20 +1,9 @@
 const { useState, useEffect } = React
 
 export function NotePreview({ note }) {
-    // , onClick
-    const [isSelected, setIsSelected] = useState(false)
-    // console.log('onClick', onClick)
-    // const isEditable = typeof onClick === 'function'
-    // const editClass = isEditable ? 'edit' : ''
-    // const handleClick = () => {
-    //     setIsSelected(!isSelected);
-    //     onClick(note);
-    // }
 
     return (
-        <article className={`note-preview ${isSelected ? 'selected' : ''}`} >
-                {/* // <article className={`note-preview ${isSelected ? 'selected' : ''}`} onClick={handleClick}> */}
-
+        <article className="note-preview" >
             <i className="fa-solid fa-thumbtack hidden" />
             {/* // <article className={`note-preview ${editClass}`} onClick={onClick}> */}
             <h3>{note.info.txt}</h3>
@@ -31,10 +20,5 @@ export function NotePreview({ note }) {
     )
 
 }
-
-{/* // export function NotePreview({ note, onClick }) { */ }
-{/* //         <article className="note-preview" onClick={() => onClick(note)}> */ }
-
-
 
 

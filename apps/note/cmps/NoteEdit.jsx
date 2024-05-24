@@ -1,30 +1,58 @@
-import { showErrorMsg } from '../services/event-bus.service.js'
-import { NoteIndex } from '../views/NoteIndex.jsx'
+const { useState, useEffect } = React
+
+
+// import { showErrorMsg } from '../services/event-bus.service.js'
+// import { NoteIndex } from '../views/NoteIndex.jsx'
 import { noteService } from '../services/note.service.js'
 
- export function NoteEdit({note}){
+export function NoteEdit({ note, onSave }) {
 
-    const [note, setNote] = useState()
+    const [notetoEdit, setNotetoEdit] = useState()
 
-    //   useEffect(() => {
-    //     if (!note) return
-    //     noteService.getNoteById(noteId)
-    //         .then(note => setNote(note))
-    // }, [])
+    function onSave(ev) {
+        ev.preventDefault()
+        // onSave(reviewData)
+        // onToggleReviewModal()
+        noteService.save(note)
+            .then(() => {
+                setNote(note)
+            })
+        // .catch(() => {
+        //     // showErrorMsg('Couldnt save')
+        // })
+    }
+
+    function handleChange({ target }) {
+        const { name, value } = target
+        setNote(prevNote => ({
+            ...prevNote,
+            info: {
+                ...prevNote.info,
+                [name]: value
+            }
+        }))
+    }
 
 
+    return (
+        <section className="note-edit">
+            <div className='edit-modal'>
+            <label htmlFor='title'></label>
+            <form onSubmit={onSaveNote} className='note-form'>
+                    <label htmlFor="txt"></label>
+                    <input className="input-txt"
+                        onChange={handleChange} value={note.info.txt}
+                        id="txt" name="txt" autoComplete="off"
+                        type="text" placeholder="title" />
 
-    // useEffect(() => {
-    //     if (!params.noteId) return
-    //     noteService.get(params.noteId)
-    //         .then(note => setNote(note))
-    // }, [])
-
-return (
-    <section><h1>hi</h1></section>
-)
-
-
-
-
- }
+                    <label htmlFor='title'></label>
+                    <input className="input-title"
+                        onChange={handleChange} value={note.info.title}
+                        id="title" name="title"
+                        type="text" placeholder="Take a note..." />
+                <button>Close</button>
+            </form>
+            </div>
+        </section>
+    )
+}
