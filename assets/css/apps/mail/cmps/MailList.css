@@ -1,1 +1,117 @@
  /* mail list */
+ .mail-list{
+   width: calc(100% - 20px); /* Subtract padding from 100% */
+   padding: 0 10px; /* 10px padding on both sides */
+ }
+ 
+ .mail-list ul {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: var(--mail-bg2);
+    font-family: Roboto-Bold;
+    overflow-y: none;
+ }
+
+ .mail-list li  {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+
+    height: 20px;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--mail-border)
+
+ }
+
+ .mail-list li:hover {
+    box-shadow: 0px 2px 0px 1px #a3a2a252;
+ }
+
+ .mail-list li:hover .checkmark,
+ .mail-list li:hover .star-icon img,
+ .mail-list li:hover .important-icon img {
+    border-color: var(--mail-txt3);
+    filter: invert(0);
+ }
+
+ .mail-list .mark {
+    display: flex;
+    justify-items: center;
+    gap: 10px;
+
+    color: rgb(184 181 181 / 91%);
+ }
+
+ .mail-list .mark>* {
+   display: flex;
+   align-items: center;
+ }
+
+
+ .checkbox {
+    display: none;
+ }
+
+ .checkmark {
+    display: flex;
+    margin: 2.5px;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border: 2px solid rgb(184 181 181 / 54%);
+    cursor: pointer;
+ }
+
+ .checkmark::after {
+    content: '';
+    width: 8px;
+    height: 14px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    display: none;
+ }
+
+ .checkbox:checked~.checkmark::after {
+    display: block;
+ }
+
+ .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 2px;
+    height: 6px;
+    border: solid var(--mail-txt3);
+    border-width: 0 2.5px 2.5px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+ }
+
+
+ .mail-list .star {
+    font-size: 28px;
+
+    transition: color 0.3s;
+ }
+
+ .mail-list img {
+    width: 20px;
+    height: 20px;
+ }
+
+ .mail-list .unstarred {
+    filter: invert(97%) sepia(16%) saturate(177%) hue-rotate(238deg) brightness(114%) contrast(78%);
+
+ }
+
+ .is-read{
+   background-color: var(--mail4);
+ }
+
+/* .active {
+   background-color: var(--mail-bg3);
+} */

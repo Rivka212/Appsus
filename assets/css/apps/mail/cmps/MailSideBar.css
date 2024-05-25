@@ -1,0 +1,54 @@
+.mail-sidebar {
+    max-width: 256px;
+}
+
+.mail-sidebar ul {
+    display: flex;
+    flex-direction: column;
+    padding-inline-start: 0;
+    padding-inline-end: 8px;
+
+    /* justify-content: center; */
+}
+
+.mail-sidebar li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline-end: 10px;
+}
+
+.mail-sidebar .mail-item{
+    padding-inline-start: 26px;
+
+    padding-block: 6px;
+}
+
+.mail-sidebar .mail-item:hover{
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+    background-color: var(--mail-hover);
+}
+
+.mail-sidebar .mail-item button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    
+    font-size: 15px;
+
+    border: none;
+    background-color: transparent;
+}
+
+.menu-icon {
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    margin-right: 10px; /* Adjust as needed */
+}
+
+.read-count {
+    font-size: 13px;
+    font-weight: bold;
+}

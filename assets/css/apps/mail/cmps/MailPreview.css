@@ -1,0 +1,31 @@
+.mail-preview{
+    display: grid;
+    grid-template-columns:  1fr minmax(200px, 55vw) 1fr;
+    align-items: center;
+    gap: 10px;
+}
+.mail-preview div {
+    display: flex;
+    gap: 10px;
+}
+.sender{
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subject {
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.body{
+    height: 14px;
+
+    overflow: hidden;
+    font-family: Roboto-Regular;
+}
+
+.sent-time {
+   justify-self: end; /* Align the content to the right */
+}
