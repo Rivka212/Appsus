@@ -28,7 +28,7 @@ export function MailPreview({ mail }) {
     
     
     return <div className="mail-preview">
-        <span className="sender" >{mail.inbox ? mail.from.split('@')[0] : mail.to.split('@')[0]}</span>
+        <span className="sender" >{mail.type==='inbox' ? mail.from.split('@')[0] : mail.to.split('@')[0]}</span>
         <div>
         <span className="subject">{mail.subject}</span>
         <span className="body">{mail.body}</span>

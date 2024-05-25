@@ -12,7 +12,7 @@
     overflow-y: none;
  }
 
- .mail-list li {
+ .mail-list li  {
     display: flex;
     justify-items: center;
     align-items: center;
@@ -108,3 +108,10 @@
 
  }
 
+ .is-read{
+   background-color: var(--mail4);
+ }
+
+/* .active {
+   background-color: var(--mail-bg3);
+} */

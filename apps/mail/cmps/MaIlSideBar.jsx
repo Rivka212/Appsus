@@ -1,6 +1,8 @@
-import {ComposeMail} from './ComposeMail.jsx'
+const { useNavigate } = ReactRouterDOM
+import { ComposeMail } from './ComposeMail.jsx'
 
-export function MailSideBar() {
+export function MailSideBar({ onFilterChange, readCount }) {
+    const nav = useNavigate()
     const icons = {
         inbox: '../../../../icons/inbox.png',
         starred: '../../../../icons/starred.png',
@@ -14,26 +16,31 @@ export function MailSideBar() {
     }
 
     const menuItems = [
-        { name: 'Inbox', icon: 'inbox' },
-        { name: 'Starred', icon: 'starred' },
-        { name: 'Snoozed', icon: 'snoozed' },
-        { name: 'Important', icon: 'important' },
-        { name: 'Sent', icon: 'sent' },
-        { name: 'Draft', icon: 'draft' },
-        { name: 'Categories', icon: 'categories' },
-        { name: 'Spam', icon: 'spam' },
-        { name: 'Trash', icon: 'trash' }
+        { name: 'inbox', icon: 'inbox' },
+        { name: 'stared', icon: 'starred' },
+        { name: 'snoozed', icon: 'snoozed' },
+        { name: 'important', icon: 'important' },
+        { name: 'sent', icon: 'sent' },
+        { name: 'draft', icon: 'draft' },
+        { name: 'categories', icon: 'categories' },
+        { name: 'spam', icon: 'spam' },
+        { name: 'trash', icon: 'trash' }
     ]
+    function handleFilterChange(status) {
+
+        nav(status)
+    }
 
     return <section className="mail-sidebar">
-        <ComposeMail/>
+        <ComposeMail />
         <ul>
             {menuItems.map(item => (
-                <li key={item.name} className="mail-item">
+                <li key={item.name} className="mail-item" onClick={() => handleFilterChange((item.name))}>
                     <button>
-                        <img src={icons[item.icon]} alt={item.name} className="menu-icon" />
-                        {item.name}
+                            <img src={icons[item.icon]} alt={item.name} className="menu-icon" />
+                            {item.name}
                     </button>
+                    {item.name === 'inbox' && <span className="read-count"> {readCount}</span>}
                 </li>
             ))}
         </ul>
