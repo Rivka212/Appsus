@@ -15,10 +15,11 @@
     background-color: #fefefe;
     margin: 7% auto 15% auto;
     /* border: 1px solid #888; */
+    color: rgb(121, 110, 110);
     padding: 20px;
     width: 37%;
     height: 20%;
-    text-align: center;
+    text-align: start;
     border-radius: 5px;
 }
 
@@ -36,3 +37,23 @@
     background-color:rgb(240, 237, 237);
     border-radius: 5px;
 }
+
+.note-edit textarea, input{
+    text-decoration: none;
+    color: rgb(121, 110, 110);
+    border: transparent;
+}
+
+.edit-modal textarea{
+    font-size: 17px;
+}
+
+.edit-modal input{
+    font-size: 20px;
+}
+
+input{
+  
+}
+
+

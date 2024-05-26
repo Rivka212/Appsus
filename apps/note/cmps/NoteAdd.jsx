@@ -32,8 +32,8 @@ export function NoteAdd({ noteId }) {
         setIsExpanded(!isExpanded)
         //  setIsShowModal((prevIsShowModal) => !prevIsShowModal)
         console.log(ev.target.value);
-if (!ev.target.value === 'Empty note')
-        console.log(ev);
+        if (!ev.target.value === 'Empty note')
+            console.log(ev);
         ev.preventDefault()
         noteService.save(note)
             .then(() => {
@@ -73,7 +73,14 @@ if (!ev.target.value === 'Empty note')
                                 onChange={handleChange} value={note.info.title}
                                 id="title" name="title"
                                 type="text" placeholder="Take a note..." />
-                                {/* img/square.png */}
+                            <span class="icon-text">
+                                <img src="../../../../img/square.png" alt="" />
+                            </span>
+                            <span class="icon-text">
+                                <img src="../../../../img/pen.png" alt="" />
+                            </span>
+                            <span class="icon-text">
+                                <img src="../../../../img/picture.png" alt="" /></span>
                         </div>
                         <button>Close</button>
                     </form>

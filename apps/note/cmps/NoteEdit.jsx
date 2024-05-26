@@ -25,7 +25,8 @@ export function NoteEdit() {
     function onSaveNote(ev) {
         ev.preventDefault()
         noteService.save(note)
-            .then(() => { navigate('/note')
+            .then(() => {
+                navigate('/note')
                 // setNote(note)
             })
         // .catch(() => {
@@ -48,21 +49,30 @@ export function NoteEdit() {
     return (
         <section className="note-edit">
             <div className='edit-modal'>
-            <label htmlFor='title'></label>
-            <form onSubmit={onSaveNote} className='note-form'>
+                <label htmlFor='title'></label>
+                <form onSubmit={onSaveNote} className='note-form'>
                     <label htmlFor="txt"></label>
                     <input className="input-txt"
                         onChange={handleChange} value={note.info.txt}
                         id="txt" name="txt" autoComplete="off"
                         type="text" placeholder="title" />
 
-                    <label htmlFor='title'></label>
+                    <textarea
+                        name='title'
+                        cols='55'
+                        rows='6'
+                        value={note.info.title}
+                        onChange={handleChange}
+                        id="title" 
+                        type="text" placeholder="note">
+                    </textarea>
+                    {/* <label htmlFor='title'></label>
                     <input className="input-title"
                         onChange={handleChange} value={note.info.title}
                         id="title" name="title"
-                        type="text" placeholder="note" />
-                <button>Close</button>
-            </form>
+                        type="text" placeholder="note" /> */}
+                    <button>Close</button>
+                </form>
             </div>
         </section>
     )

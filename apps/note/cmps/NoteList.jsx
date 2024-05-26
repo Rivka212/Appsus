@@ -14,9 +14,7 @@ export function NoteList({ notes, onRemove, onChange }) {
             {notes.map(note =>
                 <li key={note.id} style={note.style}>
                     <Link to={`/note/edit/${note.id}`}>
-                        <NotePreview note={note} />
-                        <img className="action-note hidden" src={"../../../../icons/remove.png"} alt=''
-                            onClick={() => onRemove(note.id)} />
+                        <NotePreview note={note} onRemove={onRemove}/>
                     </Link>
                 </li>
             )}

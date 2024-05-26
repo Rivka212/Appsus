@@ -6,7 +6,7 @@ import { NoteImg } from "./dynamic-inputs/NoteImg.jsx";
 import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
 import { NoteTodos } from "./dynamic-inputs/NoteTodos.jsx";
 
-export function NotePreview({ note }) {
+export function NotePreview({ note, onRemove }) {
     const [cmpType, setCmpType] = useState(null)
 
     useEffect(() => {
@@ -21,9 +21,10 @@ export function NotePreview({ note }) {
                 <span className="hidden">
                     <i className="fa-solid fa-thumbtack" /></span>
             </div>
-            <DynamicCmp cmpType={cmpType} key={note.id} note={note} />
-            {/* <DynamicCmp cmpType={cmpType} key={note.id}  {...note}  />/ */}
-            {/* <h3>{note.info.title}</h3> */}
+            <div className="note-dynamic-cmp">
+                <DynamicCmp cmpType={cmpType} key={note.id} note={note} />
+                {/* <DynamicCmp cmpType={cmpType} key={note.id}  {...note}  />/ */}
+                {/* <h3>{note.info.title}</h3> */}</div>
             <img src={`../assets/img/${note.info.url}.png`} alt='' />
             <section className="action-note hidden">
                 <img src={"../../../../img/more.png"} alt='' />
@@ -32,6 +33,8 @@ export function NotePreview({ note }) {
                 <img src={"../../../../img/palette.png"} alt='' />
                 {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
                 <img src={"../../../../img/add_alert.png"} alt='' />
+                <img src={"../../../../icons/remove.png"} alt=''
+                    onClick={() => onRemove(note.id)} />
             </section>
         </article>
     )
