@@ -9,9 +9,6 @@ export function NoteApp() {
     const { status } = useParams()
     const navigate = useNavigate()
 
-
-
-
     useEffect(() => {
         if (status === 'notes') {
         }
@@ -29,6 +26,4 @@ export function NoteApp() {
             <Outlet context={{ notes }} />
         </main>
     </section>
-
-
 }

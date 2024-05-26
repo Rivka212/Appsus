@@ -2,7 +2,7 @@ const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
 
 const { Link } = ReactRouterDOM
-
+// const { useOutletContext } = ReactRouterDOM
 
 import { noteService } from '../services/note.service.js'
 import { NoteHeader } from './NoteHeader.jsx'
@@ -16,7 +16,7 @@ export function NoteIndex() {
 // debugger
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
-  
+    // const { notes } = useOutletContext()
     // const [newNote, setNewNote] = useState(null)
     // const [filterBy, setFilterBy] = useState(noteService.getFilterBy())
     
@@ -25,10 +25,10 @@ export function NoteIndex() {
 
     // console.log(params);
     
-    useEffect (()=> {
-        setSelectedNote(selectedNote)
-        console.log(selectedNote);
-    })
+    // useEffect (()=> {
+    //     setSelectedNote(selectedNote)
+    //     console.log(selectedNote);
+    // })
 
     useEffect(() => {
         noteService.query()
@@ -36,10 +36,16 @@ export function NoteIndex() {
     }, [])
 
     function removeNote(noteId) {
+        console.log(noteId); console.log(params);
+        noteId !== params
         noteService.remove(noteId)
+       
             .then(() => {
                 setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
                 // showSuccessMsg(`note (${noteId}) removed successfully!`)
+                if (!params === noteId) {
+                    setSelectedNote(null)
+                }
             })
             .catch(err => {
                 console.log('err:', err)
@@ -50,12 +56,11 @@ export function NoteIndex() {
     function handleNoteClick(noteId) {
         setSelectedNote(noteId)
     }
+console.log(selectedNote);
 
     return <section>
-
         <NoteHeader />
         <NoteAdd noteId={selectedNote}/>
-        <NoteList notes={notes} onRemove={removeNote} onChange={handleNoteClick} />
+        <NoteList notes={notes} onRemove={removeNote}  />
     </section>
 }
-

@@ -22,7 +22,7 @@ export function NoteEdit() {
             .then(note => setNote(note))
     }, [])
 
-    function onSave(ev) {
+    function onSaveNote(ev) {
         ev.preventDefault()
         noteService.save(note)
             .then(() => { navigate('/note')
@@ -32,8 +32,6 @@ export function NoteEdit() {
         //     // showErrorMsg('Couldnt save')
         // })
     }
-
-    console.log(note);
 
     function handleChange({ target }) {
         const { name, value } = target
@@ -51,7 +49,7 @@ export function NoteEdit() {
         <section className="note-edit">
             <div className='edit-modal'>
             <label htmlFor='title'></label>
-            <form onSubmit={onSave} className='note-form'>
+            <form onSubmit={onSaveNote} className='note-form'>
                     <label htmlFor="txt"></label>
                     <input className="input-txt"
                         onChange={handleChange} value={note.info.txt}

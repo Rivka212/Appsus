@@ -16,6 +16,11 @@
      list-style-type: none;
  }
 
+ .note-list img{
+    max-width: 8%;
+    color: rgb(105, 100, 100);
+ }
+
  .note-list li:hover:not(article){
     box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
  }

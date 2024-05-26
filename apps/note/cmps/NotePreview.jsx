@@ -27,12 +27,10 @@ export function NotePreview({ note }) {
             <img src={`../assets/img/${note.info.url}.png`} alt='' />
             <section className="action-note hidden">
                 <img src={"../../../../img/more.png"} alt='' />
-                {/* <i className="fa-solid fa-ellipsis-vertical"></i> */}
                 <img src={"../../../../icons/download-file.png"} alt='' />
-                {/* <i className="fa-regular fa-image"></i> */}
                 <img src={"../../../../img/picture.png"} alt='' />
                 <img src={"../../../../img/palette.png"} alt='' />
-                <img src={"../../../../icons/person_add.png"} alt='' />
+                {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
                 <img src={"../../../../img/add_alert.png"} alt='' />
             </section>
         </article>

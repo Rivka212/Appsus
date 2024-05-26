@@ -58,7 +58,6 @@ li:hover span {
     color:rgb(59, 57, 57);
     filter: grayscale(0%); /* brightness(50%); */
     
-
 }
 
 
@@ -67,3 +66,8 @@ li:hover span {
      color: rgb(105, 100, 100);
     filter: grayscale(100%) brightness(30%) contrast(200%);
 }
+
+/* .note-list .action-note{
+    display: inline-block;
+
+} */

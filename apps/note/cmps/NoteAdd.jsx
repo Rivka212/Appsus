@@ -20,7 +20,6 @@ export function NoteAdd({ noteId }) {
         setIsExpanded(!isExpanded)
     }
 
-
     useEffect(() => {
         if (!noteId) return
         console.log(noteId);
@@ -31,8 +30,9 @@ export function NoteAdd({ noteId }) {
 
     function onSaveNote(ev) {
         setIsExpanded(!isExpanded)
-        // setIsShowModal((prevIsShowModal) => !prevIsShowModal)
-
+        //  setIsShowModal((prevIsShowModal) => !prevIsShowModal)
+        console.log(ev.target.value);
+if (!ev.target.value === 'Empty note')
         console.log(ev);
         ev.preventDefault()
         noteService.save(note)
@@ -73,6 +73,7 @@ export function NoteAdd({ noteId }) {
                                 onChange={handleChange} value={note.info.title}
                                 id="title" name="title"
                                 type="text" placeholder="Take a note..." />
+                                {/* img/square.png */}
                         </div>
                         <button>Close</button>
                     </form>
