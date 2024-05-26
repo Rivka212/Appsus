@@ -38,7 +38,7 @@ export function MailList() {
     <section className="mail-list">
       <ul>
         {mails.map((mail) => (
-          <NavLink key={mail.id} to={`/mail/details/${mail.id}`}>
+         <Link key={mail.id} to={`/mail/details/${mail.id}`}>
             <li className={mail.isRead ? "is-read" : ''}  onClick={() => handleMailClick(mail.id)}>
               <div className="mark">
                 <label className="checkbox-container">
