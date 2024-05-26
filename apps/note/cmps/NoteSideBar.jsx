@@ -8,14 +8,13 @@ export function NoteSideBar({ onChange }) {
     // const [teams, setTeams] = useState(noteService.createTeams())
 
     const teams = [
-        { type: 'notes', icon: 'light-bulb' },
+        { type: 'notes', icon: 'idea' },
         { type: 'reminders', icon: 'bell' },
         { type: 'categories', icon: 'categories' },
         { type: 'edit labels', icon: 'compose' },
         { type: 'archive', icon: 'download-file' },
         { type: 'trash', icon: 'trash' }
     ]
-
 
     // useEffect(() => {
     //         setCategories(categories)

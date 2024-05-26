@@ -3,14 +3,21 @@ const { Link } = ReactRouterDOM
 import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteList({ notes, onRemove, onChange }) {
+
+    // const [colorStyle, setColorStyle] = useState({
+    //     backgroundColor: notes.style.backgroundColor,
+    // })
+
+
     return <section className="note-list">
         <ul>
             {notes.map(note =>
-                <li key={note.id}> 
-                {/* style={{ backgroundColor:note.style.backgroundColor}}> */}
+                <li key={note.id} style={note.style}>
                     <Link to={`/note/edit/${note.id}`}>
+                        {/* ({note.style}); */}
                         <NotePreview note={note} />
-                        <button onClick={() => onRemove(note.id)}>x</button>
+                        {/* <i className="fa-solid fa-ellipsis-vertical"> */}
+                            <button onClick={() => onRemove(note.id)}>x</button>
                     </Link>
                 </li>
             )}
@@ -18,6 +25,3 @@ export function NoteList({ notes, onRemove, onChange }) {
     </section>
 }
 
-// style: {
-//     backgroundColor: '#F39F76;'
-// },

@@ -31,7 +31,7 @@ export function NoteAdd({ noteId }) {
 
     function onSaveNote(ev) {
         setIsExpanded(!isExpanded)
-        setIsShowModal((prevIsShowModal) => !prevIsShowModal)
+        // setIsShowModal((prevIsShowModal) => !prevIsShowModal)
 
         console.log(ev);
         ev.preventDefault()
@@ -85,7 +85,7 @@ export function NoteAdd({ noteId }) {
                 </React.Fragment>
                 }
             </div>
-            {isShowModal && <NoteEdit onSave={onSaveNote} />}
+            {isShowModal && <NoteEdit />}
         </section>
     )
 }

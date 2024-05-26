@@ -9,9 +9,9 @@
 }
 
 .note-sidebar img {
-    max-width: 10%;
-    margin: 10px;
-    color: rgb(153, 144, 144);
+    max-width: 12%;
+    margin: 0px;
+    /* color: rgb(153, 144, 144); */
 }
 
 .note-sidebar li {
@@ -29,7 +29,6 @@
 .note-sidebar .note-teams:hover {
     border-top-right-radius: 25px;
     border-bottom-right-radius:25px;
-
     background-color: rgb(237, 231, 231);
 }
 
@@ -39,3 +38,8 @@
     text-transform: capitalize;
     
 }
+
+.note-sidebar img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(150%);
+
+ }

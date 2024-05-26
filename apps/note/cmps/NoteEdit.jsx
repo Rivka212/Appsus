@@ -22,10 +22,8 @@ export function NoteEdit() {
             .then(note => setNote(note))
     }, [])
 
-    function onSaveNote(ev) {
+    function onSave(ev) {
         ev.preventDefault()
-        // onSave(reviewData)
-        // onToggleReviewModal()
         noteService.save(note)
             .then(() => { navigate('/note')
                 // setNote(note)
@@ -53,7 +51,7 @@ export function NoteEdit() {
         <section className="note-edit">
             <div className='edit-modal'>
             <label htmlFor='title'></label>
-            <form onSubmit={onSaveNote} className='note-form'>
+            <form onSubmit={onSave} className='note-form'>
                     <label htmlFor="txt"></label>
                     <input className="input-txt"
                         onChange={handleChange} value={note.info.txt}
