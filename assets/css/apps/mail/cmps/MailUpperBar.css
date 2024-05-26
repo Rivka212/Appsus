@@ -1,0 +1,43 @@
+.mail-upper-bar ul {
+    display: flex;
+    padding: 0;
+    margin-block-start: 8px;
+    padding-inline: 14px;
+    padding-block: 8px;
+}
+
+.mail-upper-bar .icon-group {
+    display: flex;
+    align-items: center;
+
+}
+
+
+.mail-upper-bar img {
+    display: block;
+    border-radius: 50%;
+
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    width:20px;
+    height: 20px;
+    border: none;
+}
+
+.mail-upper-bar img:hover {
+    background-color: var(--mail-hover);
+}
+
+.divider {
+    height: 24px; /* Adjust height as needed */
+    width: 1px;
+    background-color: var(--mail-border); /* Change this to your desired color */
+    margin: 0 10px; /* Adjust spacing as needed */
+}
+
+.mail-item .back{
+    margin-inline-end: 25px;
+}
+.mail-item .more {
+    rotate: 90deg;
+}

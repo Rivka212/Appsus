@@ -18,24 +18,30 @@
     padding-inline-end: 10px;
 }
 
-.mail-sidebar .mail-item{
+.mail-sidebar .mail-item {
     padding-inline-start: 26px;
 
     padding-block: 6px;
 }
 
-.mail-sidebar .mail-item:hover{
-border-top-right-radius: 20px;
-border-bottom-right-radius: 20px;
+.mail-sidebar .active {
+    background-color: var(--mail-bg3);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.mail-sidebar .mail-item:hover {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     background-color: var(--mail-hover);
 }
 
-.mail-sidebar .mail-item button{
+.mail-sidebar .mail-item button {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    
+
     font-size: 15px;
 
     border: none;
@@ -43,9 +49,12 @@ border-bottom-right-radius: 20px;
 }
 
 .menu-icon {
-    width: 20px; /* Adjust as needed */
-    height: 20px; /* Adjust as needed */
-    margin-right: 10px; /* Adjust as needed */
+    width: 20px;
+    /* Adjust as needed */
+    height: 20px;
+    /* Adjust as needed */
+    margin-right: 10px;
+    /* Adjust as needed */
 }
 
 .read-count {

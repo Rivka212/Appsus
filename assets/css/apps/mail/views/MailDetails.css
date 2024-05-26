@@ -1,0 +1,100 @@
+.mail-details {
+    background-color: white;
+    border-radius: 25px;
+}
+
+.mail-details .main-mail {
+    margin-inline-start: 90px;
+}
+
+.mail-details h2 {
+    font-size: 26px;
+    font-family: Roboto-Regular;
+    font-weight: lighter;
+    margin-bottom: 30px;
+}
+
+.mail-details h3 {
+    font-size: 14px;
+}
+
+.sender-details {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.sender-details>div:first-child {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+}
+
+.sender-details>div:nth-child(2) {
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+}
+
+.mail-details img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+
+.sender-details div div {
+    display: flex;
+}
+
+.sender-details img {}
+
+.mail-details .from-and-date {
+    display: flex;
+    align-items: center;
+    /* Vertically align items */
+    gap: 10px;
+    /* Add some space between the items */
+    font-size: 12px;
+}
+
+.mail-details .btns {
+    display: flex;
+    gap: 8px;
+}
+
+.mail-details .btns>* {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    padding-block: 8px;
+
+
+    border: 1px solid #444746;
+    border-radius: 25px;
+    color: #6c706f;
+    background-color: transparent;
+
+    width: 112px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.mail-details .btns>*:hover {
+    background-color: var(--mail-hover);
+}
+
+.btns .forward{
+    transform: scaleX(-1); /* Flip the image horizontally */
+}
+
+.btns img {
+    width:13px;
+    height: 13px;
+}

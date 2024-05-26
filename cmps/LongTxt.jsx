@@ -13,7 +13,7 @@ export function LongTxt({ text, length = 100 }) {
         <section className="long-txt">
             <h4>
                 {textToShow}
-                {isLongText && <a onClick={onToggleIsShowLong}>{isShowLong ? ' Less...' : ' More...'}</a>}
+                <a onClick={onToggleIsShowLong}>{isShowLong ? '' : '...'}</a>
             </h4>
         </section>
     );
