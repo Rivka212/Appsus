@@ -72,7 +72,7 @@ function getNoteById(noteId) {
 
 
 
-function get(noteId, note) {
+function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
         .then(note => {
             // note = _setNextPrevnoteId(note)
@@ -208,7 +208,6 @@ function _createNotes() {
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
-
 
 
 function _loadNotesFromStorage() {
