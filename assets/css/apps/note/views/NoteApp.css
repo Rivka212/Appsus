@@ -1,0 +1,10 @@
+.main-container-note {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 256px auto;
+ 
+    padding-inline: 10px;
+    height: 100vh;
+     font-family: Roboto-Regular;
+     font-size: 15px;
+  }

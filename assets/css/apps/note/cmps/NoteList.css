@@ -8,6 +8,7 @@
 
 
  .note-list li {
+    
      padding: 10px;
      min-height: 100px;
      border: 1px solid rgb(227, 224, 224);
@@ -15,6 +16,28 @@
      list-style-type: none;
  }
 
+ .note-list img{
+    max-width: 8%;
+    color: rgb(105, 100, 100);
+ }
+
  .note-list li:hover:not(article){
     box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
+ }
+
+ .note-list .note-details{
+    /* color: rgb(243, 206, 159);
+  color:  #FAAFA8;
+#F39F76
+#FFF8B8
+#E2F6D3
+#B4DDD3
+#D4E4ED
+#AECCDC
+#D3BFDB
+#F6E2DD
+#E9E3D4
+#EFEFF1
+#FFFFFF */
+
  }

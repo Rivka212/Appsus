@@ -14,16 +14,11 @@ export function NoteAdd({ noteId }) {
     // const [noteToEdit, setNoteToEdit] = useState(null)
     // const params = useParams()
     // const navigate = useNavigate()
-  
-    
-    // function onToggleModal() {
-    //     setIsShowModal((prevIsShowModal) => !prevIsShowModal)
-    // }
+
 
     function handleInputClick() {
         setIsExpanded(!isExpanded)
     }
-
 
     useEffect(() => {
         if (!noteId) return
@@ -35,8 +30,9 @@ export function NoteAdd({ noteId }) {
 
     function onSaveNote(ev) {
         setIsExpanded(!isExpanded)
-        setIsShowModal((prevIsShowModal) => !prevIsShowModal)
-
+        //  setIsShowModal((prevIsShowModal) => !prevIsShowModal)
+        console.log(ev.target.value);
+if (!ev.target.value === 'Empty note')
         console.log(ev);
         ev.preventDefault()
         noteService.save(note)
@@ -77,6 +73,7 @@ export function NoteAdd({ noteId }) {
                                 onChange={handleChange} value={note.info.title}
                                 id="title" name="title"
                                 type="text" placeholder="Take a note..." />
+                                {/* img/square.png */}
                         </div>
                         <button>Close</button>
                     </form>
@@ -89,7 +86,7 @@ export function NoteAdd({ noteId }) {
                 </React.Fragment>
                 }
             </div>
-            {isShowModal && <NoteEdit onSave={onSaveNote} />}
+            {isShowModal && <NoteEdit />}
         </section>
     )
 }

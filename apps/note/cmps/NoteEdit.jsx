@@ -24,8 +24,6 @@ export function NoteEdit() {
 
     function onSaveNote(ev) {
         ev.preventDefault()
-        // onSave(reviewData)
-        // onToggleReviewModal()
         noteService.save(note)
             .then(() => { navigate('/note')
                 // setNote(note)
@@ -34,8 +32,6 @@ export function NoteEdit() {
         //     // showErrorMsg('Couldnt save')
         // })
     }
-
-    console.log(note);
 
     function handleChange({ target }) {
         const { name, value } = target

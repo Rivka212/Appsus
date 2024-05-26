@@ -15,6 +15,7 @@ export const noteService = {
     getDefaultFilter,
     getEmptyNote,
     getNoteById,
+    createTeams,
 }
 
 function query(filterBy = {}) {
@@ -71,7 +72,7 @@ function getNoteById(noteId) {
 
 
 
-function get(noteId, note) {
+function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
         .then(note => {
             // note = _setNextPrevnoteId(note)
@@ -92,6 +93,20 @@ function save(note) {
     }
 }
 
+function createTeams(){
+    const teams = [
+        { type: 'notes', icon: '../../../../icons/light-bulb.png' },
+        { type: 'reminders', icon: '../../../../icons/bell.png' },
+        { type: 'categories', icon: '../../../../icons/categories.png' },
+        { type: 'edit labels', icon: '/../../../icons/compose.png' },
+        { type: 'archive', icon: '../../../../icons/download-file.png' },
+        { type: 'trash', icon: '../../../../icons/trash.png' }
+    ]
+    return teams
+}
+
+
+
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
@@ -102,7 +117,7 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#00d'
+                    backgroundColor: '#F39F76'
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
@@ -112,12 +127,13 @@ function _createNotes() {
                 id: 'n102',
                 type: 'NoteImg',
                 isPinned: false,
+                 style: {
+                    backgroundColor: '#B4DDD3'
+                 },
                 info: {
                     url: 'http://some-img/me',
+                    // url:'img/flower.png',
                     title: 'Bobi and Me'
-                },
-                style: {
-                    backgroundColor: '#00d'
                 }
             },
             {
@@ -136,6 +152,9 @@ function _createNotes() {
                 id: 'n104',
                 type: 'NoteTodos',
                 isPinned: false,
+                style: {
+                backgroundColor:'#F39F76'
+                },
                 info: {
                     title: 'Get my stuff together',
                     todos: [
@@ -146,8 +165,37 @@ function _createNotes() {
             },
             {
                 id: 'n105',
+                createdAt: 1112222,
+                type: 'NoteTxt',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#EFEFF1'
+                },
+                info: {
+                    txt: 'Fullstack Me Baby!'
+                }
+            },
+            {
+                id: 'n106',
+                type: 'NoteImg',
+                isPinned: false,
+                 style: {
+                    backgroundColor: '#F6E2DD'
+                    
+                 },
+                info: {
+                    url: 'http://some-img/me',
+                    // url:'img/flower.png',
+                    title: 'Bobi and Me'
+                }
+            },
+            {
+                id: 'n107',
                 type: 'NoteTodos',
                 isPinned: false,
+                style: {
+                    backgroundColor:'#E9E3D4'
+                },
                 info: {
                     title: 'Get my stuff together',
                     todos: [
@@ -160,7 +208,6 @@ function _createNotes() {
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
-
 
 
 function _loadNotesFromStorage() {

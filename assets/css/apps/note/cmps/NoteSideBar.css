@@ -1,0 +1,45 @@
+.note-sidebar {
+    display: flex;   
+    margin: 0%;
+}
+
+.note-sidebar:hover{
+    /* border: 1px solid #dfdcdc;  */
+    box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
+}
+
+.note-sidebar img {
+    max-width: 12%;
+    margin: 0px;
+    /* color: rgb(153, 144, 144); */
+}
+
+.note-sidebar li {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.note-sidebar ul:hover .name-teams {
+    display: block;
+    
+}
+
+.note-sidebar .note-teams:hover {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius:25px;
+    background-color: rgb(237, 231, 231);
+}
+
+.note-sidebar .name-teams {
+    margin-inline-start: 20px;
+    color: rgb(43, 39, 39);
+    text-transform: capitalize;
+    
+}
+
+.note-sidebar img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(150%);
+
+ }

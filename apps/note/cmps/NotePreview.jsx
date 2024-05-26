@@ -1,30 +1,53 @@
+
 const { useState, useEffect } = React
 
+import { NoteTxt } from "./dynamic-inputs/NoteTxt.jsx";
+import { NoteImg } from "./dynamic-inputs/NoteImg.jsx";
+import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
+import { NoteTodos } from "./dynamic-inputs/NoteTodos.jsx";
+
 export function NotePreview({ note }) {
+    const [cmpType, setCmpType] = useState(null)
+
+    useEffect(() => {
+        setCmpType(note.type)
+    }, [note.type])
 
     return (
         <article className="note-preview" >
             {/* // <article className={`note-preview ${editClass}`} onClick={onClick}> */}
-            <h3>{note.info.txt} </h3>
-            <div className="action-note hidden">
-                <i className="fa-solid fa-thumbtack" />
+            <div className="note-details">
+                <h3>{note.info.txt} </h3>
+                <span className="hidden">
+                    <i className="fa-solid fa-thumbtack" /></span>
             </div>
-            <h3>{note.info.title}</h3>
+            <DynamicCmp cmpType={cmpType} key={note.id} note={note} />
+            {/* <DynamicCmp cmpType={cmpType} key={note.id}  {...note}  />/ */}
+            {/* <h3>{note.info.title}</h3> */}
             <img src={`../assets/img/${note.info.url}.png`} alt='' />
             <section className="action-note hidden">
-                <i className="fa-regular fa-image"></i>
-                {/* <i className="fa-regular fa-user-plus"></i> */}
-                <i className="fa-sharp fa-regular fa-bell" ></i>
-                <img src="../../../assets/img/palette.png" alt='' />
-                <i className="fa-solid fa-ellipsis-vertical"></i>
+                <img src={"../../../../img/more.png"} alt='' />
+                <img src={"../../../../icons/download-file.png"} alt='' />
+                <img src={"../../../../img/picture.png"} alt='' />
+                <img src={"../../../../img/palette.png"} alt='' />
+                {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
+                <img src={"../../../../img/add_alert.png"} alt='' />
             </section>
         </article>
     )
-
-    // o <NoteTxt>
-    // o <NoteImg>
-    // o <NoteVideo>
-    // o <NoteTodos>
 }
+
+function DynamicCmp(props) {
+    if (props.cmpType === 'NoteTxt') {
+        return <NoteTxt {...props} />
+    } else if (props.cmpType === 'NoteImg') {
+        return <NoteImg {...props} />
+    } else if (props.cmpType === 'NoteVideo') {
+        return <NoteVideo {...props} />
+    } else if (props.cmpType === 'NoteTodo') {
+        return <NoteTodos {...props} />
+    }
+}
+
 
 

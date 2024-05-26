@@ -7,12 +7,13 @@
 
 @import './basics/base.css';
 @import './basics/helpers.css';
-/* @import './basics/layout.css'; */
+@import './basics/layout.css';
 
 /* Views */
 @import './views/home.css';
 
 @import './apps/note/views/NoteIndex.css';
+@import './apps/note/views/NoteApp.css';
 @import './apps/note/views/NoteHeader.css';
 
 @import './apps/mail/views/MailIndex.css';
@@ -31,6 +32,8 @@
 @import './apps/note/cmps/NoteAdd.css';
 @import './apps/note/cmps/AccordionInput.css';
 @import './apps/note/cmps/NoteEdit.css';
+@import './apps/note/cmps/NoteSideBar.css';
+
 
 @import './apps/mail/cmps/MailList.css';
 @import './apps/mail/cmps/MailSideBar.css';
