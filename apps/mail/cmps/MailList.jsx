@@ -28,7 +28,7 @@ export function MailList() {
   )
 
   function handleMailClick(mailId) {
-    mailService.addIsRead(mails, mailId)
+    mailService.addIsRead(mailId)
   }
   
 

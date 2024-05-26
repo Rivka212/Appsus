@@ -218,7 +218,8 @@ function countIsRead(emails) {
     emails.forEach(mail => {
         if (mail.isRead) count++
     })
-    return count
+    let wasntRead = emails.length - count
+    return wasntRead
 }
 
 function sortEmailsByDate(emails) {
@@ -232,7 +233,8 @@ function formatDate(timestamp) {
     const year = date.getFullYear()
 }
 
-function addIsRead(mails, mailId) {
+function addIsRead(mailId) {
+    const mails=_loadMailsFromStorage()
     const mailIndex = mails.findIndex(mail => mail.id === mailId);
     if (mailIndex >= 0) { // Check if the mail exists
         mails[mailIndex].isRead = true; // Set isRead to true
