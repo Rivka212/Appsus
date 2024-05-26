@@ -14,11 +14,7 @@ export function NoteAdd({ noteId }) {
     // const [noteToEdit, setNoteToEdit] = useState(null)
     // const params = useParams()
     // const navigate = useNavigate()
-  
-    
-    // function onToggleModal() {
-    //     setIsShowModal((prevIsShowModal) => !prevIsShowModal)
-    // }
+
 
     function handleInputClick() {
         setIsExpanded(!isExpanded)

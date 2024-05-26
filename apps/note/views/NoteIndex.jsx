@@ -23,17 +23,12 @@ export function NoteIndex() {
     const params = useParams()
     const navigate = useNavigate()
 
-    console.log(params);
-
-        // useEffect(() => {
-        //     console.log(selectedNote);
-        // }, [selectedNote])
+    // console.log(params);
     
     useEffect (()=> {
         setSelectedNote(selectedNote)
         console.log(selectedNote);
     })
-
 
     useEffect(() => {
         noteService.query()
@@ -52,21 +47,15 @@ export function NoteIndex() {
             })
     }
 
-
-
     function handleNoteClick(noteId) {
         setSelectedNote(noteId)
     }
 
-    console.log(selectedNote);
-    // console.log(noteId);
     return <section>
 
         <NoteHeader />
         <NoteAdd noteId={selectedNote}/>
         <NoteList notes={notes} onRemove={removeNote} onChange={handleNoteClick} />
-        {/* {isShowModal && <AddReview onToggleModal={onToggleModal} onSave={onSave}/>} */}
-
     </section>
 }
 

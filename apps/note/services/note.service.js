@@ -15,6 +15,7 @@ export const noteService = {
     getDefaultFilter,
     getEmptyNote,
     getNoteById,
+    createTeams,
 }
 
 function query(filterBy = {}) {
@@ -92,6 +93,20 @@ function save(note) {
     }
 }
 
+function createTeams(){
+    const teams = [
+        { type: 'notes', icon: '../../../../icons/light-bulb.png' },
+        { type: 'reminders', icon: '../../../../icons/bell.png' },
+        { type: 'categories', icon: '../../../../icons/categories.png' },
+        { type: 'edit labels', icon: '/../../../icons/compose.png' },
+        { type: 'archive', icon: '../../../../icons/download-file.png' },
+        { type: 'trash', icon: '../../../../icons/trash.png' }
+    ]
+    return teams
+}
+
+
+
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
@@ -102,7 +117,7 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#00d'
+                    backgroundColor: '#F39F76'
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
@@ -117,7 +132,7 @@ function _createNotes() {
                     title: 'Bobi and Me'
                 },
                 style: {
-                    backgroundColor: '#00d'
+                    backgroundColor: '#B4DDD3'
                 }
             },
             {
