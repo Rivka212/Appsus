@@ -1,0 +1,22 @@
+.accordion {
+    overflow: hidden;
+}
+
+.accordion .title-container {
+    cursor: pointer;
+    display: flex;
+    padding-block: 0.6em;
+}
+.accordion .content {
+    padding-block: .5em;
+    display: none;
+}
+
+
+.accordion.open .arrow {
+    rotate: 180deg;
+}
+
+.accordion.open .content {
+    display: block;
+}

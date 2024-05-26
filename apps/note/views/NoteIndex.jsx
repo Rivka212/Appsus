@@ -1,4 +1,8 @@
 const { useState, useEffect } = React
+const { useParams, useNavigate } = ReactRouter
+
+const { Link } = ReactRouterDOM
+
 
 import { noteService } from '../services/note.service.js'
 import { NoteHeader } from './NoteHeader.jsx'
@@ -9,14 +13,29 @@ import { NoteEdit } from "../cmps/NoteEdit.jsx";
 
 
 export function NoteIndex() {
-
+// debugger
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
+  
     // const [newNote, setNewNote] = useState(null)
     // const [filterBy, setFilterBy] = useState(noteService.getFilterBy())
+    
+    const params = useParams()
+    const navigate = useNavigate()
+
+    console.log(params);
+
+        // useEffect(() => {
+        //     console.log(selectedNote);
+        // }, [selectedNote])
+    
+    useEffect (()=> {
+        setSelectedNote(selectedNote)
+        console.log(selectedNote);
+    })
+
 
     useEffect(() => {
-        // console.log(filterBy)
         noteService.query()
             .then(notes => setNotes(notes))
     }, [])
@@ -33,28 +52,21 @@ export function NoteIndex() {
             })
     }
 
-    function handleNoteClick(note) {
-        console.log(note);
-        openModal(note)
-        setSelectedNote(note)
+
+
+    function handleNoteClick(noteId) {
+        setSelectedNote(noteId)
     }
 
-    // function onSaveNote(noteToAdd) {
-    //     console.log(noteToAdd)
-    //     noteService.save(noteToAdd)
-    //         .then((note) => {
-    //             // const note = [note, ...notes]
-    //             setNotes({ ...note, notes })
-    //         })
-    //         .catch(() => {
-    //             // console.log('err:', err)
-    //             showErrorMsg(`Note to Failed!`, noteId)
-    //         })
-    // }
+    console.log(selectedNote);
+    // console.log(noteId);
     return <section>
+
         <NoteHeader />
-        <NoteAdd />
+        <NoteAdd noteId={selectedNote}/>
         <NoteList notes={notes} onRemove={removeNote} onChange={handleNoteClick} />
-        {selectedNote && <NoteAdd note={selectedNote} />}
+        {/* {isShowModal && <AddReview onToggleModal={onToggleModal} onSave={onSave}/>} */}
+
     </section>
 }
+

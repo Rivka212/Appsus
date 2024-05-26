@@ -1,8 +1,6 @@
 .note-preview {
-    /* display: grid;
-    gap: 10px;
-   text-decoration: none;   */
-
+    /* display: grid; */
+  
 }
 
 
@@ -10,4 +8,26 @@
     font-family: 'Arial';
     color: rgb(56, 55, 55);
     font-weight: 215;
+}
+
+.note-preview i{
+    color: rgb(100, 97, 97);
+}
+
+.note-preview:hover .action-note{
+    display:block;
+}
+
+.note-preview .action-note i{
+    margin-inline-start: 10px;
+}
+
+.note-preview .action-note i:last-of-type{
+    margin-inline-start: 160px;
+}
+
+.note-preview:hover .action-note i:hover{
+    padding: 10px;
+    border-radius: 50%;
+   background-color: rgb(217, 223, 223);
 }

@@ -1,123 +1,95 @@
-import { noteService } from '../services/note.service.js'
-
-
 const { useState, useEffect, useRef } = React
+const { useParams, useNavigate } = ReactRouter
 
-export function NoteAdd() {
-    const [note, setNote] = useState(null)
-    // const [noteToAdd, setnoteToAdd] = useState(noteService.getEmptyNote())
+import { noteService } from '../services/note.service.js'
+import { AccordionInput } from './AccordionInput.jsx'
+import { NoteEdit } from './NoteEdit.jsx'
 
-    const [noteToAdd, setnoteToAdd] = useState({
-        createdAt: new Date().toISOString().slice(0, 10),
-        type: 'NoteTxt',
-        isPinned: false,
-        style: {
-            backgroundColor: '#ffffff'
-        },
-        info: {
-            title: '',
-            txt: ''
-        }
-    })
+export function NoteAdd({ noteId }) {
 
+    const [note, setNote] = useState(noteService.getEmptyNote())
+    const [isExpanded, setIsExpanded] = useState(false)
+    const [isShowModal, setIsShowModal] = useState(null)
 
-    // useEffect(() => {
-    //     if (!params.noteId) return
-    //     noteService.get(params.noteId)
-    //         .then(note => setNote(note))
-    // }, [])
+    // const [noteToEdit, setNoteToEdit] = useState(null)
+    // const params = useParams()
+    // const navigate = useNavigate()
+  
+    
+    // function onToggleModal() {
+    //     setIsShowModal((prevIsShowModal) => !prevIsShowModal)
+    // }
 
-
-
-    console.log(noteToAdd);
-    // console.log(note);
-
-    // useEffect(() => {
-    //     const noteToAdd = { title: note.info.title, txt: note.info.txt }
-    // //     // noteService.get(params.noteId)
-    //         .then(() => {
-    //             setNote(note)
-    //             setnoteToAdd(noteToAdd)
-    //         })
-    // }, [])
+    function handleInputClick() {
+        setIsExpanded(!isExpanded)
+    }
 
 
-    function onAddNote(ev) {
+    useEffect(() => {
+        if (!noteId) return
+        console.log(noteId);
+        noteService.getNoteById(noteId)
+            .then(note => setNote(note))
+    }, [])
+
+
+    function onSaveNote(ev) {
+        setIsExpanded(!isExpanded)
+        setIsShowModal((prevIsShowModal) => !prevIsShowModal)
+
         console.log(ev);
         ev.preventDefault()
-        const noteToSave = {
-            ...note,
-            info: { ...note.info, title: noteToAdd.title, txt: noteToAdd.txt }
-        }
-        noteService.save(noteToSave)
+        noteService.save(note)
             .then(() => {
-                console.log(note);
                 setNote(note)
-                setnoteToAdd(noteToAdd)
             })
-
-
         // .catch(() => {
         //     // showErrorMsg('Couldnt save')
-        //     navigate('/note')
         // })
-        // onSaveNote(note)
-        // onToggleNoteModal()
     }
 
     function handleChange({ target }) {
-
-        const { type, name: prop } = target
-        let { value } = target
-        console.log('name', prop);
-
-        switch (type) {
-            case 'range':
-            case 'number':
-                value = +value
-                break;
-
-            case 'checkbox':
-                value = target.checked
-                break;
-        }
-        setnoteToAdd((prevNote) => ({ ...prevNote, [prop]: value }))
+        const { name, value } = target
+        setNote(prevNote => ({
+            ...prevNote,
+            info: {
+                ...prevNote.info,
+                [name]: value
+            }
+        }))
     }
-
-    // console.log(note);
-    // function handleChange({ target }) {
-    //     const { value, name: prop } = target
-    //     setNote((prevNote) => ({ ...prevNote, [prop]: value }))
-    // }
-
-    // const { info } = note
-    // const noteToAdd = { title: note.info.title, txt: note.info.txt }
 
     return (
         <section className="note-add">
-            <form onSubmit={onAddNote} className='note-form'>
+            <div className={`input-container ${isExpanded ? 'expanded' : ''}`}>
                 <label htmlFor='title'></label>
-                <input className="input-title"
-                    onChange={handleChange} value={noteToAdd.title}
-                    id="title" name="title"
-                    type="text" placeholder="new note..." />
+                {isExpanded && <React.Fragment>
+                    <form onSubmit={onSaveNote} className='note-form'>
+                        <div className="square-input">
+                            <label htmlFor="txt"></label>
+                            <input className="input-txt"
+                                onChange={handleChange} value={note.info.txt}
+                                id="txt" name="txt" autoComplete="off"
+                                type="text" placeholder="title" />
 
-                <label htmlFor="txt"></label>
-                <input className="input-txt"
-                    onChange={handleChange} value={noteToAdd.txt}
-                    id="txt" name="txt"
-                    type="text" placeholder="title" />
-
-                {/* <textarea
-                    placeholder="new note..."
-                    name='txt'
-                    cols='30'
-                    rows='10'
-                    value={info.txt}
-                    onChange={handleChange}
-                ></textarea> */}
-                <button>closure</button>
-            </form>
+                            <label htmlFor='title'></label>
+                            <input className="input-title"
+                                onChange={handleChange} value={note.info.title}
+                                id="title" name="title"
+                                type="text" placeholder="Take a note..." />
+                        </div>
+                        <button>Close</button>
+                    </form>
+                </React.Fragment>}
+                {!isExpanded && <React.Fragment><input
+                    className="input-title"
+                    onClick={handleInputClick}
+                    type="text"
+                    placeholder="Take a note..." />
+                </React.Fragment>
+                }
+            </div>
+            {isShowModal && <NoteEdit onSave={onSaveNote} />}
         </section>
     )
 }

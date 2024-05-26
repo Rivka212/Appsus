@@ -14,6 +14,7 @@ export const noteService = {
     save,
     getDefaultFilter,
     getEmptyNote,
+    getNoteById,
 }
 
 function query(filterBy = {}) {
@@ -42,7 +43,7 @@ function getDefaultFilter(filterBy = { title: '', minAmount: 0 }) {
 //     }
 // }
 
-function getEmptyNote(info = { title: '', txt: '' }) {
+function getEmptyNote(title = '', txt = '') {
     return {
         createdAt: new Date().toISOString().slice(0, 10),
         type: 'NoteTxt',
@@ -51,8 +52,8 @@ function getEmptyNote(info = { title: '', txt: '' }) {
             backgroundColor: '#ffffff'
         },
         info: {
-            title: info.title,
-            txt: info.txt
+            title: title,
+            txt: txt
         }
     }
 }
@@ -61,6 +62,12 @@ function getEmptyNote(info = { title: '', txt: '' }) {
 //     title: '',
 //     txt: ''
 // }
+
+function getNoteById(noteId) {
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    return Promise.resolve(note)
+}
 
 
 
@@ -152,4 +159,10 @@ function _createNotes() {
         ]
         utilService.saveToStorage(NOTE_KEY, notes)
     }
+}
+
+
+
+function _loadNotesFromStorage() {
+    return storageService.loadFromStorage(NOTE_KEY)
 }

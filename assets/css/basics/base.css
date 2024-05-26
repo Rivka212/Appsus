@@ -24,11 +24,12 @@ img {
     object-fit: cover;
 }
 
+.hidden{
+    display: none;
+}
+
 ul {
     list-style: none;
     cursor: pointer;
 }
 
-.hidden{
-    display: none;
-}
