@@ -63,13 +63,18 @@ font-size: 20px;
     border-color: white;
 }
 
-.input-container .icon-text img{
-    max-width:1.9% ;
+.input-container .icon-text > img{
+    max-width: 20px;
     filter: grayscale(0%);
 }
 
+/* .input-container .expanded .icon-text>img{
+display: block;
+} */
 
-.input-container .expanded {
+
+
+.input-container.expanded {
     position: relative;
 }
 

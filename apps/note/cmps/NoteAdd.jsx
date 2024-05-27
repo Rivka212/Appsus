@@ -73,13 +73,13 @@ export function NoteAdd({ noteId }) {
                                 onChange={handleChange} value={note.info.title}
                                 id="title" name="title"
                                 type="text" placeholder="Take a note..." />
-                            <span class="icon-text">
+                            <span class="icon-text hidden">
                                 <img src="../../../../img/square.png" alt="" />
                             </span>
-                            <span class="icon-text">
+                            <span class="icon-text hidden">
                                 <img src="../../../../img/pen.png" alt="" />
                             </span>
-                            <span class="icon-text">
+                            <span class="icon-text hidden">
                                 <img src="../../../../img/picture.png" alt="" /></span>
                         </div>
                         <button>Close</button>

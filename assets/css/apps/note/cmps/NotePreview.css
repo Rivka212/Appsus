@@ -1,21 +1,22 @@
 .note-preview {
- /* display: grid; */
- display: grid;
- grid-template-rows: auto 1fr auto; 
- align-items: center;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    /* align-items: center; */
 }
 
-.note-preview .note-details{
+.note-preview .note-details {
     display: flex;
     grid-row: 1;
-    justify-content: space-between;
+    justify-content: space-between;   
 }
-.note-preview .note-dynamic-cmp{
+
+.note-preview .note-dynamic-cmp {
     grid-row: 2;
 }
+
 .note-preview .action-note {
     grid-row: auto;
-    margin-top: 20px;
+    margin-top: 35px;
 }
 
 .note-preview h3 {
@@ -23,52 +24,45 @@
     font-family: 'Arial';
     color: rgb(56, 55, 55);
     font-weight: 215;
+    display: inline;
 }
 
-.note-preview i{
-    color: rgb(36,35,35);
-}
-
-.note-preview .action-note i,img{
+.note-preview .action-note>i,
+.note-preview .action-note>img {
     margin-inline-start: 0px;
-    padding: 10px;
+    padding: 8px;
+    color: rgb(158, 146, 146);
+    filter: grayscale(0%);
+
+
 }
 
-li:hover .action-note{
+li:hover .action-note {
     display: inline-block;
 }
 
-li:hover span{
+li:hover span {
     display: inline-block;
 }
 
-.note-preview:hover .action-note{
-    display:block;
+.note-preview:hover .action-note {
+    display: block;
 }
 
-.note-preview .action-note i{
-    margin-inline-start: 10px;
-}
-
-.note-preview .action-note i:last-of-type{
-    margin-inline-start: 160px;
-}
-
-.note-preview:hover .action-note i,img:hover{
-    padding: 10px;
+.note-preview:hover .action-note>i:hover,
+.note-preview:hover .action-note>img:hover {
     border-radius: 50%;
-   background-color: rgba(80, 96, 96, 0.233);
-   transition: transform 0.3s;
-   color: rgb(59, 57, 57);
-   filter: grayscale(0%);
+    background-color: rgba(109, 124, 124, 0.233);
+    transition: transform 0.3s;
+    color: rgb(59, 57, 57);
+    filter: grayscale(0%);
 }
 
-.note-preview img{
-    max-width:8%;
-    color: rgb(104, 100, 100);
-    filter: grayscale(100%);
+
+.note-preview .note-details span > img {
+    margin-inline-start: 0px;
+    max-width: 12px;
+    filter: grayscale(0%);
 }
 
-/* .note-list .action-note{
-    display: inline-block;
-} */
+

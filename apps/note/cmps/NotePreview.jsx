@@ -19,7 +19,10 @@ export function NotePreview({ note, onRemove }) {
             <div className="note-details">
                 <h3>{note.info.txt} </h3>
                 <span className="hidden">
-                    <i className="fa-solid fa-thumbtack" /></span>
+                    <img src={"../../../../img/thumbtacks.png"} alt='' />
+                    {/* <i className="fa-solid fa-thumbtack" /> */}
+                    {/* <i className="fa-thin fa-thumbtack" /> */}
+                    </span>
             </div>
             <div className="note-dynamic-cmp">
                 <DynamicCmp cmpType={cmpType} key={note.id} note={note} />
