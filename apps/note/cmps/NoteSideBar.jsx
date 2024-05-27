@@ -1,10 +1,12 @@
 import { useEffect } from "react"
 import { noteService } from "../services/note.service.js"
+// import { NavLink } from "react-router-dom";
+
 
 const { useState } = React
-const { useNavigate } = ReactRouterDOM
+const { useNavigate, NavLink } = ReactRouterDOM
 
-export function NoteSideBar({ onChange }) {
+export function NoteSideBar({ onChange, status }) {
     // const [teams, setTeams] = useState(noteService.createTeams())
 
     const teams = [
@@ -16,22 +18,34 @@ export function NoteSideBar({ onChange }) {
         { type: 'trash', icon: 'trash' }
     ]
 
-    // useEffect(() => {
-    //         setCategories(categories)
-    // }, [])
 
-
+    // activeclassName
 
     return (
         <section className="note-sidebar">
             <ul>
                 {teams.map(team =>
-                    <li key={team.type} className="note-teams" onClick={() => onChange(team.type)}>
-                        <img src={`../../../../icons/${team.icon}.png`} alt='' />
-                        <span className="name-teams hidden">{team.type}</span>
-                    </li>
+                    <NavLink to={`/note/${team.type}`} className="active" key={team.type}>
+                        <li className={`note-teams ${status === team.type ? 'active' : ''}`} onClick={() => onChange(team.type)}>
+                            <img src={`../../../../icons/${team.icon}.png`} alt='' />
+                            <span className="name-teams hidden">{team.type}</span>
+                        </li>
+                    </NavLink>
                 )}
             </ul>
         </section>
     )
+
 }
+    // return (
+    //     <section className="note-sidebar">
+    //         <ul>
+    //             {teams.map(team =>
+    //                 <li key={team.type} className="note-teams" onClick={() => onChange(team.type)}>
+    //                     <img src={`../../../../icons/${team.icon}.png`} alt='' />
+    //                     <span className="name-teams hidden">{team.type}</span>
+    //                 </li>
+    //             )}
+    //         </ul>
+    //     </section>
+    // )

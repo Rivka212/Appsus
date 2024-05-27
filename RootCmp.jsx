@@ -29,6 +29,7 @@ export function App() {
                 </Route>
                 <Route path="/note" element={<NoteApp />}>
                     <Route index element={<NoteIndex />} />
+                    <Route path=":status" element={<NoteIndex />} />
                     <Route path="edit/:noteId" element={<NoteEdit />} />
                 </Route>
             </Routes>

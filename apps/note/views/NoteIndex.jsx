@@ -11,7 +11,6 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { NoteAdd } from '../cmps/NoteAdd.jsx'
 import { NoteEdit } from "../cmps/NoteEdit.jsx";
 
-
 export function NoteIndex() {
 // debugger
     const [notes, setNotes] = useState([])

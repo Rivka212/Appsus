@@ -10,6 +10,7 @@
 }
 
 .note-sidebar:hover{
+    /* border: 1px solid gray; */
     box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
 }
 
@@ -46,14 +47,42 @@
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(150%);
  }
 
- .note-sidebar .note-teams:first-child img {
+ .note-sidebar .note-teams li >img {
     border-radius: 50%;
     background-color: #feefc3;
     filter: none;
 }
 
-.note-sidebar:hover .note-teams:first-child {
+.note-sidebar:hover .note-teams li:first-of-type {
     background-color: #feefc3;
     border-top-right-radius: 25px;
     border-bottom-right-radius:25px;
 }
+
+/* 
+
+return (
+        <section className="note-sidebar">
+            <ul>
+                {teams.map(team =>
+                    <li key={team.type} className="note-teams" onClick={() => onChange(team.type)}>
+                        <img src={`../../../../icons/${team.icon}.png`} alt='' />
+                        <span className="name-teams hidden">{team.type}</span>
+                    </li>
+                )}
+            </ul>
+        </section>
+    )
+
+<section className="note-sidebar">
+<ul>
+    {teams.map(team =>
+        <NavLink to={`/note/${team.type}`} className="active" key={team.type}>
+            <li className={status === team.type ? 'active' : ''} onClick={() => onChange(team.type)}>
+                <img src={`../../../../icons/${team.icon}.png`} alt='' />
+                <span className="name-teams hidden">{team.type}</span>
+            </li>
+        </NavLink>
+    )}
+</ul>
+</section> */
