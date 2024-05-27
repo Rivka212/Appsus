@@ -18,6 +18,8 @@
 
 @import './apps/mail/views/MailIndex.css';
 @import './apps/mail/views/MailApp.css';
+@import './apps/mail/views/MailDetails.css';
+
 
 
 /* Cmps */
@@ -38,3 +40,4 @@
 @import './apps/mail/cmps/MailPreview.css';
 @import './apps/mail/cmps/ComposeMail.css';
 @import './apps/mail/cmps/ComposeList.css';
+@import './apps/mail/cmps/MailUpperBar.css';

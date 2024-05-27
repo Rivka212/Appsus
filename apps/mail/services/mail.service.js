@@ -1,10 +1,10 @@
-import { utilService } from '../../../services/util.service.js';
+import { utilService } from '../../../services/util.service.js'
 
-const STORAGE_KEY = 'emailsDB';
+const STORAGE_KEY = 'emailsDB'
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
-};
+}
 
 export const mailService = {
     query,
@@ -12,37 +12,38 @@ export const mailService = {
     getMail,
     getDefaultFilter,
     formatDate,
+    formatDate2,
     countIsRead,
     addIsRead,
 
-};
+}
 
 function _loadMailsFromStorage() {
-    return utilService.loadFromStorage(STORAGE_KEY) || [];
+    return utilService.loadFromStorage(STORAGE_KEY) || []
 }
 
 function _saveMailsToStorage(mails) {
-    utilService.saveToStorage(STORAGE_KEY, mails);
+    utilService.saveToStorage(STORAGE_KEY, mails)
 }
 
 function query(filterBy = { status: 'inbox', txt: '', isRead: undefined, isStared: undefined, labels: [] }) {
-    let emails = _loadMailsFromStorage();
-    if (!emails.length) emails = _createMails();
-    if (filterBy) emails = _getFilteredMails(emails, filterBy);
-    return Promise.resolve(emails);
+    let emails = _loadMailsFromStorage()
+    if (!emails.length) emails = _createMails()
+    if (filterBy) emails = _getFilteredMails(emails, filterBy)
+    return Promise.resolve(emails)
 }
 
 function getMail(mailId) {
-    const mails = _loadMailsFromStorage();
-    const mail = mails.find(mail => mail.id === mailId);
-    return Promise.resolve(mail);
+    const mails = _loadMailsFromStorage()
+    const mail = mails.find(mail => mail.id === mailId)
+    return Promise.resolve(mail)
 }
 
 function _getFilteredMails(mails, filterBy) {
-    if (!mails || !Array.isArray(mails)) return [];
-    if (!filterBy) return mails;
+    if (!mails || !Array.isArray(mails)) return []
+    if (!filterBy) return mails
 
-    const { status, txt, isRead, isStared, labels } = filterBy;
+    const { status, txt, isRead, isStared, labels } = filterBy
 
     return mails.filter(mail => {
         return (
@@ -51,8 +52,8 @@ function _getFilteredMails(mails, filterBy) {
             (isRead === undefined || mail.isRead === isRead) &&
             (isStared === undefined || mail.isStared === isStared) &&
             (!labels.length || labels.every(label => (mail.labels || []).includes(label)))
-        );
-    });
+        )
+    })
 }
 
 function getDefaultFilter(filterBy = { status: 'inbox', txt: '', isRead: '', isStared: '', labels: [] }) {
@@ -62,7 +63,7 @@ function getDefaultFilter(filterBy = { status: 'inbox', txt: '', isRead: '', isS
         isRead: filterBy.isRead || undefined,
         isStared: filterBy.isStared || undefined,
         labels: filterBy.labels || []
-    };
+    }
 }
 
 function _createMails() {
@@ -208,9 +209,9 @@ function _createMails() {
             to: 'MentalWellnessLibra@momo.com',
             type: 'sent'
         },
-    ];
-    _saveMailsToStorage(emails);
-    return emails;
+    ]
+    _saveMailsToStorage(emails)
+    return emails
 }
 
 function countIsRead(emails) {
@@ -223,21 +224,50 @@ function countIsRead(emails) {
 }
 
 function sortEmailsByDate(emails) {
-    return emails.sort((a, b) => b.sentAt - a.sentAt);
+    return emails.sort((a, b) => b.sentAt - a.sentAt)
 }
 
 function formatDate(timestamp) {
-    const date = new Date(timestamp);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const date = new Date(timestamp)
+    const day = date.getDate()
+    const month = date.getMonth() + 1
     const year = date.getFullYear()
+    return `${day}/${month}/${year}`
 }
 
-function addIsRead(mailId) {
+function formatDate2(timestamp) {
+    const date = new Date(timestamp)
+    const today = new Date()
+
+    if (date.toDateString() === today.toDateString()) {
+      const hours = date.getHours().toString().padStart(2, '0')
+      const minutes = date.getMinutes().toString().padStart(2, '0')
+      return `${hours}:${minutes}`
+
+    } else {
+      const year = date.getFullYear()
+      const month = date.toLocaleString('default', { month: 'short' }); // Get month abbreviation
+
+      const monthNum = date.getMonth() + 1 // Month is zero-based, so we add 1
+      const day = date.getDate()
+
+      if (year === today.getFullYear()) {
+        return `${day + ' '}${month.toString().padStart(2, '0')}`
+      } else {
+        const shortYear = year.toString().slice(-2)
+        return `${day}/${monthNum.toString().padStart(2, '0')}/${shortYear}`
+      }
+    }
+  }
+
+function addIsRead(mailId) {    
     const mails=_loadMailsFromStorage()
-    const mailIndex = mails.findIndex(mail => mail.id === mailId);
+    const mailIndex = mails.findIndex(mail => mail.id === mailId)
+
+    if (mails[mailIndex].isRead === true) return
+
     if (mailIndex >= 0) { // Check if the mail exists
-        mails[mailIndex].isRead = true; // Set isRead to true
-        _saveMailsToStorage(mails); // Save the updated mails 
+        mails[mailIndex].isRead = true // Set isRead to true
+        _saveMailsToStorage(mails) // Save the updated mails 
     }
 }

@@ -6,6 +6,7 @@
 }
 .mail-preview div {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
 .sender{
@@ -24,8 +25,12 @@
 
     overflow: hidden;
     font-family: Roboto-Regular;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
 }
 
 .sent-time {
    justify-self: end; /* Align the content to the right */
 }
+
