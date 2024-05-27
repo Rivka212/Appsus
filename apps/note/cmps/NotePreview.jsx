@@ -8,10 +8,17 @@ import { NoteTodos } from "./dynamic-inputs/NoteTodos.jsx";
 
 export function NotePreview({ note, onRemove }) {
     const [cmpType, setCmpType] = useState(null)
+    const [isPinned, setIsPinned] = useState(note.isPinned);
+
 
     useEffect(() => {
         setCmpType(note.type)
     }, [note.type])
+
+    function handleToggle() {
+        setIsPinned(!isPinned)
+        onToggle(note.id, !isPinned)
+    }
 
     return (
         <article className="note-preview" >
@@ -19,10 +26,9 @@ export function NotePreview({ note, onRemove }) {
             <div className="note-details">
                 <h3>{note.info.txt} </h3>
                 <span className="hidden">
-                    <img src={"../../../../img/thumbtacks.png"} alt='' />
-                    {/* <i className="fa-solid fa-thumbtack" /> */}
-                    {/* <i className="fa-thin fa-thumbtack" /> */}
-                    </span>
+                    <img src={isPinned ? "../../../../img/thumbtack01.png" :
+                     "../../../../img/thumbtack0.png"} alt='' onClick={handleToggle} />
+                </span>
             </div>
             <div className="note-dynamic-cmp">
                 <DynamicCmp cmpType={cmpType} key={note.id} note={note} />

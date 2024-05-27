@@ -9,16 +9,17 @@ export function NoteApp() {
     const { status } = useParams()
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     if (status === 'notes') {
-    //     }
-    // }, [notes])
+    useEffect(() => {
+        if (status === 'notes') {
+        }
+    }, [notes])
 
     useEffect(() => {
         if (status === 'notes') {
         } else if (status === 'newStatus') {
         }
-    }, [status])
+    }, [notes])
+
 
     // function handleChange() {
     //     console.log(status)

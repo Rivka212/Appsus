@@ -16,11 +16,24 @@ export const noteService = {
     getEmptyNote,
     getNoteById,
     createTeams,
+    getSortByPinned,
+    movePinnedNoteToTop,
 }
 
-function query(filterBy = {}) {
+function query() {
     return storageService.query(NOTE_KEY)
         .then(notes => {
+            const sortedNotes = getSortByPinned(notes)
+            return sortedNotes
+        })
+}
+// function query() {
+//     return storageService.query(NOTE_KEY)
+//         .then(notes => {
+//             getSortByPinned()
+//             return notes
+//         })
+// }
             // if (filterBy.title) {
             //     const regExp = new RegExp(filterBy.title, 'i')
             //     notes = notes.filter(note => regExp.test(note.title))
@@ -28,9 +41,7 @@ function query(filterBy = {}) {
             // if (filterBy.minAmount) {
             //     notes = notes.filter(note => note.listPrice.amount >= filterBy.minAmount)
             // }
-            return notes
-        })
-}
+
 
 
 function getDefaultFilter(filterBy = { title: '', minAmount: 0 }) {
@@ -64,6 +75,25 @@ function getEmptyNote(title = '', txt = '') {
 //     txt: ''
 // }
 
+function getSortByPinned(notes) {
+    const pinnedNotes = notes.filter(note => note.isPinned)
+    const unpinnedNotes = notes.filter(note => !note.isPinned)
+
+    const sortedNotes = [...pinnedNotes, ...unpinnedNotes]
+    return sortedNotes
+}
+
+function movePinnedNoteToTop(noteId) {
+    const noteToMove = notes.find(note => note.id === noteId)
+    if (noteToMove && noteToMove.isPinned) {
+        const updatedNotes = notes.filter(note => note.id !== noteId)
+        updatedNotes.unshift(noteToMove)
+        return updatedNotes
+    }
+    return notes
+}
+
+
 function getNoteById(noteId) {
     const notes = _loadNotesFromStorage()
     const note = notes.find((note) => note.id === noteId)
@@ -93,7 +123,7 @@ function save(note) {
     }
 }
 
-function createTeams(){
+function createTeams() {
     const teams = [
         { type: 'notes', icon: '../../../../icons/light-bulb.png' },
         { type: 'reminders', icon: '../../../../icons/bell.png' },
@@ -127,9 +157,9 @@ function _createNotes() {
                 id: 'n102',
                 type: 'NoteImg',
                 isPinned: false,
-                 style: {
+                style: {
                     backgroundColor: '#B4DDD3'
-                 },
+                },
                 info: {
                     url: 'http://some-img/me',
                     // url:'img/flower.png',
@@ -153,7 +183,7 @@ function _createNotes() {
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
-                backgroundColor:'#F39F76'
+                    backgroundColor: '#F39F76'
                 },
                 info: {
                     title: 'Get my stuff together',
@@ -179,10 +209,10 @@ function _createNotes() {
                 id: 'n106',
                 type: 'NoteImg',
                 isPinned: false,
-                 style: {
+                style: {
                     backgroundColor: '#F6E2DD'
-                    
-                 },
+
+                },
                 info: {
                     url: 'http://some-img/me',
                     // url:'img/flower.png',
@@ -194,7 +224,7 @@ function _createNotes() {
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
-                    backgroundColor:'#E9E3D4'
+                    backgroundColor: '#E9E3D4'
                 },
                 info: {
                     title: 'Get my stuff together',

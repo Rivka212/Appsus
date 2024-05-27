@@ -18,15 +18,12 @@ export function NoteSideBar({ onChange, status }) {
         { type: 'trash', icon: 'trash' }
     ]
 
-
-    // activeclassName
-
     return (
         <section className="note-sidebar">
             <ul>
                 {teams.map(team =>
                     <NavLink to={`/note/${team.type}`} className="active" key={team.type}>
-                        <li className={`note-teams ${status === team.type ? 'active' : ''}`} onClick={() => onChange(team.type)}>
+                        <li className={`note-teams ${status === team.type ? 'active' : ''}`}>
                             <img src={`../../../../icons/${team.icon}.png`} alt='' />
                             <span className="name-teams hidden">{team.type}</span>
                         </li>
@@ -35,8 +32,9 @@ export function NoteSideBar({ onChange, status }) {
             </ul>
         </section>
     )
-
 }
+    // activeclassName   onClick={() => onChange(team.type)}
+
     // return (
     //     <section className="note-sidebar">
     //         <ul>

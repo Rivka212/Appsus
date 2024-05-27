@@ -28,6 +28,7 @@ export function NoteIndex() {
     //     setSelectedNote(selectedNote)
     //     console.log(selectedNote);
     // })
+    // isPinned
 
     useEffect(() => {
         noteService.query()
