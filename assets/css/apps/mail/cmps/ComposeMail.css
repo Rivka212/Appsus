@@ -29,6 +29,13 @@
     width: 22px;
     height:22px
 }
+.swal-modal{
+    font-family: sans-serif;
+}
+.swal-button {
+    background-color: var(--mail-btn);
+    border-radius: 25px;
+}
 
 
 

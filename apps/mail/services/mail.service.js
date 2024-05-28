@@ -17,6 +17,7 @@ export const mailService = {
     countIsRead,
     addIsRead,
     changeMailType,
+    addMail,
 
 }
 
@@ -73,18 +74,21 @@ function _createMails() {
         {
             id: utilService.makeId(),
             subject: 'Miss you!',
-            body: 'Would love to catch up sometime',
+            body: ` 
+            Would love to catch up sometime`,
             isRead: false,
             sentAt: 1551133930594,
             removedAt: null,
             from: 'momo@momo.com',
             to: 'user@appsus.com',
-            type: 'inbox'
+            type: 'inbox',
+            originalType: 'inbox'
         },
         {
             id: utilService.makeId(),
             subject: 'Project update',
-            body: `Dear sivan,
+            body: `
+            Dear sivan,
             I hope this email finds you well.
             Could you please provide an update on the status of the current project? 
             The client has been asking for the latest progress report, 
@@ -97,12 +101,14 @@ function _createMails() {
             removedAt: null,
             from: 'john@momo.com',
             to: 'user@appsus.com',
-            type: 'inbox'
+            type: 'inbox',
+            originalType: 'inbox'
         },
         {
             id: utilService.makeId(),
             subject: 'Invitation for workshop',
-            body: `Dear sivan,
+            body: `
+            Dear sivan,
             I am excited to invite you to a workshop on "Effective Communication Skills" that we are hosting next month. 
             Your participation would be invaluable, and I believe you would gain a lot from the experience. 
             Please let me know if you are interested, and I will send you further details.
@@ -114,12 +120,14 @@ function _createMails() {
             removedAt: null,
             from: 'emma@momo.com',
             to: 'user@appsus.com',
-            type: 'inbox'
+            type: 'inbox',
+            originalType: 'inbox'
         },
         {
             id: utilService.makeId(),
             subject: 'Happy birthday!',
-            body: `Dear sivan,
+            body: `
+            Dear sivan,
             Just wanted to drop you a quick note to wish you a very happy birthday! 
             I hope you have a fantastic day filled with joy and celebration. 
             Let's get together soon to celebrate properly!
@@ -130,12 +138,14 @@ function _createMails() {
             removedAt: null,
             from: 'mike@momo.com',
             to: 'user@appsus.com',
-            type: 'inbox'
+            type: 'inbox',
+            originalType: 'inbox'
         },
         {
             id: utilService.makeId(),
             subject: 'Catching up',
-            body: `Hi Sarah,
+            body: `
+            Hi Sarah,
             It's great to hear from you! 
             I'd love to catch up next week. 
             How about Tuesday at 3 PM at our usual café? 
@@ -146,12 +156,14 @@ function _createMails() {
             removedAt: null,
             from: 'user@appsus.com',
             to: 'sarah@momo.com',
-            type: 'sent'
+            type: 'sent',
+            originalType: 'sent'
         },
         {
             id: utilService.makeId(),
             subject: 'Re: project update',
-            body: `Hi John,
+            body: `
+            Hi John,
             The project is progressing well. 
             I have attached the latest report for your review. 
             If you need any additional information, please let me know. 
@@ -162,12 +174,14 @@ function _createMails() {
             removedAt: null,
             from: 'user@appsus.com',
             to: 'john@momo.com',
-            type: 'sent'
+            type: 'sent',
+            originalType: 'sent'
         },
         {
             id: utilService.makeId(),
             subject: 'Thank you!',
-            body: `Hi Mili,
+            body: `
+            Hi Mili,
             I wanted to take a moment to thank you for all your hard work and dedication on the recent project. 
             Your contributions were invaluable, and I truly appreciate everything you have done. 
             Let's keep up the great work!
@@ -177,12 +191,14 @@ function _createMails() {
             removedAt: null,
             from: 'user@appsus.com',
             to: 'mili@momo.com',
-            type: 'sent'
+            type: 'sent',
+            originalType: 'sent'
         },
         {
             id: utilService.makeId(),
             subject: 'Team meeting',
-            body: `Hi Team,
+            body: `
+            Hi Team,
             Just a reminder that our quarterly team meeting is scheduled for this Friday at 10 AM 
             in the conference room. Please come prepared with updates on your projects and any questions or concerns you might have.
             Looking forward to seeing you all there.
@@ -192,12 +208,14 @@ function _createMails() {
             removedAt: null,
             from: 'user@appsus.com',
             to: 'jake@momo.com',
-            type: 'sent'
+            type: 'sent',
+            originalType: 'sent'
         },
         {
             id: utilService.makeId(),
             subject: 'Re: invitation to workshop',
-            body: `Hi Emma,
+            body: `
+            Hi Emma,
             Thank you so much for the invitation. 
             The workshop sounds fantastic, and I would love to attend. 
             Please send me the details, and I will make sure to mark it on my calendar.
@@ -207,7 +225,8 @@ function _createMails() {
             removedAt: null,
             from: 'user@appsus.com',
             to: 'MentalWellnessLibra@momo.com',
-            type: 'sent'
+            type: 'sent',
+            originalType: 'sent'
         },
     ]
     _saveMailsToStorage(emails)
@@ -240,28 +259,28 @@ function formatDate2(timestamp) {
     const today = new Date()
 
     if (date.toDateString() === today.toDateString()) {
-      const hours = date.getHours().toString().padStart(2, '0')
-      const minutes = date.getMinutes().toString().padStart(2, '0')
-      return `${hours}:${minutes}`
+        const hours = date.getHours().toString().padStart(2, '0')
+        const minutes = date.getMinutes().toString().padStart(2, '0')
+        return `${hours}:${minutes}`
 
     } else {
-      const year = date.getFullYear()
-      const month = date.toLocaleString('default', { month: 'short' }); // Get month abbreviation
+        const year = date.getFullYear()
+        const month = date.toLocaleString('default', { month: 'short' }); // Get month abbreviation
 
-      const monthNum = date.getMonth() + 1 // Month is zero-based, so we add 1
-      const day = date.getDate()
+        const monthNum = date.getMonth() + 1 // Month is zero-based, so we add 1
+        const day = date.getDate()
 
-      if (year === today.getFullYear()) {
-        return `${day + ' '}${month.toString().padStart(2, '0')}`
-      } else {
-        const shortYear = year.toString().slice(-2)
-        return `${day}/${monthNum.toString().padStart(2, '0')}/${shortYear}`
-      }
+        if (year === today.getFullYear()) {
+            return `${day + ' '}${month.toString().padStart(2, '0')}`
+        } else {
+            const shortYear = year.toString().slice(-2)
+            return `${day}/${monthNum.toString().padStart(2, '0')}/${shortYear}`
+        }
     }
-  }
+}
 
-function addIsRead(mailId) {    
-    const mails=_loadMailsFromStorage()
+function addIsRead(mailId) {
+    const mails = _loadMailsFromStorage()
     const mailIndex = mails.findIndex(mail => mail.id === mailId)
 
     if (mails[mailIndex].isRead === true) return
@@ -272,7 +291,7 @@ function addIsRead(mailId) {
     }
 }
 
-function changeMailType(mailId, type){
+function changeMailType(mailId, type) {
     return new Promise((resolve, reject) => {
         const mails = _loadMailsFromStorage();
         const mailIndex = mails.findIndex(mail => mail.id === mailId);
@@ -289,4 +308,18 @@ function changeMailType(mailId, type){
         _saveMailsToStorage(mails);
         resolve(mails[mailIndex]);
     });
+}
+
+function addMail(mail) {
+    return new Promise((resolve, reject) => {
+        try {
+            const mails = _loadMailsFromStorage();
+            mails.unshift(mail);
+            _saveMailsToStorage(mails);
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+
+    })
 }

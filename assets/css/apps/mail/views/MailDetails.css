@@ -7,7 +7,7 @@
     margin-inline-start: 90px;
 }
 
-.mail-details h2 {
+.mail-details .new-mail-header {
     font-size: 26px;
     font-family: Roboto-Regular;
     font-weight: lighter;

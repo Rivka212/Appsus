@@ -78,7 +78,11 @@ export function MailList() {
               </span>
             </div>
             <Link to={`/mail/details/${mail.id}`} >
-              <MailPreview mail={mail} isHovered={hoveredMailId === mail.id} onTrashClick={handleTrashClick} />
+              <MailPreview 
+              mail={mail} 
+              isHovered={hoveredMailId === mail.id} 
+              onTrashClick={handleTrashClick} 
+              showRecipient={mail.originalType === 'sent'} />
             </Link>
           </li>
         ))}

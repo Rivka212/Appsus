@@ -1,16 +1,61 @@
-const { useState } = React;
+const { useState } = React
 
-export function ComposeList({ closeModal, initialRecipient, initialSubject, initialBody }) {
+import { mailService } from "../services/mail.service.js";
+import { utilService } from "../../../services/util.service.js";
+import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
+
+
+
+export function ComposeList({ closeModal, setNewMail, initialRecipient = '', initialSubject = '', initialBody = ''  }) {
     const [recipient, setRecipient] = useState(initialRecipient);
     const [subject, setSubject] = useState(initialSubject);
     const [body, setBody] = useState(initialBody);
 
+
     function handleSubmit(event) {
         event.preventDefault();
-        console.log('hi');
-        // Add your submit logic here
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        // Reset state and close modal
+        if (!emailRegex.test(recipient)) {
+            if (!emailRegex.test(recipient)) {
+                swal({
+                    title: 'Error',
+                    text: 'Please specify at least one recipient.',
+                });
+                return;
+            }
+        }
+
+        const newMail = {
+            id: utilService.makeId(),
+            subject,
+            body,
+            sentAt: Date.now(),
+            removedAt: null,
+            from: mailService.loggedinUser.email,
+            to: recipient,
+            type: 'sent',
+            originalType: 'sent',
+        };
+
+        mailService.addMail(newMail)
+            .then(() => {
+                showSuccessMsg('Mail sent successfully');
+                debugger
+
+                setNewMail(newMail); // Update state in MailApp
+                handleClose(); // Close the modal after submission
+            })
+            .catch(() => {
+                showErrorMsg('Failed to send mail');
+            });
+    }
+
+
+    function handleClose() {
+        setRecipient('');
+        setSubject('');
+        setBody('');
         closeModal();
     }
 

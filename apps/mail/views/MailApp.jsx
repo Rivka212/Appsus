@@ -9,6 +9,7 @@ export function MailApp() {
     const [criteria, setCriteria] = useState(mailService.getDefaultFilter({ status: 'inbox' }))
     const [mails, setMails] = useState([])
     const [readCount, setReadCount] = useState(0)
+    const [newMail, setNewMail] = useState(null); // State to track new mail
 
     useEffect(() => {
         if (status === 'inbox') {
@@ -28,13 +29,14 @@ export function MailApp() {
         mailService.query(criteria).then(setMails).catch(() => setMails([]))
     }, [criteria])
 
-    function handleFilterChange(newCriteria) {
-        setCriteria(newCriteria)
-    }
+    useEffect(() => {
+        if (newMail) {
+            mailService.query(criteria).then(setMails).catch(() => setMails([]));        }
+    }, [newMail])
 
     return (
         <section className="main-layout">
-            <MailSideBar onFilterChange={handleFilterChange} readCount={readCount} />
+            <MailSideBar readCount={readCount} setNewMail={setNewMail} />
             <main>
                 <Outlet context={{ criteria, mails, status }} />
             </main>

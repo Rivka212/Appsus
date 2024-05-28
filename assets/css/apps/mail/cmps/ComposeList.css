@@ -59,7 +59,9 @@
     width: calc(100% - 32px);
     border: none;
     /* Remove all borders */
-    border-bottom: 1px solid var(--mail-border)
+    border-bottom: 1px solid var(--mail-border);
+    font-size: 14px;
+    font-family: Roboto-Regular;
 }
 
 .compose-mail input:focus,
@@ -71,20 +73,17 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    width: 100%
+    width: 100%;
+    padding: 10px;
 }
 
 .compose-mail .text-box textarea {
     flex-grow: 1;
     border: none;
-    width: 100%;
-    font-size: 14px;
-    font-family: Roboto-Regular;
-    color: var(--mail-txt3);
     padding: 10px; /* Add padding for consistent text start */
     margin: 0; /* Ensure no margin that could offset text */
-    box-sizing: border-box; /* Include padding in the element's width and height */
     resize: none; /* Prevent resizing if desired */
+    white-space: pre;
 }
 
 .compose-mail .send-btn {

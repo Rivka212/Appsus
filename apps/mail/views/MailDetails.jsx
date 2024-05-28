@@ -60,7 +60,7 @@ export function MailDetails() {
     <section className="mail-details">
       <MailUpperBar mailId={id} />
       <div className="main-mail">
-        <h2>{mail.subject}</h2>
+        <h2 className="new-mail-header">{mail.subject}</h2>
         
         <div className="sender-details">
           <div>
@@ -92,10 +92,7 @@ export function MailDetails() {
             <img src="../../icons/reply.png" alt="Reply" />
             Reply
           </button>
-          <button onClick={() => {
-            debugger
-            setIsForward(true)}}
-            >
+          <button onClick={() => {setIsForward(true)}}>
             <img className="forward" src="../../icons/reply.png" alt="Forward" />
             Forward
           </button>

@@ -1,7 +1,7 @@
 const{ NavLink, useLocation } = ReactRouterDOM
 import { ComposeMail } from './ComposeMail.jsx';
 
-export function MailSideBar({ onFilterChange, readCount }) {
+export function MailSideBar({  readCount, setNewMail }) {
     const icons = {
         inbox: '../../../../icons/inbox.png',
         stared: '../../../../icons/starred.png',
@@ -28,17 +28,15 @@ export function MailSideBar({ onFilterChange, readCount }) {
 
     return (
         <section className="mail-sidebar">
-            <ComposeMail />
+            <ComposeMail setNewMail={setNewMail}/>
             <ul>
                 {menuItems.map(({ name, icon }) => (
                      <NavLink to={`/mail/${name}`}  key={name} >
                     <li className="mail-item" >
-                       
                             <button>
                                 <img src={icons[icon]} alt={name} className="menu-icon" />
                                 {name}
                             </button>
-                       
                         {name === 'inbox' && <span className="read-count">{readCount}</span>}
                     </li>
                     </NavLink>

@@ -1,5 +1,4 @@
-import { useEffect } from "react"
-import { noteService } from "../services/note.service.js"
+
 
 const { useState } = React
 const { useNavigate } = ReactRouterDOM
