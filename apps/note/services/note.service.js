@@ -18,11 +18,18 @@ export const noteService = {
     createTeams,
     getSortByPinned,
     movePinnedNoteToTop,
+    getFilterStatus,
 }
 
 function query() {
     return storageService.query(NOTE_KEY)
         .then(notes => {
+            // const trashedNotes = notes.filter(note => note.isTrush); // סינון הערות עם isTrush
+            // const remainingNotes = notes.filter(note => !note.isTrush); // סינון הערות שאינן isTrush
+            //       // העברת הערות עם isTrush לדף "Trash"
+            //       trashedNotes.forEach(trashedNote => {
+            //         // פעולות להעברת הערה לדף "Trash"
+           
             const sortedNotes = getSortByPinned(notes)
             return sortedNotes
         })
@@ -54,6 +61,19 @@ function getDefaultFilter(filterBy = { title: '', minAmount: 0 }) {
 //         maxPrice: '',
 //     }
 // }
+
+function getFilterStatus(notes, filterBy = { status: 'notes'}) {
+    console.log(filterBy.status);
+    if(filterBy.status === 'trash'){
+        const trashedNotes = notes.filter(note => note.isTrush)
+        // return trashedNotes
+        return Promise.resolve(trashedNotes)
+    }
+    return {
+        status: filterBy.status || 'notes',
+    }
+}
+
 
 function getEmptyNote(title = '', txt = '') {
     return {
@@ -151,7 +171,9 @@ function _createNotes() {
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
-                }
+                },
+                isTrush: false,
+
             },
             {
                 id: 'n102',
@@ -164,7 +186,8 @@ function _createNotes() {
                     url: 'http://some-img/me',
                     // url:'img/flower.png',
                     title: 'Bobi and Me'
-                }
+                },
+                isTrush: false,
             },
             {
                 id: 'n103',
@@ -176,7 +199,8 @@ function _createNotes() {
                         { txt: 'Driving license', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                isTrush: false,
             },
             {
                 id: 'n104',
@@ -191,7 +215,8 @@ function _createNotes() {
                         { txt: 'Driving license', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                isTrush: false,
             },
             {
                 id: 'n105',
@@ -203,7 +228,8 @@ function _createNotes() {
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
-                }
+                },
+                isTrush: false,
             },
             {
                 id: 'n106',
@@ -217,7 +243,8 @@ function _createNotes() {
                     url: 'http://some-img/me',
                     // url:'img/flower.png',
                     title: 'Bobi and Me'
-                }
+                },
+                isTrush: false,
             },
             {
                 id: 'n107',
@@ -232,7 +259,8 @@ function _createNotes() {
                         { txt: 'Driving license', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                isTrush: true,
             }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)

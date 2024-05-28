@@ -43,7 +43,7 @@ export function NotePreview({ note, onRemove }) {
                 {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
                 <img src={"../../../../img/add_alert.png"} alt='' />
                 <img src={"../../../../icons/remove.png"} alt=''
-                    onClick={() => onRemove(note.id)} />
+                    onClick={(event) => onRemove(event, note.id)} />
             </section>
         </article>
     )
