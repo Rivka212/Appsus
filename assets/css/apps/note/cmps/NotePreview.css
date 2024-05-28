@@ -1,73 +1,68 @@
 .note-preview {
     display: grid;
-    /* grid-template-columns: 1fr minmax(200px, 55vw) 1fr;
-    align-items: center;
-    gap: 10px; */
-
+    grid-template-rows: auto 1fr auto;
+    /* align-items: center; */
 }
 
-.note-preview .note-details{
+.note-preview .note-details {
     display: flex;
-    justify-content: space-between;
-
+    grid-row: 1;
+    justify-content: space-between;   
 }
 
-.note-preview .note-details i{
-/* color: rgb(99, 108, 105); */
-} 
+.note-preview .note-dynamic-cmp {
+    grid-row: 2;
+}
 
+.note-preview .action-note {
+    grid-row: auto;
+    margin-top: 35px;
+}
 
 .note-preview h3 {
+    grid-row: 1;
     font-family: 'Arial';
     color: rgb(56, 55, 55);
     font-weight: 215;
+    display: inline;
 }
 
-.note-preview i {
-    color: rgb(36, 35, 35);
+.note-preview .action-note>i,
+.note-preview .action-note>img {
+    margin-inline-start: 0px;
+    padding: 8px;
+    color: rgb(158, 146, 146);
+    filter: grayscale(0%);
+
 
 }
 
 li:hover .action-note {
     display: inline-block;
 }
+
 li:hover span {
     display: inline-block;
 }
 
-.note-preview .action-note i,img {
+.note-preview:hover .action-note {
+    display: block;
+}
+
+.note-preview:hover .action-note>i:hover,
+.note-preview:hover .action-note>img:hover {
+    border-radius: 50%;
+    background-color: rgba(109, 124, 124, 0.233);
+    transition: transform 0.3s;
+    color: rgb(59, 57, 57);
+    filter: grayscale(0%);
+}
+
+
+.note-preview .note-details span > img {
     margin-inline-start: 0px;
-    padding: 10px;
-}
-
-.note-preview .action-note i:last-of-type {
-    margin-inline-start: 10px;
-}  
-
-
-.note-preview:hover .action-note i:hover {
-    border-radius: 50%;
-    background-color: rgba(217, 223, 223, 0.332);
-    transition: transform 0.3s;
-}
-
-.note-preview:hover .action-note img:hover{
-    border-radius: 50%;
-    background-color: rgba(218, 231, 231, 0.279);
-    transition: transform 0.3s;
-    color:rgb(59, 57, 57);
-    filter: grayscale(0%); /* brightness(50%); */
-    
+    max-width: 12px;
+    filter: grayscale(0%);
 }
 
 
-.note-preview img{
-    max-width: 8%;
-     color: rgb(105, 100, 100);
-    filter: grayscale(100%) brightness(30%) contrast(200%);
-}
-
-/* .note-list .action-note{
-    display: inline-block;
-
-} */

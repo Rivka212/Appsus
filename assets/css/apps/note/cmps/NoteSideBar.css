@@ -1,45 +1,59 @@
+
 .note-sidebar {
-    display: flex;   
-    margin: 0%;
+    max-width: 256px;
+}
+
+.note-sidebar ul {
+    display: flex;
+    flex-direction: column;
+    padding-inline-start: 0;
 }
 
 .note-sidebar:hover{
-    /* border: 1px solid #dfdcdc;  */
     box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
 }
 
 .note-sidebar img {
-    max-width: 12%;
+    max-width: 10%;
     margin: 0px;
-    /* color: rgb(153, 144, 144); */
+    padding: 10px;
 }
 
 .note-sidebar li {
     display: flex;
     justify-items: center;
     align-items: center;
-    padding: 5px;
+    padding: 2px;
 }
 
 .note-sidebar ul:hover .name-teams {
     display: block;
-    
 }
+
 
 .note-sidebar .note-teams:hover {
     border-top-right-radius: 25px;
     border-bottom-right-radius:25px;
-    background-color: rgb(237, 231, 231);
+    background-color: rgb(246, 239, 239);
 }
 
 .note-sidebar .name-teams {
-    margin-inline-start: 20px;
     color: rgb(43, 39, 39);
     text-transform: capitalize;
-    
 }
 
 .note-sidebar img {
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(150%);
-
  }
+
+ .note-sidebar .note-teams:first-child img {
+    border-radius: 50%;
+    background-color: #feefc3;
+    filter: none;
+}
+
+.note-sidebar:hover .note-teams:first-child {
+    background-color: #feefc3;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius:25px;
+}
