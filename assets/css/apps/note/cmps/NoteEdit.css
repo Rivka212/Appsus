@@ -38,7 +38,7 @@
     border-radius: 5px;
 }
 
-.note-edit textarea, input{
+.note-edit textarea, .note-edit input{
     text-decoration: none;
     color: rgb(121, 110, 110);
     border: transparent;

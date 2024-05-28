@@ -1,7 +1,7 @@
 const {useState} = React
 import {ComposeList} from './ComposeList.jsx'
 
-export  function ComposeMail(){
+export  function ComposeMail({setNewMail}){
     const [isOpen, setIsOpen] = useState(false)
 
     function openModal() {
@@ -15,7 +15,7 @@ export  function ComposeMail(){
          <button className="compose-btn" onClick={openModal}>
             <img src="../../../../icons/compose.png"/>
             Compose</button>
-            {isOpen && (<ComposeList closeModal={closeModal} />)}
+            {isOpen && (<ComposeList closeModal={closeModal} setNewMail={setNewMail}/>)}
     </section>
    
 }

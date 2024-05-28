@@ -1,9 +1,12 @@
 .mail-upper-bar ul {
-    display: flex;
     padding: 0;
     margin-block-start: 8px;
     padding-inline: 14px;
     padding-block: 8px;
+}
+
+.mail-upper-bar a{
+    display: flex;
 }
 
 .mail-upper-bar .icon-group {
@@ -11,6 +14,39 @@
     align-items: center;
 
 }
+
+.mail-upper-bar .mail-item {
+    position: relative; /* Ensure positioning context for the hover text */
+  }
+  
+  .mail-upper-bar .menu-icon {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    cursor: pointer;
+  }
+  
+  .mail-upper-bar .hover-text {
+    visibility: hidden; /* Hide text by default */
+    opacity: 0; /* Hide text by default */
+    position: absolute;
+    left: 50%;
+    top: 100%; 
+    transform: translateX(-50%);
+    background-color: #363839d4;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    transition: visibility 0s, opacity 0.4s; /* Smooth transition for the opacity */
+    z-index: 1;
+    font-size: 12px;
+    font-family: Roboto-Regular
+  }
+  
+  .mail-upper-bar .mail-item:hover .hover-text {
+    visibility: visible; /* Show text on hover */
+    opacity: 1; /* Show text on hover */
+  }
 
 
 .mail-upper-bar img {
@@ -35,9 +71,23 @@
     margin: 0 10px; /* Adjust spacing as needed */
 }
 
-.mail-item .back{
+.mail-upper-bar .mail-item .back{
     margin-inline-end: 25px;
 }
-.mail-item .more {
+.mail-upper-bar img {
+    display: block;
+    border-radius: 50%;
+
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    width:20px;
+    height: 20px;
+    border: none;
+}
+
+.mail-upper-bar img:hover {
+    background-color: var(--mail-hover);
+}
+  .more {
     rotate: 90deg;
 }
