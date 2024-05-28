@@ -19,6 +19,7 @@ export const noteService = {
     movePinnedNoteToTop,
     getFilterStatus,
     duplicate,
+    colorStyle,
 }
 
 function query(filterBy = { status: 'notes' }) {
@@ -58,7 +59,7 @@ function getEmptyNote(title = '', txt = '') {
             txt: txt
         },
         isTrashed: false,
-        trashDate:'',
+        trashDate: '',
     }
 }
 
@@ -97,11 +98,21 @@ function get(noteId) {
         })
 }
 
-function duplicate(noteId){
+function duplicate(noteId) {
     const selectedNote = storageService.find(NOTE_KEY, noteId)
     if (selectedNote) {
-        note = { ...selectedNote , id:makeId()}
-       save(note)
+        note = { ...selectedNote, id: makeId() }
+        save(note)
+    }
+    return Promise.resolve(note)
+}
+
+
+function colorStyle(noteId, newColor) {
+    note = storageService.find(NOTE_KEY, noteId)
+    if (note) {
+        note = { ...selectedNote, backgroundColor: newColor }
+        save(note)
     }
     return Promise.resolve(note)
 }
