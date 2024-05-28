@@ -22,11 +22,11 @@ export function NoteIndex() {
     }, [outletNotes])
 
     function removeNote(event,noteId) {
+        console.log(noteId);
         console.log(event);
         event.stopPropagation()
         // noteId !== params
         noteService.remove(noteId)
-       
             .then(() => {
                 setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
             })
