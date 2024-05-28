@@ -12,7 +12,6 @@ export const noteService = {
     get,
     remove,
     save,
-    getDefaultFilter,
     getEmptyNote,
     getNoteById,
     createTeams,
@@ -21,57 +20,27 @@ export const noteService = {
     getFilterStatus,
 }
 
-function query() {
+function query(filterBy = { status: 'notes' }) {
+    console.log(filterBy, 'filterBy');
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            // const trashedNotes = notes.filter(note => note.isTrush); // סינון הערות עם isTrush
-            // const remainingNotes = notes.filter(note => !note.isTrush); // סינון הערות שאינן isTrush
-            //       // העברת הערות עם isTrush לדף "Trash"
-            //       trashedNotes.forEach(trashedNote => {
-            //         // פעולות להעברת הערה לדף "Trash"
-           
-            const sortedNotes = getSortByPinned(notes)
-            return sortedNotes
+            if (filterBy.status === 'notes' || !filterBy.status) {
+                notes = notes.filter(note => !note.isTrashed)
+                notes = getSortByPinned(notes)
+            } else if (filterBy.status === 'trash') {
+                notes = notes.filter(note => note.isTrashed)
+            }
+            return notes
         })
 }
-// function query() {
-//     return storageService.query(NOTE_KEY)
-//         .then(notes => {
-//             getSortByPinned()
-//             return notes
-//         })
-// }
-            // if (filterBy.title) {
-            //     const regExp = new RegExp(filterBy.title, 'i')
-            //     notes = notes.filter(note => regExp.test(note.title))
-            // }
-            // if (filterBy.minAmount) {
-            //     notes = notes.filter(note => note.listPrice.amount >= filterBy.minAmount)
-            // }
 
 
 
-function getDefaultFilter(filterBy = { title: '', minAmount: 0 }) {
-    return { title: filterBy.title, minAmount: filterBy.minAmount }
-}
-// function getFilterBy() {
-//     return {
-//         title: '',
-//         minPrice: '',
-//         maxPrice: '',
-//     }
-// }
-
-function getFilterStatus(notes, filterBy = { status: 'notes'}) {
-    console.log(filterBy.status);
-    if(filterBy.status === 'trash'){
-        const trashedNotes = notes.filter(note => note.isTrush)
-        // return trashedNotes
-        return Promise.resolve(trashedNotes)
+function getFilterStatus(notes, filterBy = { status: 'notes' }) {
+    if (filterBy.status === 'trash') {
+        notes = notes.filter(note => note.isTrashed);
     }
-    return {
-        status: filterBy.status || 'notes',
-    }
+    return Promise.resolve({ status: filterBy.status || 'notes' })
 }
 
 
@@ -172,7 +141,7 @@ function _createNotes() {
                 info: {
                     txt: 'Fullstack Me Baby!'
                 },
-                isTrush: false,
+                isTrashed: true,
 
             },
             {
@@ -187,7 +156,7 @@ function _createNotes() {
                     // url:'img/flower.png',
                     title: 'Bobi and Me'
                 },
-                isTrush: false,
+                isTrashed: false,
             },
             {
                 id: 'n103',
@@ -200,7 +169,7 @@ function _createNotes() {
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
                 },
-                isTrush: false,
+                isTrashed: false,
             },
             {
                 id: 'n104',
@@ -216,7 +185,7 @@ function _createNotes() {
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
                 },
-                isTrush: false,
+                isTrashed: false,
             },
             {
                 id: 'n105',
@@ -229,7 +198,7 @@ function _createNotes() {
                 info: {
                     txt: 'Fullstack Me Baby!'
                 },
-                isTrush: false,
+                isTrashed: false,
             },
             {
                 id: 'n106',
@@ -244,7 +213,7 @@ function _createNotes() {
                     // url:'img/flower.png',
                     title: 'Bobi and Me'
                 },
-                isTrush: false,
+                isTrashed: false,
             },
             {
                 id: 'n107',
@@ -260,7 +229,7 @@ function _createNotes() {
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
                 },
-                isTrush: true,
+                isTrashed: true,
             }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)

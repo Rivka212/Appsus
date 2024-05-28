@@ -7,56 +7,23 @@ import { noteService } from '../services/note.service.js';
 
 export function NoteApp() {
     const [notes, setNotes] = useState([])
-     const [team, setTeam] = useState(noteService.getFilterStatus())
-    // const [status, setStatuse] = useState
+    //  const [team, setTeam] = useState(noteService.getFilterStatus({ status: 'notes' }))
+    const [team, setTeam] = useState({ status: 'notes' })
     const { status } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
-        noteService.query()
-            .then(notes => setNotes(notes))
-    }, [])
+        noteService.query(team)
+            .then(setNotes)
+            .catch(() => setNotes([]));
+    }, [team])
 
     useEffect(() => {
         if (status) {
-            setTeam(noteService.getFilterStatus({notes, status }))
-        } else {
-            setTeam(noteService.getFilterStatus({notes, status: 'notes' }))
+            setTeam(prevTeam => ({ ...prevTeam, status }))
         }
     }, [status])
 
-    // useEffect(() => {
-    //     if (status) {
-    //         const filteredNotes = getFilterStatus(notes, { status })
-    //         setTeam(filteredNotes)
-    //     }
-    // }, [status, notes])
-
-    // useEffect(() => {
-    //     if (status === 'notes') {
-    //     }
-    // }, [notes])
-
-    // useEffect(() => {
-    //     if (status === 'notes') {
-    //     } else if (status === 'newStatus') {
-    //     }
-    // }, [status])
-
-    useEffect(() => {
-        if (status) {
-            setTeam(noteService.getFilterStatus({notes, status }))
-        } else {
-            setTeam(noteService.getFilterStatus({notes, status: 'notes' }))
-        }
-    }, [status])
-
-    // useEffect(() => {
-    //     if (status) {
-    //         const filteredNotes = noteService.getFilterStatus(notes, { status });
-    //         setTeam(filteredNotes);
-    //     }
-    // }, [status, notes]);
 
     function handleChange(status) {
         console.log(status)

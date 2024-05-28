@@ -1,9 +1,5 @@
-import { useEffect } from "react"
 import { noteService } from "../services/note.service.js"
-// import { NavLink } from "react-router-dom";
-
-
-const { useState } = React
+const { useState, useEffect } = React
 const { useNavigate, NavLink } = ReactRouterDOM
 
 export function NoteSideBar({ onChange, status }) {
