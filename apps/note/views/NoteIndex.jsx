@@ -13,17 +13,13 @@ import { NoteEdit } from "../cmps/NoteEdit.jsx";
 
 export function NoteIndex() {
 // debugger
-    // const [notes, setNotes] = useState([])
+    const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
-    const { notes } = useOutletContext()
+    const { notes: outletNotes } = useOutletContext()
 
-    // const params = useParams()
-    // const navigate = useNavigate()
-
-    // useEffect(() => {
-    //     noteService.query()
-    //         .then(notes => setNotes(notes))
-    // }, [])
+    useEffect(() => {
+        setNotes(outletNotes)
+    }, [outletNotes])
 
     function removeNote(event,noteId) {
         console.log(event);
@@ -33,10 +29,6 @@ export function NoteIndex() {
        
             .then(() => {
                 setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
-                // showSuccessMsg(`note (${noteId}) removed successfully!`)
-                // if (!params === noteId) {
-                //     setSelectedNote(null)
-                // }
             })
             .catch(err => {
                 console.log('err:', err)

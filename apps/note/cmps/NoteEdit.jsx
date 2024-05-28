@@ -11,6 +11,8 @@ import { noteService } from '../services/note.service.js'
 export function NoteEdit() {
 
     const [note, setNote] = useState(noteService.getEmptyNote())
+    // const { notes} = useOutletContext()
+ 
     const navigate = useNavigate()
     const params = useParams()
     console.log(params);
@@ -21,7 +23,7 @@ export function NoteEdit() {
         noteService.get(params.noteId)
             .then(note => setNote(note))
     }, [])
-
+    // [params.noteId]
     function onSaveNote(ev) {
         ev.preventDefault()
         noteService.save(note)
