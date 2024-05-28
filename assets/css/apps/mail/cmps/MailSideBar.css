@@ -28,7 +28,12 @@
     background-color: var(--mail-bg3);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+} 
+
+.mail-sidebar .active button{
+    font-weight: bold;
 }
+
 
 .mail-sidebar .mail-item:hover {
     border-top-right-radius: 20px;

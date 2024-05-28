@@ -33,14 +33,21 @@
 
 .sender-details>div:nth-child(2) {
     display: flex;
-    gap: 5px;
-    padding: 5px;
+    gap: 10px;
+}
+.mail-details img {
+    display: block;
+    border-radius: 50%;
+
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    width:20px;
+    height: 20px;
+    border: none;
 }
 
-.mail-details img {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+.mail-details img:hover {
+    background-color: var(--mail-hover);
 }
 
 
@@ -49,7 +56,9 @@
     display: flex;
 }
 
-.sender-details img {}
+
+
+
 
 .mail-details .from-and-date {
     display: flex;
@@ -58,7 +67,37 @@
     gap: 10px;
     /* Add some space between the items */
     font-size: 12px;
+    white-space: none;
 }
+
+
+.mail-details .action-container {
+    position: relative; /* Ensure positioning context for the hover text */
+  }
+  
+  
+  .mail-details .hover-text {
+    visibility: hidden; /* Hide text by default */
+    opacity: 0; /* Hide text by default */
+    position: absolute;
+    left: 50%;
+    top: 100%; 
+    transform: translateX(-50%);
+    background-color: #363839d4;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    transition: visibility 0s, opacity 0.4s; /* Smooth transition for the opacity */
+    z-index: 1;
+    font-size: 12px;
+    font-family: Roboto-Regular
+  }
+  
+  .mail-details .action-container:hover .hover-text {
+    visibility: visible; /* Show text on hover */
+    opacity: 1; /* Show text on hover */
+  }
 
 .mail-details .btns {
     display: flex;
@@ -70,9 +109,6 @@
     gap: 10px;
     justify-content: center;
     align-items: center;
-
-    padding-block: 8px;
-
 
     border: 1px solid #444746;
     border-radius: 25px;

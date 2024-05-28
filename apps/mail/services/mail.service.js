@@ -7,6 +7,7 @@ const loggedinUser = {
 }
 
 export const mailService = {
+    loggedinUser,
     query,
     sortEmailsByDate,
     getMail,
@@ -15,6 +16,7 @@ export const mailService = {
     formatDate2,
     countIsRead,
     addIsRead,
+    changeMailType,
 
 }
 
@@ -101,12 +103,10 @@ function _createMails() {
             id: utilService.makeId(),
             subject: 'Invitation for workshop',
             body: `Dear sivan,
-            I am excited to invite you to a workshop on "Effective Communication Skills" 
-            that we are hosting next month. 
-            Your participation would be invaluable, 
-            and I believe you would gain a lot from the experience. 
-            Please let me know if you are interested, 
-            and I will send you further details.
+            I am excited to invite you to a workshop on "Effective Communication Skills" that we are hosting next month. 
+            Your participation would be invaluable, and I believe you would gain a lot from the experience. 
+            Please let me know if you are interested, and I will send you further details.
+            
             Best regards,
             Emma`,
             isRead: false,
@@ -270,4 +270,23 @@ function addIsRead(mailId) {
         mails[mailIndex].isRead = true // Set isRead to true
         _saveMailsToStorage(mails) // Save the updated mails 
     }
+}
+
+function changeMailType(mailId, type){
+    return new Promise((resolve, reject) => {
+        const mails = _loadMailsFromStorage();
+        const mailIndex = mails.findIndex(mail => mail.id === mailId);
+
+        if (mailIndex === -1) {
+            return reject('Mail not found');
+        }
+
+        if (mails[mailIndex].type === type) {
+            return resolve(mails[mailIndex]);
+        }
+
+        mails[mailIndex].type = type;
+        _saveMailsToStorage(mails);
+        resolve(mails[mailIndex]);
+    });
 }
