@@ -15,7 +15,9 @@ export const mailService = {
     formatDate,
     formatDate2,
     countIsRead,
-    addIsRead,
+    markAsRead,
+    markAsUnread,
+    toggleReadStatus,
     changeMailType,
     addMail,
 
@@ -279,16 +281,44 @@ function formatDate2(timestamp) {
     }
 }
 
-function addIsRead(mailId) {
-    const mails = _loadMailsFromStorage()
-    const mailIndex = mails.findIndex(mail => mail.id === mailId)
+function markAsRead(mailId) {
+    const mails = _loadMailsFromStorage();
+    const mailIndex = mails.findIndex(mail => mail.id === mailId);
 
-    if (mails[mailIndex].isRead === true) return
-
-    if (mailIndex >= 0) { // Check if the mail exists
-        mails[mailIndex].isRead = true // Set isRead to true
-        _saveMailsToStorage(mails) // Save the updated mails 
+    if (mailIndex >= 0 && !mails[mailIndex].isRead) { // Check if the mail exists and is not already read
+        mails[mailIndex].isRead = true; // Set isRead to true
+        _saveMailsToStorage(mails); // Save the updated mails
     }
+}
+
+function markAsUnread(mailId) {
+    const mails = _loadMailsFromStorage();
+    const mailIndex = mails.findIndex(mail => mail.id === mailId);
+
+    if (mailIndex >= 0 && mails[mailIndex].isRead) { // Check if the mail exists and is currently read
+        mails[mailIndex].isRead = false; // Set isRead to false
+        _saveMailsToStorage(mails); // Save the updated mails
+    }
+}
+
+function toggleReadStatus(mailId) {
+    return new Promise((resolve, reject) => {
+        try {
+            const mails = _loadMailsFromStorage();
+            const mailIndex = mails.findIndex(mail => mail.id === mailId);
+
+            if (mailIndex >= 0) { // Check if the mail exists
+                mails[mailIndex].isRead = !mails[mailIndex].isRead; // Toggle isRead status
+
+                _saveMailsToStorage(mails); // Save the updated mails
+                resolve(mails[mailIndex]); // Resolve the promise with the updated mail
+            } else {
+                reject(new Error('Mail not found')); // Reject the promise if the mail is not found
+            }
+        } catch (error) {
+            reject(error); // Reject the promise if there's an error
+        }
+    });
 }
 
 function changeMailType(mailId, type) {

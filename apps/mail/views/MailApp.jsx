@@ -15,7 +15,7 @@ export function MailApp() {
         if (status === 'inbox') {
             setReadCount(mailService.countIsRead(mails))
         }
-    }, [mails])
+    }, [mails,])
 
     useEffect(() => {
         if (status) {
@@ -26,20 +26,40 @@ export function MailApp() {
     }, [status])
 
     useEffect(() => {
-        mailService.query(criteria).then(setMails).catch(() => setMails([]))
-    }, [criteria])
+        mailService.query(criteria)
+        .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
+        .catch(() => setMails([]));
+}, [criteria]);
+
 
     useEffect(() => {
         if (newMail) {
-            mailService.query(criteria).then(setMails).catch(() => setMails([]));        }
-    }, [newMail])
+            mailService.query(criteria)
+            .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
+            .catch(() => setMails([]));
+        }
+    }, [newMail]);        
 
-    return (
-        <section className="main-layout">
-            <MailSideBar readCount={readCount} setNewMail={setNewMail} />
-            <main>
-                <Outlet context={{ criteria, mails, status }} />
-            </main>
+    
+
+    const handleToggleRead = (mailId, updatedIsRead) => {
+        setMails(prevMails =>
+          prevMails.map(mail =>
+            mail.id === mailId ? { ...mail, isRead: updatedIsRead } : mail
+          )
+        );
+        setReadCount(prevReadCount => {
+            const newReadCount = mailService.countIsRead(mails);
+            return newReadCount;
+    })
+      };
+
+      return (
+        <section className="mail-app-main-layout">
+          <MailSideBar readCount={readCount} setNewMail={setNewMail} />
+          <main>
+            <Outlet context={{ criteria, mails, status, handleToggleRead }} />
+          </main>
         </section>
-    )
-}
+      );
+    }

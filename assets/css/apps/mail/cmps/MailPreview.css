@@ -10,7 +10,7 @@
     gap: 10px;
 }
 .sender{
-    width: 70px;
+    width: 80px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

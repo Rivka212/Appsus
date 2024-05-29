@@ -4,7 +4,7 @@ main {
     border-radius: 25px;
 }
 
-.main-layout {
+.mail-app-main-layout {
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 246px auto;

@@ -1,25 +1,29 @@
 header {
 
-    background: lightcyan;
+    background: #006064;
+    color: white;
     border-bottom: 2px solid white;
 }
 
 .app-header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px 30px;
+}
+
+.app-header h3{
+    font-size: 24px;
 }
 
 nav a {
     margin: .5em;
+    transition: font-size 0.3s; 
 }
 
-nav a:active {
-    color: purple;
-}
+
 
 nav a.active {
-    color: darkblue;
-    font-weight: bold;
-    text-decoration: overline;
+    color: rgb(227, 189, 39);
+    font-family:Roboto-Bold;
+    font-size:20px;
 }
