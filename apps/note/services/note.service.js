@@ -16,19 +16,21 @@ export const noteService = {
     getNoteById,
     createTeams,
     getSortByPinned,
-    movePinnedNoteToTop,
+    // movePinnedNoteToTop,
     getFilterStatus,
     duplicate,
     colorStyle,
+    updateNotePinnedStatus,
 }
 
 function query(filterBy = { status: 'notes' }) {
-    console.log(filterBy, 'filterBy');
+    // console.log(filterBy, 'filterBy');
     return storageService.query(NOTE_KEY)
         .then(notes => {
             if (filterBy.status === 'notes' || !filterBy.status) {
                 notes = notes.filter(note => !note.isTrashed)
                 notes = getSortByPinned(notes)
+                console.log(notes);
             } else if (filterBy.status === 'trash') {
                 notes = notes.filter(note => note.isTrashed)
             }
@@ -68,17 +70,9 @@ function getSortByPinned(notes) {
     const unpinnedNotes = notes.filter(note => !note.isPinned)
 
     const sortedNotes = [...pinnedNotes, ...unpinnedNotes]
-    return sortedNotes
-}
+    // const sortedNotes =[ {...pinnedNotes}, {...unpinnedNotes}]
 
-function movePinnedNoteToTop(noteId) {
-    const noteToMove = notes.find(note => note.id === noteId)
-    if (noteToMove && noteToMove.isPinned) {
-        const updatedNotes = notes.filter(note => note.id !== noteId)
-        updatedNotes.unshift(noteToMove)
-        return updatedNotes
-    }
-    return notes
+    return sortedNotes
 }
 
 
@@ -98,20 +92,39 @@ function get(noteId) {
         })
 }
 
-
-function duplicate(noteId) {
-    console.log(noteId);
+function updateNotePinnedStatus(noteId, newIsPinned) {
     const notes = _loadNotesFromStorage()
     const note = notes.find((note) => note.id === noteId)
     if (note) {
-        const duplicatedNote = { ...note, id: makeId() }
+        const updatedNote = { ...note, isPinned: newIsPinned }
+        save(updatedNote)
+    // return Promise.resolve(updatedNote)
+}}
+
+
+// function movePinnedNoteToTop(noteId) {
+//     const noteToMove = notes.find(note => note.id === noteId)
+//     if (noteToMove && noteToMove.isPinned) {
+//         const updatedNotes = notes.filter(note => note.id !== noteId)
+//         updatedNotes.unshift(noteToMove)
+//         return updatedNotes
+//     }
+//   return new Promise.resolve(notes)
+// }
+
+
+function duplicate(noteCopy) {
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteCopy.id)
+    if (note) {
+        const duplicatedNote = { ...note, id: '' }
         save(duplicatedNote)
         return Promise.resolve(duplicatedNote)
     } else {
         return Promise.reject("Note not found")
     }
 }
-    // note = storageService.find(NOTE_KEY, noteId)
+// note = storageService.find(NOTE_KEY, noteId)
 
 
 // function colorStyle(noteId, newColor) {

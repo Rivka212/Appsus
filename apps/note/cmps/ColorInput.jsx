@@ -28,7 +28,8 @@ export function ColorInput({ onSetNoteColor, backgroundColor }) {
                         key={color}
                         className={`item ${backgroundColor === color ? 'chosen' : ''}`}
                         style={{ backgroundColor: color }}
-                        onClick={() => onSetColor(color)}
+                       onClick={(ev) => {
+                            ev.stopPropagation(), onSetColor(ev, color)}}
                     >
                     </div>
                 ))}

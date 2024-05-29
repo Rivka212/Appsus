@@ -30,7 +30,7 @@ export function NoteIndex() {
     useEffect(() => {
         noteService.query(criteria)
             .then(setNotes)
-            .catch(() => setNotes([]));
+            .catch(() => setNotes([]))
     }, [criteria])
 
     useEffect(() => {
@@ -44,16 +44,10 @@ export function NoteIndex() {
         console.log(status)
         navigate(`/note/${status}`)
     }
-    console.log(status);
+    // console.log(status);
 
-    // useEffect(() => {
-    //     setNotes(outletNotes)
-    // }, [outletNotes])
 
-    function removeNote(event, noteId) {
-        console.log(noteId);
-        console.log(event);
-        event.stopPropagation()
+    function removeNote(ev, noteId) {
         // noteId !== params
         noteService.remove(noteId)
             .then(() => {
@@ -65,6 +59,21 @@ export function NoteIndex() {
             })
     }
 
+
+function handleSetNotePinned(noteId, isPinned){
+            const updatedNotes = noteService.query()
+            console.log(updatedNotes)
+            .then(() => {
+            setNotes(updatedNotes)
+            console.log(updatedNotes)
+        })
+        .catch(err => {
+            console.log('err:', err)
+            // showErrorMsg('There was a problem')
+        })
+}
+
+
     function handleNoteClick(noteId) {
         setSelectedNote(noteId)
     }
@@ -75,7 +84,7 @@ export function NoteIndex() {
             <NoteSideBar onChange={handleChange} status={status} />
             <main>
                 <NoteAdd noteId={selectedNote} />
-                <NoteList notes={notes} onRemove={removeNote} />
+                <NoteList notes={notes} onRemove={removeNote} onSetNotePinned={handleSetNotePinned}/>
             </main>
         </section>
     </section>

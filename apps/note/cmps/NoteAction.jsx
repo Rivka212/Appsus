@@ -7,9 +7,13 @@ export function NoteAction({ note, onRemove }) {
     const [noteColor, setNoteColor] = useState({ backgroundColor: '#101010' })
     const [showColorPalette, setShowColorPalette] = useState(false)
 
+
+    // useEffect(() => {
+    //         .then( setNotes(notes))
+    //         .catch(() => setNotes([]))
+    // }, [])
+
     function onDuplicate(note) {
-        console.log(note);
-        // noteId !== params
         noteService.duplicate(note)
             .then((duplicatedNote) => {
                 setNotes(prevNotes => [...prevNotes, duplicatedNote])
@@ -20,9 +24,7 @@ export function NoteAction({ note, onRemove }) {
             })
     }
 
-    function onSetNoteColor(ev, note, newColor) {
-        ev.stopPropagation()
-        // noteId !== params
+    function onSetNoteColor(note, newColor) {
         noteService.colorStyle(note, newColor)
             .then((newColor) => {
                 setNoteColor(prevColor => ({ ...prevColor, ...newColor }))
@@ -45,7 +47,7 @@ export function NoteAction({ note, onRemove }) {
             {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
             <img src={"../../../../img/add_alert.png"} alt=''
                 onClick={(ev) => {
-                    ev.stopPropagation(), onDuplicate(ev, note)
+                    ev.stopPropagation(), onDuplicate(note)
                 }} />
             <img src={"../../../../icons/remove.png"} alt=''
                 onClick={(ev) => {
