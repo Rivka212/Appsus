@@ -12,37 +12,37 @@ export const noteService = {
     get,
     remove,
     save,
-    getDefaultFilter,
     getEmptyNote,
     getNoteById,
     createTeams,
+    getSortByPinned,
+    movePinnedNoteToTop,
+    getFilterStatus,
 }
 
-function query(filterBy = {}) {
+function query(filterBy = { status: 'notes' }) {
+    console.log(filterBy, 'filterBy');
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            // if (filterBy.title) {
-            //     const regExp = new RegExp(filterBy.title, 'i')
-            //     notes = notes.filter(note => regExp.test(note.title))
-            // }
-            // if (filterBy.minAmount) {
-            //     notes = notes.filter(note => note.listPrice.amount >= filterBy.minAmount)
-            // }
+            if (filterBy.status === 'notes' || !filterBy.status) {
+                notes = notes.filter(note => !note.isTrashed)
+                notes = getSortByPinned(notes)
+            } else if (filterBy.status === 'trash') {
+                notes = notes.filter(note => note.isTrashed)
+            }
             return notes
         })
 }
 
 
-function getDefaultFilter(filterBy = { title: '', minAmount: 0 }) {
-    return { title: filterBy.title, minAmount: filterBy.minAmount }
+
+function getFilterStatus(notes, filterBy = { status: 'notes' }) {
+    if (filterBy.status === 'trash') {
+        notes = notes.filter(note => note.isTrashed);
+    }
+    return Promise.resolve({ status: filterBy.status || 'notes' })
 }
-// function getFilterBy() {
-//     return {
-//         title: '',
-//         minPrice: '',
-//         maxPrice: '',
-//     }
-// }
+
 
 function getEmptyNote(title = '', txt = '') {
     return {
@@ -63,6 +63,25 @@ function getEmptyNote(title = '', txt = '') {
 //     title: '',
 //     txt: ''
 // }
+
+function getSortByPinned(notes) {
+    const pinnedNotes = notes.filter(note => note.isPinned)
+    const unpinnedNotes = notes.filter(note => !note.isPinned)
+
+    const sortedNotes = [...pinnedNotes, ...unpinnedNotes]
+    return sortedNotes
+}
+
+function movePinnedNoteToTop(noteId) {
+    const noteToMove = notes.find(note => note.id === noteId)
+    if (noteToMove && noteToMove.isPinned) {
+        const updatedNotes = notes.filter(note => note.id !== noteId)
+        updatedNotes.unshift(noteToMove)
+        return updatedNotes
+    }
+    return notes
+}
+
 
 function getNoteById(noteId) {
     const notes = _loadNotesFromStorage()
@@ -93,7 +112,7 @@ function save(note) {
     }
 }
 
-function createTeams(){
+function createTeams() {
     const teams = [
         { type: 'notes', icon: '../../../../icons/light-bulb.png' },
         { type: 'reminders', icon: '../../../../icons/bell.png' },
@@ -121,20 +140,23 @@ function _createNotes() {
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
-                }
+                },
+                isTrashed: true,
+
             },
             {
                 id: 'n102',
                 type: 'NoteImg',
                 isPinned: false,
-                 style: {
+                style: {
                     backgroundColor: '#B4DDD3'
-                 },
+                },
                 info: {
                     url: 'http://some-img/me',
                     // url:'img/flower.png',
                     title: 'Bobi and Me'
-                }
+                },
+                isTrashed: false,
             },
             {
                 id: 'n103',
@@ -146,14 +168,15 @@ function _createNotes() {
                         { txt: 'Driving license', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                isTrashed: false,
             },
             {
                 id: 'n104',
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
-                backgroundColor:'#F39F76'
+                    backgroundColor: '#F39F76'
                 },
                 info: {
                     title: 'Get my stuff together',
@@ -161,7 +184,8 @@ function _createNotes() {
                         { txt: 'Driving license', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                isTrashed: false,
             },
             {
                 id: 'n105',
@@ -173,28 +197,30 @@ function _createNotes() {
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
-                }
+                },
+                isTrashed: false,
             },
             {
                 id: 'n106',
                 type: 'NoteImg',
                 isPinned: false,
-                 style: {
+                style: {
                     backgroundColor: '#F6E2DD'
-                    
-                 },
+
+                },
                 info: {
                     url: 'http://some-img/me',
                     // url:'img/flower.png',
                     title: 'Bobi and Me'
-                }
+                },
+                isTrashed: false,
             },
             {
                 id: 'n107',
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
-                    backgroundColor:'#E9E3D4'
+                    backgroundColor: '#E9E3D4'
                 },
                 info: {
                     title: 'Get my stuff together',
@@ -202,7 +228,8 @@ function _createNotes() {
                         { txt: 'Driving license', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                isTrashed: true,
             }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)

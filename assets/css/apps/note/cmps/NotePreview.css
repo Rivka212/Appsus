@@ -61,7 +61,7 @@ li:hover span {
 
 .note-preview .note-details span > img {
     margin-inline-start: 0px;
-    max-width: 12px;
+    max-width: 20px;
     filter: grayscale(0%);
 }
 
