@@ -20,6 +20,7 @@ export const mailService = {
     toggleReadStatus,
     changeMailType,
     addMail,
+    removeMail,
 
 }
 
@@ -352,4 +353,24 @@ function addMail(mail) {
         }
 
     })
+}
+
+function removeMail(mailId) {
+    return new Promise((resolve, reject) => {
+        try {
+            const mails = _loadMailsFromStorage();
+            const mailIndex = mails.findIndex(mail => mail.id === mailId);
+
+            if (mailIndex >= 0) { // Check if the mail exists
+                mails.splice(mailIndex, 1) // Toggle isRead status
+
+                _saveMailsToStorage(mails); // Save the updated mails
+                resolve(mails[mailIndex]); // Resolve the promise with the updated mail
+            } else {
+                reject(new Error('Mail not found')); // Reject the promise if the mail is not found
+            }
+        } catch (error) {
+            reject(error); // Reject the promise if there's an error
+        }
+    });
 }

@@ -14,7 +14,7 @@ export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, s
       </div>
       {isHovered ? (
         <div>
-          <TrashAction mailId={mail.id} onActionComplete={onActionComplete} />
+          <TrashAction mail={mail} onActionComplete={onActionComplete} />
           <ToggleRead mailId={mail.id} isRead={mail.isRead} onToggleRead={onToggleRead} />
         </div>
       ) : (

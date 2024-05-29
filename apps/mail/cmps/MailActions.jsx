@@ -4,15 +4,30 @@ const { useState, useEffect } = React
 import { mailService } from '../services/mail.service.js';
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js';
 
-export function TrashAction({ mailId, onActionComplete, navigateBack = false }) {
+export function TrashAction({ mail, onActionComplete, navigateBack = false }) {
   const navigate = useNavigate()
 
   function handleTrashClick(event) {
     event.preventDefault();
     event.stopPropagation();
-    mailService.changeMailType(mailId, 'trash')
+    if (mail.type=== 'trash') {
+        mailService.removeMail(mail.id)
+        .then(() => {
+            onActionComplete(mail.id);
+            showSuccessMsg('Conversation deleted forever.', 'success')
+            if (navigateBack) {
+              navigate(-1); // Navigate back to the last page if navigateBack is true
+            }
+          })
+          .catch(() => {
+            showErrorMsg('Failed to delete mail.', 'error');
+          })
+      
+    }
+    else {
+        mailService.changeMailType(mail.id, 'trash')
       .then(() => {
-        onActionComplete(mailId);
+        onActionComplete(mail.id);
         showSuccessMsg('Conversation moved to Trash.', 'success')
         if (navigateBack) {
           navigate(-1); // Navigate back to the last page if navigateBack is true
@@ -22,6 +37,7 @@ export function TrashAction({ mailId, onActionComplete, navigateBack = false }) 
         showErrorMsg('Failed to move mail to trash.', 'error');
       })
   }
+}
 
   return (
     <img

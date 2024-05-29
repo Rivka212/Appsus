@@ -1,6 +1,7 @@
 const { useState, useEffect } = React
 const { Outlet, useParams, useNavigate } = ReactRouterDOM
 import { MailSideBar } from "../cmps/MaIlSideBar.jsx"
+import { MailHeader } from "../cmps/MailHeader.jsx"
 import { mailService } from "../services/mail.service.js"
 
 export function MailApp() {
@@ -27,39 +28,43 @@ export function MailApp() {
 
     useEffect(() => {
         mailService.query(criteria)
-        .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
-        .catch(() => setMails([]));
-}, [criteria]);
+            .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
+            .catch(() => setMails([]));
+    }, [criteria]);
 
 
     useEffect(() => {
         if (newMail) {
             mailService.query(criteria)
-            .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
-            .catch(() => setMails([]));
+                .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
+                .catch(() => setMails([]));
         }
-    }, [newMail]);        
+    }, [newMail]);
 
-    
+
 
     const handleToggleRead = (mailId, updatedIsRead) => {
         setMails(prevMails =>
-          prevMails.map(mail =>
-            mail.id === mailId ? { ...mail, isRead: updatedIsRead } : mail
-          )
+            prevMails.map(mail =>
+                mail.id === mailId ? { ...mail, isRead: updatedIsRead } : mail
+            )
         );
         setReadCount(prevReadCount => {
             const newReadCount = mailService.countIsRead(mails);
             return newReadCount;
-    })
-      };
+        })
+    };
 
-      return (
-        <section className="mail-app-main-layout">
-          <MailSideBar readCount={readCount} setNewMail={setNewMail} />
-          <main>
-            <Outlet context={{ criteria, mails, status, handleToggleRead }} />
-          </main>
+    return (
+        <section >
+            <MailHeader />
+            <div className="mail-app-main-layout">
+                <MailSideBar readCount={readCount} setNewMail={setNewMail} />
+                <main>
+                    <Outlet context={{ criteria, mails, status, handleToggleRead }} />
+                </main>
+            </div>
+
         </section>
-      );
-    }
+    );
+}
