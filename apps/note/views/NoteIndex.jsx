@@ -46,3 +46,7 @@ export function NoteIndex() {
         <NoteList notes={notes} onRemove={removeNote}  />
     </section>
 }
+
+
+
+// white-space: pre-wrap; /* Preserve whitespace and wrap text */

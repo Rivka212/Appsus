@@ -120,6 +120,8 @@ function colorStyle(noteId, newColor) {
 
 function remove(noteId) {
     const notes = _loadNotesFromStorage()
+
+    // const notes = _loadNotesFromStorage()
     const note = notes.find((note) => note.id === noteId)
     if (note) {
         note.isTrashed = true
