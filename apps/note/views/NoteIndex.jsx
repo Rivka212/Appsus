@@ -1,27 +1,56 @@
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
 
-const { Link } = ReactRouterDOM
-const { useOutletContext } = ReactRouterDOM
+// const { Link, useOutletContext } = ReactRouterDOM
 
 import { noteService } from '../services/note.service.js'
 import { NoteHeader } from './NoteHeader.jsx'
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
-import { NoteAdd } from '../cmps/NoteAdd.jsx'
+import { NoteAdd } from '../cmps/NoteAdd.jsx';
 import { NoteEdit } from "../cmps/NoteEdit.jsx";
+import {NoteSideBar} from "../cmps/NoteSideBar.jsx";
+
 
 export function NoteIndex() {
-// debugger
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
-    const { notes: outletNotes } = useOutletContext()
+   
+    const [criteria, setCriteria] = useState({ status: 'notes' })
+    const { status } = useParams()
+    const navigate = useNavigate()
+
+   
+    useEffect(() => {
+        noteService.query()
+            .then(notes => setNotes(notes))
+            .catch(() => setNotes([]))
+    }, [])
 
     useEffect(() => {
-        setNotes(outletNotes)
-    }, [outletNotes])
+        noteService.query(criteria)
+            .then(setNotes)
+            .catch(() => setNotes([]));
+    }, [criteria])
 
-    function removeNote(event,noteId) {
+    useEffect(() => {
+        if (status) {
+            setCriteria(prevCriteria => ({ ...prevCriteria, status }))
+        }
+    }, [status])
+
+
+    function handleChange(status) {
+        console.log(status)
+        navigate(`/note/${status}`)
+    }
+    console.log(status);
+
+    // useEffect(() => {
+    //     setNotes(outletNotes)
+    // }, [outletNotes])
+
+    function removeNote(event, noteId) {
         console.log(noteId);
         console.log(event);
         event.stopPropagation()
@@ -42,11 +71,14 @@ export function NoteIndex() {
 
     return <section>
         <NoteHeader />
-        <NoteAdd noteId={selectedNote}/>
-        <NoteList notes={notes} onRemove={removeNote}  />
+        <section className="main-container-note">
+            <NoteSideBar onChange={handleChange} status={status} />
+            <main>
+                <NoteAdd noteId={selectedNote} />
+                <NoteList notes={notes} onRemove={removeNote} />
+            </main>
+        </section>
     </section>
 }
 
 
-
-// white-space: pre-wrap; /* Preserve whitespace and wrap text */

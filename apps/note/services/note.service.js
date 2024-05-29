@@ -98,30 +98,47 @@ function get(noteId) {
         })
 }
 
-function duplicate(noteId) {
-    const selectedNote = storageService.find(NOTE_KEY, noteId)
-    if (selectedNote) {
-        note = { ...selectedNote, id: makeId() }
-        save(note)
-    }
-    return Promise.resolve(note)
-}
 
+function duplicate(noteId) {
+    console.log(noteId);
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    if (note) {
+        const duplicatedNote = { ...note, id: makeId() }
+        save(duplicatedNote)
+        return Promise.resolve(duplicatedNote)
+    } else {
+        return Promise.reject("Note not found")
+    }
+}
+    // note = storageService.find(NOTE_KEY, noteId)
+
+
+// function colorStyle(noteId, newColor) {
+//     const notes = _loadNotesFromStorage()
+//     const note = notes.find((note) => note.id === noteId)
+//     if (note) {
+//         note = { ...selectedNote, backgroundColor: newColor }
+//         save(note)
+//     }
+//     return Promise.resolve(note)
+// }
 
 function colorStyle(noteId, newColor) {
-    note = storageService.find(NOTE_KEY, noteId)
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
     if (note) {
-        note = { ...selectedNote, backgroundColor: newColor }
-        save(note)
+        const updatedNote = { ...note, backgroundColor: newColor }
+        save(updatedNote)
+        return Promise.resolve(updatedNote)
+    } else {
+        return Promise.reject("Note not found")
     }
-    return Promise.resolve(note)
 }
 
 
 function remove(noteId) {
     const notes = _loadNotesFromStorage()
-
-    // const notes = _loadNotesFromStorage()
     const note = notes.find((note) => note.id === noteId)
     if (note) {
         note.isTrashed = true
@@ -276,5 +293,6 @@ function _createNotes() {
 
 
 function _loadNotesFromStorage() {
-    return storageService.loadFromStorage(NOTE_KEY)
+    // return storageService.loadFromStorage(NOTE_KEY)
+    return utilService.loadFromStorage(NOTE_KEY)
 }

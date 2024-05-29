@@ -1,4 +1,5 @@
 const { useState, useEffect } = React
+import { noteService } from '../services/note.service.js'
 import { ColorInput } from "./ColorInput.jsx";
 
 export function NoteAction({ note, onRemove }) {
@@ -6,8 +7,8 @@ export function NoteAction({ note, onRemove }) {
     const [noteColor, setNoteColor] = useState({ backgroundColor: '#101010' })
     const [showColorPalette, setShowColorPalette] = useState(false)
 
-    function onDuplicate(event, note) {
-        event.stopPropagation()
+    function onDuplicate(note) {
+        console.log(note);
         // noteId !== params
         noteService.duplicate(note)
             .then((duplicatedNote) => {
@@ -19,8 +20,8 @@ export function NoteAction({ note, onRemove }) {
             })
     }
 
-    function onSetNoteColor(event, note, newColor) {
-        event.stopPropagation()
+    function onSetNoteColor(ev, note, newColor) {
+        ev.stopPropagation()
         // noteId !== params
         noteService.colorStyle(note, newColor)
             .then((newColor) => {
@@ -43,9 +44,13 @@ export function NoteAction({ note, onRemove }) {
             {/* //   onClick={(event) => onColor(event, note)} /> */}
             {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
             <img src={"../../../../img/add_alert.png"} alt=''
-                onClick={(event) => onDuplicate(event, note)} />
+                onClick={(ev) => {
+                    ev.stopPropagation(), onDuplicate(ev, note)
+                }} />
             <img src={"../../../../icons/remove.png"} alt=''
-                onClick={(event) => onRemove(event, note.id)} />
+                onClick={(ev) => {
+                    ev.stopPropagation(), onRemove(ev, note.id)
+                }} />
         </section>
 
     )
