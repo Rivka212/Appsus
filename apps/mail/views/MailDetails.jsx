@@ -72,15 +72,15 @@ export function MailDetails() {
           </div>
           <div className="actions">
             <div className="action-container"  onClick={handleStarClick}>
-              <img className="star"  src={isStarred ? '../../../icons/goldstar.svg' : '../../../icons/star.svg'} alt="Star" />
+              <img className="star"  src={isStarred ? './icons/goldstar.svg' : './icons/star.svg'} alt="Star" />
               <span className="hover-text">{hoverTexts['star']}</span>
             </div>
             <div className="action-container">
-              <img className="reply" src="../../icons/reply.png" alt="Reply" />
+              <img className="reply" src="./icons/reply.png" alt="Reply" />
               <span className="hover-text">{hoverTexts['reply']}</span>
             </div>
             <div className="action-container">
-              <img className="more" src="../../icons/more.png" alt="More" />
+              <img className="more" src="./icons/more.png" alt="More" />
               <span className="hover-text">{hoverTexts['more']}</span>
             </div>
           </div>
@@ -89,11 +89,11 @@ export function MailDetails() {
         <p>{mail.body}</p>
         <div className="btns">
           <button onClick={() => setIsReply(true)}>
-            <img src="../../icons/reply.png" alt="Reply" />
+            <img src="./icons/reply.png" alt="Reply" />
             Reply
           </button>
           <button onClick={() => {setIsForward(true)}}>
-            <img className="forward" src="../../icons/reply.png" alt="Forward" />
+            <img className="forward" src="./icons/reply.png" alt="Forward" />
             Forward
           </button>
           {isReply && <ComposeList
