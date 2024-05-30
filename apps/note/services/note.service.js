@@ -21,24 +21,41 @@ export const noteService = {
     duplicate,
     colorStyle,
     updateNotePinnedStatus,
+    getDefaultFilter,
+    getFilterFromSearchParams,
 }
 
 function query(filterBy = { status: 'notes' }) {
-    // console.log(filterBy, 'filterBy');
+    console.log(filterBy, 'filterBy');
     return storageService.query(NOTE_KEY)
         .then(notes => {
             if (filterBy.status === 'notes' || !filterBy.status) {
                 notes = notes.filter(note => !note.isTrashed)
                 notes = getSortByPinned(notes)
-                console.log(notes);
+                // console.log(notes);
             } else if (filterBy.status === 'trash') {
                 notes = notes.filter(note => note.isTrashed)
+            }
+            if (filterBy.status === 'notes' && filterBy.txt) {
+                console.log(filterBy.txt);
+                const regExp = new RegExp(filterBy.txt, 'i')
+                notes = notes.filter(note => regExp.test(note.info.txt))
+                console.log(notes);
             }
             return notes
         })
 }
 
 
+function getDefaultFilter(filterBy = { txt: '' }) {
+    return { txt: filterBy.txt }
+}
+
+function getFilterFromSearchParams(searchParams) {
+    return {
+        txt: searchParams.get('txt') || '',
+    }
+}
 
 function getFilterStatus(notes, filterBy = { status: 'notes' }) {
     if (filterBy.status === 'trash') {
@@ -98,8 +115,9 @@ function updateNotePinnedStatus(noteId, newIsPinned) {
     if (note) {
         const updatedNote = { ...note, isPinned: newIsPinned }
         save(updatedNote)
-    // return Promise.resolve(updatedNote)
-}}
+        // return Promise.resolve(updatedNote)
+    }
+}
 
 
 // function movePinnedNoteToTop(noteId) {
@@ -126,16 +144,6 @@ function duplicate(noteCopy) {
 }
 // note = storageService.find(NOTE_KEY, noteId)
 
-
-// function colorStyle(noteId, newColor) {
-//     const notes = _loadNotesFromStorage()
-//     const note = notes.find((note) => note.id === noteId)
-//     if (note) {
-//         note = { ...selectedNote, backgroundColor: newColor }
-//         save(note)
-//     }
-//     return Promise.resolve(note)
-// }
 
 function colorStyle(noteId, newColor) {
     console.log(newColor, noteId);

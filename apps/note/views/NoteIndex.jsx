@@ -1,7 +1,6 @@
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
-
-// const { Link, useOutletContext } = ReactRouterDOM
+const { Link, useSearchParams } = ReactRouterDOM
 
 import { noteService } from '../services/note.service.js'
 import { NoteHeader } from './NoteHeader.jsx'
@@ -15,17 +14,23 @@ import {NoteSideBar} from "../cmps/NoteSideBar.jsx";
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [selectedNote, setSelectedNote] = useState(null)
-   
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
+
     const [criteria, setCriteria] = useState({ status: 'notes' })
     const { status } = useParams()
     const navigate = useNavigate()
 
    
     useEffect(() => {
+        setSearchParams(filterBy)
+        console.log(filterBy);
         noteService.query()
             .then(notes => setNotes(notes))
             .catch(() => setNotes([]))
-    }, [])
+    }, [filterBy])
 
     useEffect(() => {
         noteService.query(criteria)
@@ -39,6 +44,9 @@ export function NoteIndex() {
         }
     }, [status])
 
+    function onSetFilterBy(newFilter) {
+        setFilterBy({ ...newFilter })
+    }  
 
     function handleChange(status) {
         console.log(status)
@@ -79,7 +87,7 @@ function handleSetNotePinned(noteId, isPinned){
     }
 
     return <section>
-        <NoteHeader />
+        <NoteHeader notes={notes} filterBy={filterBy} onFilter={onSetFilterBy}/>
         <section className="main-container-note">
             <NoteSideBar onChange={handleChange} status={status} />
             <main>

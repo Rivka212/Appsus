@@ -1,16 +1,16 @@
 .note-header {
     display: flex;
     justify-content: space-between;
-    /* padding: 20px 0; */
+    padding: 10px;
     color: #797d81;
-    margin-bottom: 23px;
+    margin-bottom: 10px;
     border-bottom: 1px solid rgb(125, 118, 118);
 
 }
 
 .note-header h1 {
     font-family: 'Roboto-Regular';
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 100;
     color: #777e86;
 }
@@ -37,7 +37,7 @@
 
 .note-header .note-logo{
     display: flex;
-    margin-inline-end: 0px;
+    margin-inline-start: 5px;
 }
 
 .note-header .note-logo i{
@@ -48,3 +48,19 @@
     border-bottom: 1px solid rgb(236, 224, 224)
 }
 
+.note-header .note-filter >input{
+    font-family: 'Roboto-Regular';
+    background-color: rgb(247, 246, 246);
+    border-radius: 5px;
+    min-width: 550px;
+    height: 47px;
+    border: none;
+    font-size: 17px;
+}
+
+/* .note-header .note-filter >input>*{
+    color: #1d3e65;
+} */
+/* .note-header .note-filter >input::placeholder{
+    /* color: black; */
+/* } */ 
