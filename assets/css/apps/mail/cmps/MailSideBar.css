@@ -24,6 +24,10 @@
     padding-block: 6px;
 }
 
+.mail-item button {
+    text-transform: capitalize;
+}
+
 .mail-sidebar .active {
     background-color: var(--mail-bg3);
     border-top-right-radius: 20px;

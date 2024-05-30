@@ -1,10 +1,11 @@
-const { NavLink } = ReactRouterDOM;
 
+const { NavLink, useNavigate } = ReactRouterDOM
 import { mailService } from "../services/mail.service.js";
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
-
+import { TrashAction } from "./MailActions.jsx";
 
 export function MailUpperBar({ mailId }) {
+const navigate = useNavigate()
     const icons = {
         back: '../../../../icons/back.svg',
         archive: '../../../../icons/archive.png',
@@ -43,15 +44,6 @@ export function MailUpperBar({ mailId }) {
 
     function handleClick(mailId, item) {
       switch(item) {
-        case 'trash':
-          mailService.changeMailType(mailId, 'trash')
-            .then(() => {
-              showSuccessMsg('Conversation moved to Trash.', 'success');
-            })
-            .catch(() => {
-              showErrorMsg('Failed to move mail to trash.', 'error');
-            });
-          break;
         case 'archive':
           mailService.changeMailType(mailId, 'archive')
             .then(() => {
@@ -76,28 +68,39 @@ export function MailUpperBar({ mailId }) {
     }
   
     return (
-        <section className="mail-upper-bar">
-          <ul>
-            <NavLink to={`/mail/inbox`}>
-              <li className="mail-item back-item">
-                <img src={icons['back']} alt='back' className={`menu-icon back`} />
-                <span className="hover-text">{hoverTexts['back']}</span>
-              </li>
-              <div className="icon-group">
+      <section className="mail-upper-bar">
+        <ul>
+          
+            <li className="mail-item back-item" onClick={() => navigate(-1)}>
+              <img src={icons['back']} alt='back' className={`menu-icon back`} />
+              <span className="hover-text">{hoverTexts['back']}</span>
+            </li>
+            <div className="icon-group">
               {menuItems.slice(1).map((item, index) => (
                 <React.Fragment key={item}>
-                  <li className="mail-item" onClick={(event) => handleClick(mailId, item)}>
-                    <img src={icons[item]} alt={item} className={`menu-icon ${item}`} />
-                    <span className="hover-text">{hoverTexts[item]}</span>
-                  </li>
+                  {item === 'trash' ? (
+                    <li className="mail-item">
+                      <TrashAction 
+                        mailId={mailId} 
+                        onActionComplete={() => {}} 
+                        
+                        navigateBack={true}
+                      />
+                      <span className="hover-text">{hoverTexts[item]}</span>
+                    </li>
+                  ) : (
+                    <li className="mail-item" onClick={(event) => handleClick(mailId, item)}>
+                      <img src={icons[item]} alt={item} className={`menu-icon ${item}`} />
+                      <span className="hover-text">{hoverTexts[item]}</span>
+                    </li>
+                  )}
                   {(index + 1) % 3 === 0 && index < menuItems.slice(1).length - 1 && (
                     <li className="divider" />
                   )}
                 </React.Fragment>
-                 ))}
-                 </div>
-            </NavLink>
-          </ul>
-        </section>
-      );
+              ))}
+            </div>
+        </ul>
+      </section>
+    );
     }
