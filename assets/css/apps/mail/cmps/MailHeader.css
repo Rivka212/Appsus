@@ -32,7 +32,7 @@
 
 }
 
-.mail-header .search-container img{
+.mail-header .search-container span{
     position: absolute;
     left: 10px; /* Adjust based on icon size */
     width: 20px; /* Adjust based on icon size */
