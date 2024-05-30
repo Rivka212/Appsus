@@ -16,8 +16,13 @@ export const noteService = {
     getNoteById,
     createTeams,
     getSortByPinned,
-    movePinnedNoteToTop,
+    // movePinnedNoteToTop,
     getFilterStatus,
+    duplicate,
+    colorStyle,
+    updateNotePinnedStatus,
+    getDefaultFilter,
+    getFilterFromSearchParams,
 }
 
 function query(filterBy = { status: 'notes' }) {
@@ -27,14 +32,30 @@ function query(filterBy = { status: 'notes' }) {
             if (filterBy.status === 'notes' || !filterBy.status) {
                 notes = notes.filter(note => !note.isTrashed)
                 notes = getSortByPinned(notes)
+                // console.log(notes);
             } else if (filterBy.status === 'trash') {
                 notes = notes.filter(note => note.isTrashed)
+            }
+            if (filterBy.status === 'notes' && filterBy.txt) {
+                console.log(filterBy.txt);
+                const regExp = new RegExp(filterBy.txt, 'i')
+                notes = notes.filter(note => regExp.test(note.info.txt))
+                console.log(notes);
             }
             return notes
         })
 }
 
 
+function getDefaultFilter(filterBy = { txt: '' }) {
+    return { txt: filterBy.txt }
+}
+
+function getFilterFromSearchParams(searchParams) {
+    return {
+        txt: searchParams.get('txt') || '',
+    }
+}
 
 function getFilterStatus(notes, filterBy = { status: 'notes' }) {
     if (filterBy.status === 'trash') {
@@ -55,31 +76,20 @@ function getEmptyNote(title = '', txt = '') {
         info: {
             title: title,
             txt: txt
-        }
+        },
+        isTrashed: false,
+        trashDate: '',
     }
 }
-
-// info: {
-//     title: '',
-//     txt: ''
-// }
 
 function getSortByPinned(notes) {
     const pinnedNotes = notes.filter(note => note.isPinned)
     const unpinnedNotes = notes.filter(note => !note.isPinned)
 
     const sortedNotes = [...pinnedNotes, ...unpinnedNotes]
-    return sortedNotes
-}
+    // const sortedNotes =[ {...pinnedNotes}, {...unpinnedNotes}]
 
-function movePinnedNoteToTop(noteId) {
-    const noteToMove = notes.find(note => note.id === noteId)
-    if (noteToMove && noteToMove.isPinned) {
-        const updatedNotes = notes.filter(note => note.id !== noteId)
-        updatedNotes.unshift(noteToMove)
-        return updatedNotes
-    }
-    return notes
+    return sortedNotes
 }
 
 
@@ -99,9 +109,68 @@ function get(noteId) {
         })
 }
 
+function updateNotePinnedStatus(noteId, newIsPinned) {
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    if (note) {
+        const updatedNote = { ...note, isPinned: newIsPinned }
+        save(updatedNote)
+        // return Promise.resolve(updatedNote)
+    }
+}
+
+
+// function movePinnedNoteToTop(noteId) {
+//     const noteToMove = notes.find(note => note.id === noteId)
+//     if (noteToMove && noteToMove.isPinned) {
+//         const updatedNotes = notes.filter(note => note.id !== noteId)
+//         updatedNotes.unshift(noteToMove)
+//         return updatedNotes
+//     }
+//   return new Promise.resolve(notes)
+// }
+
+
+function duplicate(noteCopy) {
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteCopy.id)
+    if (note) {
+        const duplicatedNote = { ...note, id: '' }
+        save(duplicatedNote)
+        return Promise.resolve(duplicatedNote)
+    } else {
+        return Promise.reject("Note not found")
+    }
+}
+// note = storageService.find(NOTE_KEY, noteId)
+
+
+function colorStyle(noteId, newColor) {
+    console.log(newColor, noteId);
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    if (note) {
+        const updatedNote = { ...note, style: newColor }
+        console.log(updatedNote);
+        save(updatedNote)
+        return Promise.resolve(updatedNote)
+    } else {
+        return Promise.reject("Note not found")
+    }
+}
+
 
 function remove(noteId) {
-    return storageService.remove(NOTE_KEY, noteId)
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    if (note) {
+        note.isTrashed = true
+        note.trashDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        query()
+        save(note)
+    }
+    return Promise.resolve(note)
+    // return storageService.remove(NOTE_KEY, noteId)
 }
 
 function save(note) {
@@ -139,9 +208,10 @@ function _createNotes() {
                     backgroundColor: '#F39F76'
                 },
                 info: {
-                    txt: 'Fullstack Me Baby!'
+                    txt: 'Fullstack is life!'
                 },
                 isTrashed: true,
+                trashDate: '',
 
             },
             {
@@ -157,6 +227,7 @@ function _createNotes() {
                     title: 'Bobi and Me'
                 },
                 isTrashed: false,
+                trashDate: '',
             },
             {
                 id: 'n103',
@@ -170,6 +241,7 @@ function _createNotes() {
                     ]
                 },
                 isTrashed: false,
+                trashDate: '',
             },
             {
                 id: 'n104',
@@ -179,13 +251,16 @@ function _createNotes() {
                     backgroundColor: '#F39F76'
                 },
                 info: {
-                    title: 'Get my stuff together',
+                    title: 'Must do',
                     todos: [
-                        { txt: 'Driving license', doneAt: null },
-                        { txt: 'Coding power', doneAt: 187111111 }
+                        { txt: 'Finish reading the book', doneAt: null },
+                        { txt: 'Go shopping', doneAt: 187111111 },
+                        { txt: 'Take the dog for a walk', doneAt: null },
+                        { txt: 'Wash the car', doneAt: 187111111 },
                     ]
                 },
                 isTrashed: false,
+                trashDate: '',
             },
             {
                 id: 'n105',
@@ -199,6 +274,7 @@ function _createNotes() {
                     txt: 'Fullstack Me Baby!'
                 },
                 isTrashed: false,
+                trashDate: '',
             },
             {
                 id: 'n106',
@@ -214,6 +290,7 @@ function _createNotes() {
                     title: 'Bobi and Me'
                 },
                 isTrashed: false,
+                trashDate: '',
             },
             {
                 id: 'n107',
@@ -230,6 +307,7 @@ function _createNotes() {
                     ]
                 },
                 isTrashed: true,
+                trashDate: '',
             }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)
@@ -238,5 +316,6 @@ function _createNotes() {
 
 
 function _loadNotesFromStorage() {
-    return storageService.loadFromStorage(NOTE_KEY)
+    // return storageService.loadFromStorage(NOTE_KEY)
+    return utilService.loadFromStorage(NOTE_KEY)
 }

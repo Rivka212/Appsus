@@ -3,7 +3,7 @@ const { useState, useEffect } = React
 const { useNavigate, NavLink } = ReactRouterDOM
 
 export function NoteSideBar({ onChange, status }) {
-    // const [teams, setTeams] = useState(noteService.createTeams())
+    // const [criteria, setCriteria] = useState(noteService.createTeams())
 
     const teams = [
         { type: 'notes', icon: 'idea' },

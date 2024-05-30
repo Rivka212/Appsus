@@ -1,17 +1,23 @@
 export function NoteTodos({ note }) {
-    return (
-        <section>
-            <h3>{note.info.title}</h3>
-            <ul><li>{note.info.todos}</li></ul>
-        </section>
-    )
-}
+    const { info } = note    
+        return (
+            <section className="note-todos">
+                <h3>{info.title}</h3>
+                <ul>
+                    {info.todos.map((todo, index) => (
+                        <li key={index}>{todo.txt}</li>
+                    ))}
+                </ul>
+            </section>
+        )
+    }
 
-
-// info: {
-//     title: 'Get my stuff together',
-//     todos: [
-//         { txt: 'Driving license', doneAt: null },
-//         { txt: 'Coding power', doneAt: 187111111 }
-//     ]
+// note = {
+//     info: {
+//         title: 'Get my stuff together',
+//         todos: [
+//             { txt: 'Driving license', doneAt: null },
+//             { txt: 'Coding power', doneAt: 187111111 }
+//         ]
+//     }
 // }

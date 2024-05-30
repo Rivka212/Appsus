@@ -32,11 +32,13 @@ font-size: 20px;
     display: flex;
     align-content: center;
     transition: height 0.3s;
+    white-space: pre-wrap; 
 }
 
 .note-add .input-container.expanded .input-title{
     height: 200px; 
     border-color: rgb(170, 167, 163);
+    white-space: pre-wrap; 
 }
 
 
@@ -47,6 +49,7 @@ font-size: 20px;
 .input-container input {
     border: 1px solid #dfdcdc; 
     box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
+    
 }
 
 .note-add .input-container.expanded .input-txt{
@@ -61,6 +64,7 @@ font-size: 20px;
 .square-input .input-txt input{
     border: none;
     border-color: white;
+   
 }
 
 .input-container .icon-text > img{

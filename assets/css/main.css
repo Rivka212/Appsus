@@ -33,6 +33,9 @@
 @import './apps/note/cmps/AccordionInput.css';
 @import './apps/note/cmps/NoteEdit.css';
 @import './apps/note/cmps/NoteSideBar.css';
+@import './apps/note/cmps/NoteTodos.css';
+@import './apps/note/cmps/NoteAction.css';
+
 
 
 @import './apps/mail/cmps/MailList.css';

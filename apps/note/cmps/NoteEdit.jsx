@@ -1,9 +1,6 @@
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
 
-const { Link } = ReactRouterDOM
-
-
 // import { showErrorMsg } from '../services/event-bus.service.js'
 // import { NoteIndex } from '../views/NoteIndex.jsx'
 import { noteService } from '../services/note.service.js'
