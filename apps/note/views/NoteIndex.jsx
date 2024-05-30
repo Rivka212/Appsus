@@ -70,7 +70,6 @@ export function NoteIndex() {
 
 function handleSetNotePinned(noteId, isPinned){
             const updatedNotes = noteService.query()
-            console.log(updatedNotes)
             .then(() => {
             setNotes(updatedNotes)
             console.log(updatedNotes)
