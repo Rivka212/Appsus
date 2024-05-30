@@ -31,9 +31,9 @@
     width:30px;
 }
 
-.mail-sidebar span {
+/* .mail-sidebar span {
     display: none;
-}
+} */
 
 .mail-sidebar .compose-btn-container.collapsed span {
     opacity: 0;

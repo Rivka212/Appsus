@@ -5,7 +5,8 @@ export function MailHeader({ toggleSideBar }) {
     return <section className="mail-header">
         <div className="menu" >
             <i className="fa-solid fa-bars" onClick={toggleSideBar} />
-            <img className="logo" src="../../icons/gmail-logo.png" alt="" />
+            <img className="logo" src="../icons/gmail-logo.png" alt="" />
+            <img className="logo" src="icons/gmail-logo.png" alt="" />
 
         </div>
         <div className="search-container">
