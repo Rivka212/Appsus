@@ -11,6 +11,7 @@ export function MailApp() {
     const [mails, setMails] = useState([])
     const [readCount, setReadCount] = useState(0)
     const [newMail, setNewMail] = useState(null); // State to track new mail
+    const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 
     useEffect(() => {
         if (status === 'inbox') {
@@ -41,6 +42,12 @@ export function MailApp() {
         }
     }, [newMail]);
 
+    function toggleSideBar () {
+        console.log(isSideBarOpen)
+        setIsSideBarOpen(!isSideBarOpen);
+    };
+
+
 
 
     const handleToggleRead = (mailId, updatedIsRead) => {
@@ -57,9 +64,9 @@ export function MailApp() {
 
     return (
         <section >
-            <MailHeader />
-            <div className="mail-app-main-layout">
-                <MailSideBar readCount={readCount} setNewMail={setNewMail} />
+            <MailHeader toggleSideBar={toggleSideBar}/>
+            <div className={`mail-app-main-layout ${isSideBarOpen ? 'open' : 'collapsed'}`}>
+                <MailSideBar readCount={readCount} setNewMail={setNewMail}  isOpen={isSideBarOpen}/>
                 <main>
                     <Outlet context={{ criteria, mails, status, handleToggleRead }} />
                 </main>

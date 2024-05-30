@@ -1,17 +1,19 @@
 
-
-export function MailHeader() {
+export function MailHeader({toggleSideBar}) {
 
 
     return <section className="mail-header">
-        <div class="menu">
-        <i className="fa-solid fa-bars" />
-            <img className="logo" src="../../../../../icons/gmail-logo.png" alt="" />
+        <div className="menu" >
+            <i className="fa-solid fa-bars"onClick={toggleSideBar} />
+            <img className="logo" src="../../../icons/gmail-logo.png" alt="" />
 
         </div>
-        <input type="search" placeholder="Search mail"/>
-        <img className="user" src="../../../../../icons/User.png" alt="" />
+        <div className="search-container">
+        <img src="../../../icons/search.svg" alt="Search Icon" className="search-icon"/>
+            <input type="search" placeholder="Search mail" />
+        </div>
+        <img className="user" src="../../../icons/User.png" alt="" />
 
-        
+
     </section>
 }

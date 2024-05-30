@@ -1,5 +1,20 @@
 .mail-sidebar {
     max-width: 256px;
+    transition: width 0.3s;
+}
+
+.mail-sidebar.collapsed {
+    width: 60px; /* Collapsed width */
+}
+
+.mail-sidebar .active {
+    background-color: var(--mail-bg3);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+} 
+
+.mail-sidebar.collapsed .active {
+    background-color: transparent;
 }
 
 .mail-sidebar ul {
@@ -20,24 +35,12 @@
 
 .mail-sidebar .mail-item {
     padding-inline-start: 26px;
-
-    padding-block: 6px;
+     padding-block: 6px;
 }
 
-.mail-item button {
-    text-transform: capitalize;
+.mail-sidebar.collapsed .mail-item {
+    padding-inline-start: 16px;
 }
-
-.mail-sidebar .active {
-    background-color: var(--mail-bg3);
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-} 
-
-.mail-sidebar .active button{
-    font-weight: bold;
-}
-
 
 .mail-sidebar .mail-item:hover {
     border-top-right-radius: 20px;
@@ -46,6 +49,7 @@
 }
 
 .mail-sidebar .mail-item button {
+    text-transform: capitalize;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -57,13 +61,25 @@
     background-color: transparent;
 }
 
+.mail-sidebar .active button{
+    font-weight: bold;
+}
+
+.mail-sidebar.collapsed .menu-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .menu-icon {
     width: 20px;
-    /* Adjust as needed */
     height: 20px;
-    /* Adjust as needed */
     margin-right: 10px;
-    /* Adjust as needed */
+    padding: 5px;
+}
+
+.mail-sidebar.collapsed .active .menu-icon{
+    background-color: var(--mail-bg3);
+    border-radius: 50%;
 }
 
 .read-count {

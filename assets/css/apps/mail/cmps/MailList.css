@@ -1,7 +1,6 @@
  /* mail list */
  .mail-list{
-   width: 100%; /* Subtract padding from 100% */
-    /* 10px padding on both sides */
+   width: 100%;
  }
  
  .mail-list ul {
@@ -15,7 +14,7 @@
 
  .mail-list li  {
     display: flex;
-    justify-items: center;
+    justify-items: space ;
     align-items: center;
     gap: 10px;
 
@@ -66,25 +65,21 @@
     background-color: transparent;
     border: 2px solid rgb(184 181 181 / 54%);
     cursor: pointer;
+    position: relative;;
  }
 
- .checkmark::after {
-    content: '';
-    width: 8px;
-    height: 14px;
-    border: solid black;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    display: none;
- }
 
  .checkbox:checked~.checkmark::after {
     display: block;
  }
 
  .checkmark:after {
-    left: 9px;
-    top: 5px;
+   content: '';
+    
+   display: none;
+   position: absolute;
+    left: 3px;
+    top: 0px;
     width: 2px;
     height: 6px;
     border: solid var(--mail-txt3);
