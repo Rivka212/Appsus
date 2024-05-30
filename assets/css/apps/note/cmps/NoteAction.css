@@ -1,0 +1,53 @@
+
+.action-note .color-input >.items-container {
+    display: flex;
+    /* gap: 10px; */
+    background-color: rgb(250, 252, 252);
+    padding: 5px;
+    border-radius: 8px;
+    z-index: 10;
+    margin-top: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+    position: fixed;
+    /* position: absolut;  */
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
+
+}
+
+.action-note .item {
+    padding: 5px;
+    margin: 3px;
+    min-height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: .2s border-width;
+}
+
+.action-note .item:hover .item{
+    border-radius: 1px solid black;
+}
+
+.action-note .chosen {
+    border-width: 6px;
+    height: 60px;
+}
+
+.action-note .color-input>section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.color-input .color-palette-visible{
+    display: block;
+}
+
+/* .color-input {
+    display: none;
+} */

@@ -1,6 +1,5 @@
-export function ColorInput({ onSetNoteColor, backgroundColor }) {
-    console.log('backgroundColor:', backgroundColor)
 
+export function ColorInput({ noteId, backgroundColor, showColorPalette, onSetNoteColor,handleColorPaletteToggle }) {
     const colors = [
         '#FAAFA8',
         '#F39F76',
@@ -17,11 +16,12 @@ export function ColorInput({ onSetNoteColor, backgroundColor }) {
 
     function onSetColor(color) {
         const newColor = { backgroundColor: color }
-        onSetNoteColor(newColor)
+        onSetNoteColor(noteId, newColor)
+        handleColorPaletteToggle()
     }
-
+    
     return (
-        <section className="color-input">
+        <section className={`color-input ${showColorPalette ? 'color-palette-visible' : ''}`}>
             <div className="items-container">
                 {colors.map(color => (
                     <div
@@ -29,7 +29,7 @@ export function ColorInput({ onSetNoteColor, backgroundColor }) {
                         className={`item ${backgroundColor === color ? 'chosen' : ''}`}
                         style={{ backgroundColor: color }}
                        onClick={(ev) => {
-                            ev.stopPropagation(), onSetColor(ev, color)}}
+                            ev.stopPropagation(), onSetColor(color)}}
                     >
                     </div>
                 ))}

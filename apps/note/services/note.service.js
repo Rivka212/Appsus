@@ -138,10 +138,12 @@ function duplicate(noteCopy) {
 // }
 
 function colorStyle(noteId, newColor) {
+    console.log(newColor, noteId);
     const notes = _loadNotesFromStorage()
     const note = notes.find((note) => note.id === noteId)
     if (note) {
-        const updatedNote = { ...note, backgroundColor: newColor }
+        const updatedNote = { ...note, style: newColor }
+        console.log(updatedNote);
         save(updatedNote)
         return Promise.resolve(updatedNote)
     } else {
