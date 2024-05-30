@@ -4,15 +4,15 @@ import { utilService } from '../../../services/util.service.js';
 
 export function MailSideBar({  readCount, setNewMail, isOpen }) {
     const icons = {
-        inbox: '../../../icons/inbox.png',
-        stared: '../../../icons/starred.png',
-        snoozed: '../../../icons/snoozed.png',
-        important: '../../../icons/important.png',
-        sent: '../../../icons/sent.png',
-        draft: '../../../icons/draft.png',
-        categories: '../../../icons/categories.png',
-        spam: '../../../icons/spam.png',
-        trash: '../../../icons/trash.png'
+        inbox: './icons/inbox.png',
+        stared: './icons/starred.png',
+        snoozed: 'icons/snoozed.png',
+        important: './icons/important.png',
+        sent: './icons/sent.png',
+        draft: './icons/draft.png',
+        categories: './icons/categories.png',
+        spam: './icons/spam.png',
+        trash: './icons/trash.png'
     }
 
     const menuItems = [
