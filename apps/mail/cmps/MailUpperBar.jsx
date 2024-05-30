@@ -7,15 +7,15 @@ import { TrashAction } from "./MailActions.jsx";
 export function MailUpperBar({ mailId }) {
 const navigate = useNavigate()
     const icons = {
-        back: '../../../../icons/back.svg',
-        archive: '../../../../icons/archive.png',
-        spam: '../../../../icons/spam.png',
-        trash: '../../../../icons/trash.png',
-        unread: '../../../../icons/mark unread.png',
-        snooze: '../../../../icons/snoozed.png',
-        addTask: '../../../../icons/addTask.png',
-        labels: '../../../../icons/important.png',
-        more: '../../../../icons/more.png',
+        back: './icons/back.svg',
+        archive: './icons/archive.png',
+        spam: './icons/spam.png',
+        trash: './icons/trash.png',
+        unread: './icons/mark unread.png',
+        snooze: './icons/snoozed.png',
+        addTask: './icons/addTask.png',
+        labels: './icons/important.png',
+        more: './icons/more.png',
     };
 
     const menuItems = [

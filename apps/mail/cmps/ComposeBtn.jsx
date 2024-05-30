@@ -13,11 +13,9 @@ export function ComposeBtn({ setNewMail, isOpen }) {
     }
     return <div className={`compose-btn-container ${isOpen ? 'open' : 'collapsed'}`}>
         <button className="compose-btn" onClick={openModal}>
-            <span class="material-symbols-outlined">
-                edit
-            </span>
-        <span>Compose</span>
-        </button>
+            <img src="./icons/compose.png" />
+            <span>Compose</span>
+            </button>
         {isClicked && (<ComposeList closeModal={closeModal} setNewMail={setNewMail} />)}
     </div>
 

@@ -62,15 +62,15 @@ export function MailList() {
   };
 
   const icons = {
-    inbox: '../../../../icons/inbox.png',
-    starred: '../../../../icons/starred.png',
-    snoozed: '../../../../icons/snoozed.png',
-    important: '../../../../icons/important.png',
-    sent: '../../../../icons/sent.png',
-    draft: '../../../../icons/draft.png',
-    categories: '../../../../icons/categories.png',
-    spam: '../../../../icons/spam.png',
-    trash: '../../../../icons/trash.png'
+    inbox: './icons/inbox.png',
+    starred: './icons/starred.png',
+    snoozed: './icons/snoozed.png',
+    important: './icons/important.png',
+    sent: './icons/sent.png',
+    draft: './icons/draft.png',
+    categories: './icons/categories.png',
+    spam: './icons/spam.png',
+    trash: './icons/trash.png'
   };
 
   return (
@@ -90,10 +90,10 @@ export function MailList() {
                 <span className="checkmark"></span>
               </label>
               <span className="star-icon">
-                {renderEmailIcon('starred', mail.id, { active: '../../../icons/goldstar.svg', inactive: '../../../icons/star.svg' }, 'Toggle Starred')}
+                {renderEmailIcon('starred', mail.id, { active: './icons/goldstar.svg', inactive: './icons/star.svg' }, 'Toggle Starred')}
               </span>
               <span className="important-icon">
-                {renderEmailIcon('important', mail.id, { active: '../../../icons/important-gold.png', inactive: '../../../../icons/important.png' }, 'Toggle Important')}
+                {renderEmailIcon('important', mail.id, { active: './icons/important-gold.png', inactive: './icons/important.png' }, 'Toggle Important')}
               </span>
             </div>
             <Link to={`/mail/details/${mail.id}`} >
