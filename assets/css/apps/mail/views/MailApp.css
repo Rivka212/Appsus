@@ -1,23 +1,23 @@
 main {
-    background-color: white;
-    margin-block-start: 4px;
-    border-radius: 25px;
+  background-color: white;
+  margin-block-start: 4px;
+  border-radius: 25px;
 }
 
 .mail-app-main-layout {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 246px auto;
- 
-    padding-inline: 0 10px;
-    height: 100vh;
-     font-family: Roboto-Regular;
-     font-size: 14px;
-     background-color: var(--mail-bg1);
-     color: var(--mail-txt3);
-  }
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 246px auto;
 
-  .mail-app-main-layout.collapsed{
-    grid-template-columns: 75px auto;
+  padding-inline: 0 10px;
+  height: 100vh;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  background-color: var(--mail-bg1);
+  color: var(--mail-txt3);
+  transition: grid-template-columns 0.3s; /* Add transition here */
+}
 
-  }
+.mail-app-main-layout.collapsed {
+  grid-template-columns: 75px auto;
+}

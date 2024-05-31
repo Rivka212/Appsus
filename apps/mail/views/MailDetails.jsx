@@ -3,7 +3,7 @@ const { useParams, useLocation } = ReactRouter
 
 import { mailService } from "../services/mail.service.js"
 import { MailUpperBar } from "../cmps/MailUpperBar.jsx"
-import { ComposeList } from "../cmps/ComposeList.jsx"
+import { ComposeList } from "../cmps/ComposeMail.jsx"
 
 export function MailDetails() {
 

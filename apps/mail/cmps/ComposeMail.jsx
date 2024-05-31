@@ -6,7 +6,7 @@ import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.servic
 
 
 
-export function ComposeList({ closeModal, setNewMail, initialRecipient = '', initialSubject = '', initialBody = ''  }) {
+export function ComposeMail({ closeModal, setNewMail, initialRecipient = '', initialSubject = '', initialBody = ''  }) {
     const [recipient, setRecipient] = useState(initialRecipient);
     const [subject, setSubject] = useState(initialSubject);
     const [body, setBody] = useState(initialBody);
@@ -38,15 +38,23 @@ export function ComposeList({ closeModal, setNewMail, initialRecipient = '', ini
             originalType: 'sent',
         };
 
+        console.log('New Mail:', newMail);
+
+
         mailService.addMail(newMail)
             .then(() => {
                 showSuccessMsg('Mail sent successfully');
                 debugger
+                console.log('Mail added successfully');
 
                 setNewMail(newMail); // Update state in MailApp
+                console.log('setNewMail called');
+
                 handleClose(); // Close the modal after submission
             })
             .catch(() => {
+                console.error('Failed to send mail:', error);
+
                 showErrorMsg('Failed to send mail');
             });
     }

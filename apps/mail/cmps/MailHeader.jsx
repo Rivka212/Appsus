@@ -9,7 +9,7 @@ export function MailHeader({ toggleSideBar }) {
 
         </div>
         <div className="search-container">
-            <span class="material-symbols-outlined search-icon">
+            <span className="material-symbols-outlined search-icon">
                 search
             </span>
             <input type="search" placeholder="Search mail" />

@@ -31,19 +31,15 @@
     width:30px;
 }
 
-/* .mail-sidebar span {
-    display: none;
-} */
+.mail-sidebar .compose-btn-container.collapsed {
+    padding-inline-start: 5px;
 
-.mail-sidebar .compose-btn-container.collapsed span {
-    opacity: 0;
-    visibility: hidden;
 }
 
-.mail-sidebar .compose-btn-container.open span {
-    opacity: 1;
-    visibility: visible;
+.mail-sidebar .compose-btn-container.collapsed .compose-btn {
+    width: 50px;
 }
+
 
 .mail-sidebar .compose-btn:hover{
     box-shadow: 2px 3px 8px #8785856e;

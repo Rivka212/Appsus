@@ -1,5 +1,5 @@
 const { useState } = React
-import { ComposeList } from './ComposeList.jsx'
+import { ComposeMail } from './ComposeMail.jsx'
 
 export function ComposeBtn({ setNewMail, isOpen }) {
     const [isClicked, setIsClicked] = useState(false)
@@ -14,9 +14,9 @@ export function ComposeBtn({ setNewMail, isOpen }) {
     return <div className={`compose-btn-container ${isOpen ? 'open' : 'collapsed'}`}>
         <button className="compose-btn" onClick={openModal}>
             <img src="./icons/compose.png" />
-            <span>Compose</span>
-            </button>
-        {isClicked && (<ComposeList closeModal={closeModal} setNewMail={setNewMail} />)}
+            <span className={isOpen ? '' : 'hidden'}>Compose</span>
+        </button>
+        {isClicked && (<ComposeMail closeModal={closeModal} setNewMail={setNewMail} />)}
     </div>
 
 }

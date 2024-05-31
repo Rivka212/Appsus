@@ -16,7 +16,14 @@
 }
 
 .mail-header .fa-bars{
-    cursor:pointer
+    cursor:pointer;
+    padding: 15px;
+
+}
+
+.mail-header .fa-bars:hover{
+    background-color: var(--mail-hover);
+    border-radius: 50%;
 }
 
 

@@ -36,11 +36,18 @@ export function MailApp() {
 
     useEffect(() => {
         if (newMail) {
+            console.log('New mail detected in MailApp:', newMail);
             mailService.query(criteria)
-                .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
+                .then(fetchedMails => {
+                    console.log('Fetched mails after new mail:', fetchedMails);
+                    setMails(mailService.sortEmailsByDate(fetchedMails));
+                })
                 .catch(() => setMails([]));
         }
     }, [newMail]);
+
+    console.log('New Mail:', newMail);
+
 
     function toggleSideBar () {
         console.log(isSideBarOpen)
