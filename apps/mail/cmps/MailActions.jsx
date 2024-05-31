@@ -93,17 +93,23 @@ export function ToggleState({ mailId, stateKey, isStateActive, onToggleState }) 
   function handleToggleState(event) {
     event.preventDefault();
     event.stopPropagation();
-    mailService.toggleState(mailId, stateKey)
 
+    const stateKeyToLabel = {
+      isStared: 'starred',
+      isImportant: 'important'
+    };
+
+    mailService.toggleState(mailId, stateKey)
       .then((updatedMail) => {
         debugger
 
         const newStateStatus = updatedMail[stateKey];
         setStateStatus(prevState => newStateStatus)
         onToggleState(mailId, stateKey, newStateStatus);
+        const label = stateKeyToLabel[stateKey] || stateKey;
         const successMessage = newStateStatus
-          ? `Conversation marked as ${stateKey}.`
-          : `Conversation unmarked from ${stateKey}.`;
+          ? `Conversation marked as ${label}.`
+          : `Conversation unmarked from ${label}.`;
         showSuccessMsg(successMessage, 'success');
       })
       .catch(() => {

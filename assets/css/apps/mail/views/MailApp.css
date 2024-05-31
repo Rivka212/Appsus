@@ -2,6 +2,7 @@ main {
   background-color: white;
   margin-block-start: 4px;
   border-radius: 25px;
+  overflow-x  : scroll;
 }
 
 .mail-app-main-layout {
