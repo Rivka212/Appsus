@@ -17,21 +17,32 @@ export function MailApp() {
         if (status === 'inbox') {
             setReadCount(mailService.countIsRead(mails))
         }
-    }, [mails,])
+    }, [mails, status])
 
     useEffect(() => {
-        if (status) {
-            setCriteria(mailService.getDefaultFilter({ status }))
-        } else {
-            setCriteria(mailService.getDefaultFilter({ status: 'inbox' }))
+        const filter = mailService.getDefaultFilter({});
+        switch (status) {
+            case 'inbox':
+                filter.status = 'inbox';
+                break;
+            case 'stared':
+                filter.isStared = true;
+                break;
+            case 'important':
+                filter.isImportant = true;
+                break;
+            default:
+                filter.status = status;
         }
-    }, [status])
+        setCriteria(filter);
+    }, [status]);
 
     useEffect(() => {
         mailService.query(criteria)
             .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
             .catch(() => setMails([]));
     }, [criteria]);
+    
 
 
     useEffect(() => {
@@ -55,6 +66,27 @@ export function MailApp() {
     };
 
 
+    const handleToggleState = (mailId, stateKey, newState) => {
+        console.log(`Toggling state for mailId: ${mailId}, stateKey: ${stateKey}, newState: ${newState}`);
+        setMails(prevMails =>
+            prevMails.map(mail =>
+                mail.id === mailId ? { ...mail, [stateKey]: newState } : mail
+            )
+        );
+
+        const updatedCriteria = { ...criteria };
+        if (stateKey === 'isStared' && status === 'stared') {
+            updatedCriteria.isStared = true;
+        } else if (stateKey === 'isImportant' && status === 'important') {
+            updatedCriteria.isImportant = true;
+        }
+        setCriteria(updatedCriteria);
+
+        mailService.query(updatedCriteria)
+            .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
+            .catch(() => setMails([]));
+    };
+   
 
 
     const handleToggleRead = (mailId, updatedIsRead) => {
@@ -75,7 +107,7 @@ export function MailApp() {
             <div className={`mail-app-main-layout ${isSideBarOpen ? 'open' : 'collapsed'}`}>
                 <MailSideBar readCount={readCount} setNewMail={setNewMail}  isOpen={isSideBarOpen}/>
                 <main>
-                    <Outlet context={{ criteria, mails, status, handleToggleRead }} />
+                    <Outlet context={{ criteria, mails, status, handleToggleRead, handleToggleState }} />
                 </main>
             </div>
 

@@ -3,21 +3,21 @@ const { useParams, useLocation } = ReactRouter
 
 import { mailService } from "../services/mail.service.js"
 import { MailUpperBar } from "../cmps/MailUpperBar.jsx"
-import { ComposeList } from "../cmps/ComposeMail.jsx"
+import { ComposeMail } from "../cmps/ComposeMail.jsx"
 
 export function MailDetails() {
 
-  const { id } = useParams();
-  const [mail, setMail] = useState(null);
-  const [date, setDate] = useState(null);
-  const [isStarred, setIsStarred] = useState(false);
+  const { id } = useParams()
+  const [mail, setMail] = useState(null)
+  const [date, setDate] = useState(null)
+  const [isStarred, setIsStarred] = useState(false)
   const [isReply, setIsReply] = useState(false)
   const [isForward, setIsForward] = useState(false)
 
 
   const handleStarClick = () => {
-    setIsStarred(!isStarred);
-  };
+    setIsStarred(!isStarred)
+  }
 
 
 
@@ -29,36 +29,36 @@ export function MailDetails() {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
-    };
-    const date = new Date(timestamp);
-    return new Intl.DateTimeFormat('en-US', options).format(date);
+    }
+    const date = new Date(timestamp)
+    return new Intl.DateTimeFormat('en-US', options).format(date)
   }
 
   const hoverTexts = {
     star: 'Star',
     reply: 'Reply',
     more: 'Mores'
-  };
+  }
 
 
   useEffect(() => {
     mailService.getMail(id)
       .then(mail => {
-        setMail(mail);
-        setDate(formatDate(mail.sentAt));
-      });
-  }, [id]);
+        setMail(mail)
+        setDate(formatDate(mail.sentAt))
+      })
+  }, [id])
 
   function handleCloseModal() {
-    setIsReply(false);
-    setIsForward(false);
+    setIsReply(false)
+    setIsForward(false)
   }
 
 
-  if (!mail) return <h3>Loading...</h3>;
+  if (!mail) return <h3>Loading...</h3>
   return (
     <section className="mail-details">
-      <MailUpperBar mailId={id} />
+      <MailUpperBar mail={mail} />
       <div className="main-mail">
         <h2 className="new-mail-header">{mail.subject}</h2>
         
@@ -75,8 +75,8 @@ export function MailDetails() {
               <img className="star"  src={isStarred ? './icons/goldstar.svg' : './icons/star.svg'} alt="Star" />
               <span className="hover-text">{hoverTexts['star']}</span>
             </div>
-            <div className="action-container">
-              <img className="reply" src="./icons/reply.png" alt="Reply" />
+            <div className="action-container" onClick={() => setIsReply(true)}>
+              <img className="reply" src="./icons/reply.png" alt="Reply"  />
               <span className="hover-text">{hoverTexts['reply']}</span>
             </div>
             <div className="action-container">
@@ -96,16 +96,16 @@ export function MailDetails() {
             <img className="forward" src="./icons/reply.png" alt="Forward" />
             Forward
           </button>
-          {isReply && <ComposeList
+          {isReply && <ComposeMail
               initialRecipient={mail.from}
               closeModal={handleCloseModal}
             />}
-          {isForward && <ComposeList initialSubject={`RE: ${mail.subject}`}
+          {isForward && <ComposeMail initialSubject={`RE: ${mail.subject}`}
               initialBody={mail.body}
               closeModal={handleCloseModal}
             />}
         </div>
       </div>
     </section>
-  );
+  )
 }

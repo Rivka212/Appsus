@@ -1,10 +1,10 @@
 
 const { NavLink, useNavigate } = ReactRouterDOM
-import { mailService } from "../services/mail.service.js";
+import { mailService } from "../services/mail.service.js"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
-import { TrashAction } from "./MailActions.jsx";
+import { TrashAction } from "./MailActions.jsx"
 
-export function MailUpperBar({ mailId }) {
+export function MailUpperBar({ mail }) {
 const navigate = useNavigate()
     const icons = {
         back: './icons/back.svg',
@@ -16,7 +16,7 @@ const navigate = useNavigate()
         addTask: './icons/addTask.png',
         labels: './icons/important.png',
         more: './icons/more.png',
-    };
+    }
 
     const menuItems = [
         'back',
@@ -40,30 +40,30 @@ const navigate = useNavigate()
       addTask: 'Add to Tasks',
       labels: 'Labels',
       more: 'More',
-    };
+    }
 
-    function handleClick(mailId, item) {
+    function handleClick(mail, item) {
       switch(item) {
         case 'archive':
-          mailService.changeMailType(mailId, 'archive')
+          mailService.changeMailType(mail.id, 'archive')
             .then(() => {
-              showSuccessMsg('Conversation archived.', 'success');
+              showSuccessMsg('Conversation archived.', 'success')
             })
             .catch(() => {
-              showErrorMsg('Failed to archive mail.', 'error');
-            });
-          break;
+              showErrorMsg('Failed to archive mail.', 'error')
+            })
+          break
         case 'spam':
-          mailService.changeMailType(mailId, 'spam')
+          mailService.changeMailType(mail.id, 'spam')
             .then(() => {
-              showSuccessMsg('Conversation marked as Spam.', 'success');
+              showSuccessMsg('Conversation marked as Spam.', 'success')
             })
             .catch(() => {
-              showErrorMsg('Failed to mark mail as spam.', 'error');
-            });
-          break;
+              showErrorMsg('Failed to mark mail as spam.', 'error')
+            })
+          break
         default:
-          showErrorMsg('Invalid action specified.', 'error');
+          showErrorMsg('Invalid action specified.', 'error')
       }
     }
   
@@ -78,10 +78,11 @@ const navigate = useNavigate()
             <div className="icon-group">
               {menuItems.slice(1).map((item, index) => (
                 <React.Fragment key={item}>
-                  {item === 'trash' ? (
+{                  console.log(item)
+}                  {item === 'trash' ? (
                     <li className="mail-item">
                       <TrashAction 
-                        mailId={mailId} 
+                        mail={mail} 
                         onActionComplete={() => {}} 
                         
                         navigateBack={true}
@@ -89,7 +90,7 @@ const navigate = useNavigate()
                       <span className="hover-text">{hoverTexts[item]}</span>
                     </li>
                   ) : (
-                    <li className="mail-item" onClick={(event) => handleClick(mailId, item)}>
+                    <li className="mail-item" onClick={(event) => handleClick(mail.id, item)}>
                       <img src={icons[item]} alt={item} className={`menu-icon ${item}`} />
                       <span className="hover-text">{hoverTexts[item]}</span>
                     </li>
@@ -102,5 +103,5 @@ const navigate = useNavigate()
             </div>
         </ul>
       </section>
-    );
+    )
     }

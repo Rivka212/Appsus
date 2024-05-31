@@ -21,6 +21,7 @@ export const mailService = {
     changeMailType,
     addMail,
     removeMail,
+    toggleState,
 
 }
 
@@ -32,12 +33,6 @@ function _saveMailsToStorage(mails) {
     utilService.saveToStorage(STORAGE_KEY, mails)
 }
 
-function query(filterBy = { status: 'inbox', txt: '', isRead: undefined, isStared: undefined, labels: [] }) {
-    let emails = _loadMailsFromStorage()
-    if (!emails.length) emails = _createMails()
-    if (filterBy) emails = _getFilteredMails(emails, filterBy)
-    return Promise.resolve(emails)
-}
 
 function getMail(mailId) {
     const mails = _loadMailsFromStorage()
@@ -49,7 +44,7 @@ function _getFilteredMails(mails, filterBy) {
     if (!mails || !Array.isArray(mails)) return []
     if (!filterBy) return mails
 
-    const { status, txt, isRead, isStared, labels } = filterBy
+    const { status, txt, isRead, isStared, isImportant, labels } = filterBy
 
     return mails.filter(mail => {
         return (
@@ -57,17 +52,19 @@ function _getFilteredMails(mails, filterBy) {
             (!txt || mail.subject.includes(txt) || mail.body.includes(txt)) &&
             (isRead === undefined || mail.isRead === isRead) &&
             (isStared === undefined || mail.isStared === isStared) &&
+            (isImportant === undefined || mail.isImportant === isImportant) &&
             (!labels.length || labels.every(label => (mail.labels || []).includes(label)))
         )
     })
 }
 
-function getDefaultFilter(filterBy = { status: 'inbox', txt: '', isRead: '', isStared: '', labels: [] }) {
+function getDefaultFilter(filterBy = { status: 'inbox', txt: '', isRead: '', isImportant: '', isStared: '', labels: [] }) {
     return {
         status: filterBy.status || 'inbox',
         txt: filterBy.txt || '',
         isRead: filterBy.isRead || undefined,
         isStared: filterBy.isStared || undefined,
+        isImportant: filterBy.isImportant || undefined,
         labels: filterBy.labels || []
     }
 }
@@ -268,7 +265,7 @@ function formatDate2(timestamp) {
 
     } else {
         const year = date.getFullYear()
-        const month = date.toLocaleString('default', { month: 'short' }); // Get month abbreviation
+        const month = date.toLocaleString('default', { month: 'short' }) // Get month abbreviation
 
         const monthNum = date.getMonth() + 1 // Month is zero-based, so we add 1
         const day = date.getDate()
@@ -283,22 +280,22 @@ function formatDate2(timestamp) {
 }
 
 function markAsRead(mailId) {
-    const mails = _loadMailsFromStorage();
-    const mailIndex = mails.findIndex(mail => mail.id === mailId);
+    const mails = _loadMailsFromStorage()
+    const mailIndex = mails.findIndex(mail => mail.id === mailId)
 
     if (mailIndex >= 0 && !mails[mailIndex].isRead) { // Check if the mail exists and is not already read
-        mails[mailIndex].isRead = true; // Set isRead to true
-        _saveMailsToStorage(mails); // Save the updated mails
+        mails[mailIndex].isRead = true // Set isRead to true
+        _saveMailsToStorage(mails) // Save the updated mails
     }
 }
 
 function markAsUnread(mailId) {
-    const mails = _loadMailsFromStorage();
-    const mailIndex = mails.findIndex(mail => mail.id === mailId);
+    const mails = _loadMailsFromStorage()
+    const mailIndex = mails.findIndex(mail => mail.id === mailId)
 
     if (mailIndex >= 0 && mails[mailIndex].isRead) { // Check if the mail exists and is currently read
-        mails[mailIndex].isRead = false; // Set isRead to false
-        _saveMailsToStorage(mails); // Save the updated mails
+        mails[mailIndex].isRead = false // Set isRead to false
+        _saveMailsToStorage(mails) // Save the updated mails
     }
 }
 
@@ -321,6 +318,7 @@ function toggleReadStatus(mailId) {
         }
     });
 }
+
 
 function changeMailType(mailId, type) {
     return new Promise((resolve, reject) => {
@@ -373,4 +371,49 @@ function removeMail(mailId) {
             reject(error); // Reject the promise if there's an error
         }
     });
+}
+
+function toggleState(mailId, stateKey) {
+    return new Promise((resolve, reject) => {
+        try {
+            const mails = _loadMailsFromStorage();
+            const mailIndex = mails.findIndex(mail => mail.id === mailId);
+
+            if (mailIndex >= 0) {
+                mails[mailIndex][stateKey] = !mails[mailIndex][stateKey];
+                _saveMailsToStorage(mails);
+                resolve(mails[mailIndex]); // Ensure the updated mail object is resolved
+            } else {
+                reject(new Error('Mail not found'));
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+function query(filterBy = { status: 'inbox', txt: '', isRead: undefined, isStared: undefined, isImportant: undefined, labels: [] }) {
+    let emails = _loadMailsFromStorage();
+    if (!emails.length) emails = _createMails();
+    if (filterBy) emails = _getFilteredMails(emails, filterBy);
+    return Promise.resolve(emails);
+}
+
+function _getFilteredMails(mails, filterBy) {
+    console.log('Filtering mails with:', filterBy) // Add this line
+    if (!mails || !Array.isArray(mails)) return []
+    if (!filterBy) return mails
+
+    const { status, txt, isRead, isStared, isImportant, labels } = filterBy
+
+    return mails.filter(mail => {
+        return (
+            (!status || mail.type === status) &&
+            (!txt || mail.subject.includes(txt) || mail.body.includes(txt)) &&
+            (isRead === undefined || mail.isRead === isRead) &&
+            (isStared === undefined || mail.isStared === isStared) &&
+            (isImportant === undefined || mail.isImportant === isImportant) &&
+            (!labels.length || labels.every(label => (mail.labels || []).includes(label)))
+        )
+    })
 }

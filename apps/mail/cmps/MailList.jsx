@@ -3,18 +3,28 @@ const { useOutletContext, Link } = ReactRouterDOM;
 import { mailService } from '../services/mail.service.js';
 import { MailPreview } from './MailPreview.jsx';
 import { ContextMenu } from './ContextMenu.jsx';
+import {ToggleState } from './MailActions.jsx';
+
 
 export function MailList() {
-  const { mails: initialMails, status, handleToggleRead } = useOutletContext();
+  const { criteria, mails: initialMails, handleToggleRead, handleToggleState } = useOutletContext();
   const [mails, setMails] = useState(initialMails);
   const [hoveredMailId, setHoveredMailId] = useState(null);
-  const [emailState, setEmailState] = useState({ starred: {}, important: {} });
+  const [emailState, setEmailState] = useState({ stared: {}, important: {} });
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
   const [isRead, setIsRead] = useState(false);
 
   useEffect(() => {
+    console.log('Initial mails:', initialMails); // Add this line
     setMails(initialMails);
-  }, [initialMails, isRead]);
+}, [initialMails]);
+
+useEffect(() => {
+  mailService.query(criteria)
+      .then(fetchedMails => setMails(fetchedMails))
+      .catch(() => setMails([]));
+}, [criteria]);
+
 
   const handleActionComplete = (mailId) => {
     setMails((prevMails) => prevMails.filter((mail) => mail.id !== mailId));
@@ -24,27 +34,13 @@ export function MailList() {
     handleToggleRead(mailId, isRead);
   };
 
-  const toggleEmail = (type, mailId) => {
-    setEmailState(prevState => ({
-      ...prevState,
-      [type]: {
-        ...prevState[type],
-        [mailId]: !prevState[type][mailId]
-      }
-    }));
-  };
 
-  const renderEmailIcon = (type, mailId, icon, altText) => (
-    <img
-      src={emailState[type][mailId] ? icon.active : icon.inactive}
-      className={`${type} ${emailState[type][mailId] ? '' : 'unstarred'}`}
-      onClick={(ev) => {
-        ev.stopPropagation();
-        toggleEmail(type, mailId);
-      }}
-      alt={altText}
-    />
-  );
+  const onToggleState = (mailId, stateKey, newState) => {
+    handleToggleState(mailId, stateKey, newState);
+};
+
+
+
 
   const handleMailClick = (mailId, event) => {
     if (event.button === 2) {
@@ -61,17 +57,6 @@ export function MailList() {
     setContextMenu({ visible: false, x: 0, y: 0 });
   };
 
-  const icons = {
-    inbox: './icons/inbox.png',
-    starred: './icons/starred.png',
-    snoozed: './icons/snoozed.png',
-    important: './icons/important.png',
-    sent: './icons/sent.png',
-    draft: './icons/draft.png',
-    categories: './icons/categories.png',
-    spam: './icons/spam.png',
-    trash: './icons/trash.png'
-  };
 
   return (
     <section className="mail-list" onClick={handleContextMenuClose}>
@@ -90,10 +75,20 @@ export function MailList() {
                 <span className="checkmark"></span>
               </label>
               <span className="star-icon">
-                {renderEmailIcon('starred', mail.id, { active: './icons/goldstar.svg', inactive: './icons/star.svg' }, 'Toggle Starred')}
+              <ToggleState 
+                 mailId={mail.id}
+                 stateKey="isStared"
+                 isStateActive={mail.isStared}
+                 onToggleState={onToggleState}
+                />
               </span>
               <span className="important-icon">
-                {renderEmailIcon('important', mail.id, { active: './icons/important-gold.png', inactive: './icons/important.png' }, 'Toggle Important')}
+              <ToggleState 
+                  mailId={mail.id} 
+                  stateKey="isImportant" 
+                  isStateActive={mail.isImportant} 
+                  onToggleState={onToggleState}
+                  />
               </span>
             </div>
             <Link to={`/mail/details/${mail.id}`} >

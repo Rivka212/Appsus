@@ -1,6 +1,6 @@
 const{ NavLink, useLocation } = ReactRouterDOM
-import { ComposeBtn } from './ComposeBtn.jsx';
-import { utilService } from '../../../services/util.service.js';
+import { ComposeBtn } from './ComposeBtn.jsx'
+import { utilService } from '../../../services/util.service.js'
 
 export function MailSideBar({  readCount, setNewMail, isOpen }) {
     const icons = {
@@ -44,5 +44,5 @@ export function MailSideBar({  readCount, setNewMail, isOpen }) {
                 ))}
             </ul>
         </section>
-    );
+    )
 }

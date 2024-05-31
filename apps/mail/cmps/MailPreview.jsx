@@ -1,5 +1,5 @@
 import { mailService } from "../services/mail.service.js"
-import { TrashAction, ToggleRead } from './MailActions.jsx';
+import { TrashAction, ToggleRead } from './MailActions.jsx'
 
 
 
@@ -21,5 +21,5 @@ export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, s
         <span className="sent-time">{mailService.formatDate2(mail.sentAt)}</span>
       )}
     </div>
-  );
+  )
 }
