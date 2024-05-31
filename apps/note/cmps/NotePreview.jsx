@@ -8,10 +8,10 @@ import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
 import { NoteTodos } from "./dynamic-inputs/NoteTodos.jsx";
 import { NoteAction } from "./NoteAction.jsx";
 
-export function NotePreview({ note, onRemove, onSetNotePinned }) {
+export function NotePreview({ note, onRemove, onSetNotePinned}) {
     const [cmpType, setCmpType] = useState(null)
     const [isPinned, setIsPinned] = useState(note.isPinned)
-    const [notes, setNotes] = useState()
+    // const [note, setNote] = useState()
 
     useEffect(() => {
         setCmpType(note.type)
@@ -36,6 +36,19 @@ export function NotePreview({ note, onRemove, onSetNotePinned }) {
     //     }
     // }, [isPinned])
 
+    function onUpdatedTodoNote(updatedNote) {
+        console.log(updatedNote);
+        noteService.updatedTodoNote(updatedNote.id, updatedNote.info)
+        .then((updatedNote) => {
+            // setNotes(updatedNote)
+            setNote(updatedNote)
+        })
+        .catch(err => {
+            console.log('err:', err)
+            // showErrorMsg('There was a problem')
+        })
+    }
+
 
     function onTogglePinned(noteId, newIsPinned) {
         console.log(noteId, newIsPinned);
@@ -55,7 +68,7 @@ export function NotePreview({ note, onRemove, onSetNotePinned }) {
             {/* // <article className={`note-preview ${editClass}`} onClick={onClick}> */}
             <div className="note-details">
                 <div className="note-dynamic-cmp">
-                    <DynamicCmp cmpType={cmpType} key={note.id} note={note} />
+                    <DynamicCmp cmpType={cmpType} key={note.id} note={note} onUpdatedTodoNote={onUpdatedTodoNote}/>
                     {/* <DynamicCmp cmpType={cmpType} key={note.id}  {...note}  />/ */}
                 </div>
                 <span className="hidden">
@@ -76,6 +89,7 @@ export function NotePreview({ note, onRemove, onSetNotePinned }) {
 }
 
 function DynamicCmp(props) {
+    const { cmpType, onUpdatedTodoNote } = props
     if (props.cmpType === 'NoteTxt') {
         return <NoteTxt {...props} />
     } else if (props.cmpType === 'NoteImg') {
@@ -83,7 +97,7 @@ function DynamicCmp(props) {
     } else if (props.cmpType === 'NoteVideo') {
         return <NoteVideo {...props} />
     } else if (props.cmpType === 'NoteTodos') {
-        return <NoteTodos {...props} />
+        return <NoteTodos {...props} onUpdatedTodoNote={onUpdatedTodoNote}/>
     }
 }
 

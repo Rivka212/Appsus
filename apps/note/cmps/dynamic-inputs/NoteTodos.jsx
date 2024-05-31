@@ -1,16 +1,53 @@
-export function NoteTodos({ note }) {
-    const { info } = note    
-        return (
-            <section className="note-todos">
-                <h3>{info.title}</h3>
-                <ul>
-                    {info.todos.map((todo, index) => (
-                        <li key={index}>{todo.txt}</li>
-                    ))}
-                </ul>
-            </section>
-        )
-    }
+const { useState, useEffect } = React
+
+
+    export function NoteTodos({ note, onUpdatedTodoNote }) {
+        const { info } = note
+        const [todos, setTodos] = useState(info.todos)
+    
+        function handleCheckboxChange(index, isChecked) {
+            console.log(isChecked, 'isChecked');
+            console.log(index, note);
+            const updatedTodos = [...todos]
+            console.log(updatedTodos);
+            updatedTodos[index].doneAt = isChecked ? Date.now() : null;
+
+            // updatedTodos[index].doneAt = !updatedTodos[index].doneAt
+            // updatedTodos[index].doneAt = updatedTodos[index].doneAt ? Date.now() : null;
+            setTodos(updatedTodos);
+            onUpdatedTodoNote({
+                ...note,
+                info: {
+                    ...info,
+                    todos: updatedTodos
+                }
+            })
+        }
+    
+     return (
+        <section className="note-todos">
+            <h3>{info.title}</h3>
+            <ul>
+                {info.todos.map((todos, index) => (
+                    <li key={index}>
+                        {/* {info.todos} ?  <img src="../../../../img/check.png" alt="" /> :
+                          <img src="../../../../img/unchecked.png" alt="" /> */}
+                        <input
+                            type="checkbox"
+                            id={`todos-${index}`}
+                            checked={todos.doneAt}
+                            onChange={(ev) => handleCheckboxChange(index, ev.target.checked)}
+                         /> 
+                       
+                      
+                        <label htmlFor={`todo-${index}`}>{todos.txt}</label>
+                    </li>
+                ))}
+            </ul>
+        </section>
+    )
+}
+
 
 // note = {
 //     info: {

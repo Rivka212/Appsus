@@ -3,10 +3,19 @@ import { noteService } from '../services/note.service.js'
 import { ColorInput } from "./ColorInput.jsx";
 
 export function NoteAction({ note, onRemove }) {
-    // const [notes, setNotes] = useState([])
+    const [notes, setNotes] = useState([])
     const [noteColor, setNoteColor] = useState({ backgroundColor: '#101010' })
     const [showColorPalette, setShowColorPalette] = useState(false)
+    const [newNote, setNewNote] = useState(null)
+    // const { duplicatedNote } = useParams()
 
+
+
+    // useEffect(() => {
+    //     if (duplicatedNote) {
+    //         setNoteColor(prevColor => ({ ...prevColor, duplicatedNote }))
+    //     }
+    // }, [duplicatedNote])
 
     function onDuplicate(note) {
         noteService.duplicate(note)
@@ -18,6 +27,8 @@ export function NoteAction({ note, onRemove }) {
                 // showErrorMsg('There was a problem')
             })
     }
+
+   
 
     function onSetNoteColor(note, newColor) {
         noteService.colorStyle(note, newColor)

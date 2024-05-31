@@ -8,7 +8,7 @@ import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { NoteAdd } from '../cmps/NoteAdd.jsx';
 import { NoteEdit } from "../cmps/NoteEdit.jsx";
-import {NoteSideBar} from "../cmps/NoteSideBar.jsx";
+import { NoteSideBar } from "../cmps/NoteSideBar.jsx";
 
 
 export function NoteIndex() {
@@ -17,20 +17,42 @@ export function NoteIndex() {
     const [isLoading, setIsLoading] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
+    // const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
+    // const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    // const [filterByToTxt, setFilterByToTxt] = useState(noteService.getFilterFromSearchParams(searchParams))
+    const [filterBy, setFilterBy] = useState({ status: 'notes', txt: '' })
 
     const [criteria, setCriteria] = useState({ status: 'notes' })
     const { status } = useParams()
     const navigate = useNavigate()
 
-   
     useEffect(() => {
-        setSearchParams(filterBy)
-        console.log(filterBy);
-        noteService.query()
+        noteService.query(filterBy)
             .then(notes => setNotes(notes))
-            .catch(() => setNotes([]))
-    }, [filterBy])
+            .catch(() => setNotes([]));
+    }, [filterBy, setSearchParams]);
+
+    useEffect(() => {
+        const filterFromSearchParams = noteService.getFilterFromSearchParams(searchParams);
+        const defaultFilter = noteService.getDefaultFilter(filterFromSearchParams);
+        setFilterBy(defaultFilter)
+    }, [searchParams])
+
+
+    // useEffect(() => {
+    //     noteService.query(filterBy)
+    //         .then(notes => setNotes(notes))
+    //         .catch(() => setNotes([]))
+    // }, [filterBy])
+
+
+    // useEffect(() => {
+    //     setSearchParams(filterBy)
+    //     console.log(filterBy);
+    //     noteService.query()
+    //         .then(notes => setNotes(notes))
+    //         .catch(() => setNotes([]))
+    // }, [filterBy])
 
     useEffect(() => {
         noteService.query(criteria)
@@ -46,7 +68,7 @@ export function NoteIndex() {
 
     function onSetFilterBy(newFilter) {
         setFilterBy({ ...newFilter })
-    }  
+    }
 
     function handleChange(status) {
         console.log(status)
@@ -68,18 +90,18 @@ export function NoteIndex() {
     }
 
 
-function handleSetNotePinned(noteId, isPinned){
-            const updatedNotes = noteService.query()
-            console.log(updatedNotes)
+    function handleSetNotePinned(noteId, isPinned) {
+        const updatedNotes = noteService.query()
+        // console.log(updatedNotes)
             .then(() => {
-            setNotes(updatedNotes)
-            console.log(updatedNotes)
-        })
-        .catch(err => {
-            console.log('err:', err)
-            // showErrorMsg('There was a problem')
-        })
-}
+                setNotes(updatedNotes)
+                console.log(updatedNotes)
+            })
+            .catch(err => {
+                console.log('err:', err)
+                // showErrorMsg('There was a problem')
+            })
+    }
 
 
     function handleNoteClick(noteId) {
@@ -87,12 +109,12 @@ function handleSetNotePinned(noteId, isPinned){
     }
 
     return <section>
-        <NoteHeader notes={notes} filterBy={filterBy} onFilter={onSetFilterBy}/>
+        <NoteHeader notes={notes} filterBy={filterBy} onFilter={onSetFilterBy} />
         <section className="main-container-note">
             <NoteSideBar onChange={handleChange} status={status} />
             <main>
                 <NoteAdd noteId={selectedNote} />
-                <NoteList notes={notes} onRemove={removeNote} onSetNotePinned={handleSetNotePinned}/>
+                <NoteList notes={notes} onRemove={removeNote} onSetNotePinned={handleSetNotePinned} />
             </main>
         </section>
     </section>
