@@ -4,25 +4,25 @@
     justify-content: space-between;
     padding: 8px 20px;
     color: #797d81;
-     background-color: var(--mail-bg1);
-     overflow-x: hidden;
- /* color:#c0c5c9; */
+    background-color: var(--mail-bg1);
+    overflow-x: hidden;
+    /* color:#c0c5c9; */
 }
 
-.mail-header .menu{
+.mail-header .menu {
     display: flex;
     align-items: center;
-    gap:15px;
+    gap: 15px;
     margin-inline-end: 75px;
 }
 
-.mail-header .fa-bars{
-    cursor:pointer;
+.mail-header .fa-bars {
+    cursor: pointer;
     padding: 15px;
 
 }
 
-.mail-header .fa-bars:hover{
+.mail-header .fa-bars:hover {
     background-color: var(--mail-hover);
     border-radius: 50%;
 }
@@ -32,7 +32,7 @@
     width: 120px;
 }
 
-.mail-header .search-container{
+.mail-header .search-container {
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -40,11 +40,14 @@
 
 }
 
-.mail-header .search-container span{
+.mail-header .search-container span {
     position: absolute;
-    left: 10px; /* Adjust based on icon size */
-    width: 20px; /* Adjust based on icon size */
-    height: 20px; /* Adjust based on icon size */
+    left: 10px;
+    /* Adjust based on icon size */
+    width: 20px;
+    /* Adjust based on icon size */
+    height: 20px;
+    /* Adjust based on icon size */
     pointer-events: none;
     width: 25px;
     filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(109%) hue-rotate(109deg) brightness(95%) contrast(84%);
@@ -60,14 +63,15 @@
     flex-grow: 1;
 }
 
-.mail-header input:focus{
+.mail-header input:focus {
     background-color: white;
     border: none;
     outline: none;
 }
 
 .mail-header .user {
-    width: 35px;;
+    width: 35px;
+    ;
     border-radius: 50%;
     margin-inline-start: 75px;
 
@@ -75,4 +79,45 @@
 
 .mail-header .header-action i {
     margin: 5px;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+    .mail-header .menu {
+        position: absolute;
+        left: 20px;
+        z-index: 1000;
+    }
+
+    .mail-header .logo,
+    .mail-header .search-container span {
+        display: none;
+    }
+
+    .mail-header .search-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mail-header input {
+        width: 100%;
+        padding-left: 40px;
+        /* Space for the left icon */
+        padding-right: 40px;
+        /* Space for the right icon */
+        text-align: center;
+    }
+
+    .mail-header .fa-bars {
+
+        font-size: 20px;
+    }
+
+    .mail-header .user {
+        position: absolute;
+        right: 20px;
+    }
 }

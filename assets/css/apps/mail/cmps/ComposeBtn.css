@@ -77,5 +77,24 @@
 }
 
 
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
 
+.mail-sidebar .compose-btn {
+    justify-content: center;
+    width:30px;
+}
 
+.mail-sidebar .compose-btn-container {
+    padding-inline-start: 5px;
+    margin-inline-start: 10px;
+}
+
+.mail-sidebar .compose-btn-container .compose-btn {
+    width: 50px;
+}
+
+.mail-sidebar .compose-btn span{
+   display: none;
+}
+}

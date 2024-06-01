@@ -22,3 +22,11 @@ main {
 .mail-app-main-layout.collapsed {
   grid-template-columns: 75px auto;
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+  
+.mail-app-main-layout {
+grid-template-columns: 100px auto;
+}
+}
