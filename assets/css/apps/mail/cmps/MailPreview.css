@@ -76,6 +76,7 @@
 
       .mail-preview a .sender{
         grid-row:1;
+        width: 80vw;
       }
 
       .mail-preview a div {
