@@ -5,6 +5,7 @@
     padding: 8px 20px;
     color: #797d81;
      background-color: var(--mail-bg1);
+     overflow-x: hidden;
  /* color:#c0c5c9; */
 }
 

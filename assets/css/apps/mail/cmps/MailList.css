@@ -12,9 +12,9 @@
     overflow-y: none;
  }
 
- .mail-list li  {
+ .mail-list li , .mail-list a {
     display: flex;
-    justify-items: space ;
+    justify-content: space-between ;
     align-items: center;
     gap: 10px;
 

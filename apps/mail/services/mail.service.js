@@ -1,6 +1,8 @@
 import { utilService } from '../../../services/util.service.js'
+import { StorageService, storageService } from '../../../services/async-storage.service.js'
 
 const STORAGE_KEY = 'emailsDB'
+const DRAFT_KEY = 'draft'
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
@@ -22,7 +24,10 @@ export const mailService = {
     addMail,
     removeMail,
     toggleState,
-
+    saveDraft,
+    getDraft,
+    clearDraft,
+    updateMail,
 }
 
 function _loadMailsFromStorage() {
@@ -31,6 +36,18 @@ function _loadMailsFromStorage() {
 
 function _saveMailsToStorage(mails) {
     utilService.saveToStorage(STORAGE_KEY, mails)
+}
+
+function saveDraft(draft) {
+    utilService.saveToStorage(DRAFT_KEY, draft);
+}
+
+function getDraft() {
+    return utilService.loadFromStorage(DRAFT_KEY);
+}
+
+function clearDraft() {
+    localStorage.removeItem('draft');
 }
 
 
@@ -58,9 +75,9 @@ function _getFilteredMails(mails, filterBy) {
     })
 }
 
-function getDefaultFilter(filterBy = { status: 'inbox', txt: '', isRead: '', isImportant: '', isStared: '', labels: [] }) {
+function getDefaultFilter(filterBy = { status: '', txt: '', isRead: '', isImportant: '', isStared: '', labels: [] }) {
     return {
-        status: filterBy.status || 'inbox',
+        status: filterBy.status || '',
         txt: filterBy.txt || '',
         isRead: filterBy.isRead || undefined,
         isStared: filterBy.isStared || undefined,
@@ -392,7 +409,7 @@ function toggleState(mailId, stateKey) {
     });
 }
 
-function query(filterBy = { status: 'inbox', txt: '', isRead: undefined, isStared: undefined, isImportant: undefined, labels: [] }) {
+function query(filterBy = { status: '', txt: '', isRead: undefined, isStared: undefined, isImportant: undefined, labels: [] }) {
     let emails = _loadMailsFromStorage();
     if (!emails.length) emails = _createMails();
     if (filterBy) emails = _getFilteredMails(emails, filterBy);
@@ -417,3 +434,8 @@ function _getFilteredMails(mails, filterBy) {
         )
     })
 }
+
+function updateMail (mail) {
+    return storageService.put('emailsDB', mail);  
+    }
+

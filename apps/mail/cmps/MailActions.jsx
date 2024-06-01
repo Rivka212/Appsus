@@ -57,11 +57,12 @@ export function ToggleRead({ mailId, isRead, onToggleRead }) {
   }, [isRead]);
 
   function handleToggleRead(event) {
+    debugger
+
     event.preventDefault();
     event.stopPropagation();
     mailService.toggleReadStatus(mailId)
       .then((updatedMail) => {
-        console.log(updatedMail)
         const newReadStatus = updatedMail.isRead;
         setReadStatus(newReadStatus);
         onToggleRead(mailId, newReadStatus);
@@ -91,11 +92,13 @@ export function ToggleState({ mailId, stateKey, isStateActive, onToggleState }) 
   }, [isStateActive]);
 
   function handleToggleState(event) {
+    
     event.preventDefault();
     event.stopPropagation();
+    debugger
 
     const stateKeyToLabel = {
-      isStared: 'starred',
+      isStared: 'stared',
       isImportant: 'important'
     };
 

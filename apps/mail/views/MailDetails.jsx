@@ -13,6 +13,7 @@ export function MailDetails() {
   const [isStarred, setIsStarred] = useState(false)
   const [isReply, setIsReply] = useState(false)
   const [isForward, setIsForward] = useState(false)
+  
 
 
   const handleStarClick = () => {

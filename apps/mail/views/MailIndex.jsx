@@ -1,16 +1,18 @@
-import { MailFilter } from '../cmps/MailFilter.jsx'
-import { MailList } from '../cmps/MailList.jsx'
-import { mailService } from '../services/mail.service.js'
-
-const { useState, useEffect } = React
-const { useOutletContext } = ReactRouterDOM
+import { MailList } from '../cmps/MailList.jsx';
+const { useOutletContext } = ReactRouterDOM;
 
 export function MailIndex() {
-    const { mails } = useOutletContext()
+  const { mails, criteria, handleToggleRead, handleToggleState, setNewMail } = useOutletContext();
 
-
-    return <section className="mail-index">
-        <MailList mails={mails} />
+  return (
+    <section className="mail-index">
+      <MailList
+        mails={mails}
+        criteria={criteria}
+        handleToggleRead={handleToggleRead}
+        handleToggleState={handleToggleState}
+        setNewMail={setNewMail}
+      />
     </section>
+  );
 }
-

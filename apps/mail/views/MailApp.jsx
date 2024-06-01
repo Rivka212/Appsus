@@ -7,7 +7,7 @@ import { mailService } from "../services/mail.service.js"
 export function MailApp() {
     const { status } = useParams()
     const navigate = useNavigate()
-    const [criteria, setCriteria] = useState(mailService.getDefaultFilter({ status: 'inbox' }))
+    const [criteria, setCriteria] = useState(mailService.getDefaultFilter({}))
     const [mails, setMails] = useState([])
     const [readCount, setReadCount] = useState(0)
     const [newMail, setNewMail] = useState(null); // State to track new mail
@@ -28,16 +28,37 @@ export function MailApp() {
             case 'stared':
                 filter.isStared = true;
                 break;
+            case 'snoozed':
+                filter.isSnoozed = true;
+                break;
             case 'important':
                 filter.isImportant = true;
                 break;
+            case 'sent':
+                filter.status = 'sent';
+                break;
+            case 'draft':
+                filter.status = 'draft';
+                break;
+            case 'categories':
+                filter.categories = true;
+                break;
+            case 'spam':
+                filter.status = 'spam';
+                break;
+            case 'trash':
+                filter.status = 'trash';
+                break;
             default:
-                filter.status = status;
+                filter.status = 'inbox';
         }
         setCriteria(filter);
     }, [status]);
 
+
     useEffect(() => {
+        debugger
+
         mailService.query(criteria)
             .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
             .catch(() => setMails([]));
@@ -107,7 +128,7 @@ export function MailApp() {
             <div className={`mail-app-main-layout ${isSideBarOpen ? 'open' : 'collapsed'}`}>
                 <MailSideBar readCount={readCount} setNewMail={setNewMail}  isOpen={isSideBarOpen}/>
                 <main>
-                    <Outlet context={{ criteria, mails, status, handleToggleRead, handleToggleState }} />
+                    <Outlet context={{ criteria, mails, status,setNewMail,  handleToggleRead, handleToggleState }} />
                 </main>
             </div>
 
