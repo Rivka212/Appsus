@@ -101,3 +101,11 @@
     border: none;
     cursor: pointer;
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+    .compose-mail {
+        width: 90vw !important;
+
+    }
+}

@@ -7,7 +7,7 @@ import { mailService } from "../services/mail.service.js"
 export function MailApp() {
     const { status } = useParams()
     const navigate = useNavigate()
-    const [criteria, setCriteria] = useState(mailService.getDefaultFilter({}))
+    const [criteria, setCriteria] = useState(mailService.getDefaultFilter({ status: 'inbox'}))
     const [mails, setMails] = useState([])
     const [readCount, setReadCount] = useState(0)
     const [newMail, setNewMail] = useState(null)
