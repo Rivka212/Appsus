@@ -7,14 +7,14 @@ import { ComposeMail } from './ComposeMail.jsx'
 export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, showRecipient, openModal, closeModal, isMailClicked, selectedMail, setNewMail }) {
   const senderOrRecipient = mail.type === 'draft'
     ? `To: ${mail.to}`
-    : (showRecipient ? `To: ${mail.to.split('@')[0]}` : mail.from.split('@')[0]);
+    : (showRecipient ? `To: ${mail.to.split('@')[0]}` : mail.from.split('@')[0])
 
   const handleMailClick = (event) => {
     if (mail.type === 'draft') {
-      event.preventDefault();
-      openModal();
+      event.preventDefault()
+      openModal()
     }
-  };
+  }
 
   return (
     <div className="mail-preview">
@@ -26,7 +26,7 @@ export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, s
           <p className="body">{mail.body}</p>
         </div>
         {isHovered ? (
-          <div>
+          <div className="action-icons">
             <TrashAction mail={mail} onActionComplete={onActionComplete} />
             <ToggleRead mailId={mail.id} isRead={mail.isRead} onToggleRead={onToggleRead} />
           </div>
@@ -54,5 +54,6 @@ export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, s
         </div>
       )}
     </div>
-  );
+  )
 }
+

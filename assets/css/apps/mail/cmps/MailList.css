@@ -120,3 +120,18 @@
    box-shadow: 0px 2px 5px 1px #a3a2a252; /* Ensure the same box-shadow for is-read hover */
 
 }
+
+@media (max-width: 600px) {
+    .mail-list li{
+      height: 80px;
+    }
+
+     .mail-list a{
+      height: auto;
+    }
+
+    .mail-list li .checkmark,
+ .mail-list li .important-icon img {
+    display: none;
+ }
+}

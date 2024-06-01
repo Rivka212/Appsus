@@ -82,19 +82,26 @@
 
 .mail-sidebar .compose-btn {
     justify-content: center;
-    width:30px;
+    width:150px;
+    background-color: var(--mail-bg6);
+
 }
 
 .mail-sidebar .compose-btn-container {
-    padding-inline-start: 5px;
-    margin-inline-start: 10px;
+    width: 200px;
+    position: fixed;
+    bottom: 20%;
+    display: inline !important;
+    z-index: 3;
 }
 
-.mail-sidebar .compose-btn-container .compose-btn {
-    width: 50px;
+.mail-sidebar .compose-btn-container.collapsed .compose-btn {
+    width: 140px;
 }
 
-.mail-sidebar .compose-btn span{
-   display: none;
+.compose-btn .hidden{
+    display: inline !important;
 }
+
+
 }

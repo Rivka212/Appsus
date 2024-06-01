@@ -58,9 +58,40 @@
 
   .mail-preview .action-icons{
     display: flex;
+    flex-direction: row;
+
     gap: 5px;
   }
 
   .mail-preview .action-icon{
     cursor: pointer !important;
   }
+
+  @media (max-width: 600px) {
+    .mail-preview a {
+        grid-template-columns: minmax(50px, 1fr) 10px 40px;
+        font-size: 16px;
+        gap: 10px;
+      }
+
+      .mail-preview a .sender{
+        grid-row:1;
+      }
+
+      .mail-preview a div {
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+  }
+
+  .mail-preview .sent-time{
+    font-size: 13px;
+  }
+
+    
+  .mail-preview a .body {
+    max-width: 50vw;
+    grid-template-columns: 1fr minmax(50px, 40vw) 1fr;
+  }
+
+}

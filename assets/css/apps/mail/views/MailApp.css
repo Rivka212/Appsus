@@ -25,8 +25,15 @@ main {
 
 /* Media Query for Mobile Devices */
 @media (max-width: 600px) {
-  
-.mail-app-main-layout {
-grid-template-columns: 100px auto;
+
+  main {
+    width:100%;
+  }
+
+.mail-app-main-layout, .mail-app-main-layout.collapsed {
+margin-inline: 0;
+    display: flex;
+    justify-content: center;
+    padding-inline: 5px;
 }
 }

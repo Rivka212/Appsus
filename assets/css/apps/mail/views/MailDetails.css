@@ -134,3 +134,13 @@
     width:13px;
     height: 13px;
 }
+
+/*mobile*/
+@media (max-width: 600px) {
+
+.mail-details .main-mail {
+    margin-inline-start: 25px;
+    line-height: 1.5em;
+}
+
+}
