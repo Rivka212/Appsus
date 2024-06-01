@@ -39,15 +39,15 @@ function _saveMailsToStorage(mails) {
 }
 
 function saveDraft(draft) {
-    utilService.saveToStorage(DRAFT_KEY, draft);
+    utilService.saveToStorage(DRAFT_KEY, draft)
 }
 
 function getDraft() {
-    return utilService.loadFromStorage(DRAFT_KEY);
+    return utilService.loadFromStorage(DRAFT_KEY)
 }
 
 function clearDraft() {
-    localStorage.removeItem('draft');
+    localStorage.removeItem('draft')
 }
 
 
@@ -57,31 +57,16 @@ function getMail(mailId) {
     return Promise.resolve(mail)
 }
 
-function _getFilteredMails(mails, filterBy) {
-    if (!mails || !Array.isArray(mails)) return []
-    if (!filterBy) return mails
 
-    const { status, txt, isRead, isStared, isImportant, labels } = filterBy
 
-    return mails.filter(mail => {
-        return (
-            (!status || mail.type === status) &&
-            (!txt || mail.subject.includes(txt) || mail.body.includes(txt)) &&
-            (isRead === undefined || mail.isRead === isRead) &&
-            (isStared === undefined || mail.isStared === isStared) &&
-            (isImportant === undefined || mail.isImportant === isImportant) &&
-            (!labels.length || labels.every(label => (mail.labels || []).includes(label)))
-        )
-    })
-}
-
-function getDefaultFilter(filterBy = { status: '', txt: '', isRead: '', isImportant: '', isStared: '', labels: [] }) {
+function getDefaultFilter(filterBy = { status: '', txt: '', isRead: '', isImportant: '', isStared: '', isSnoozed:'', labels: [] }) {
     return {
         status: filterBy.status || '',
         txt: filterBy.txt || '',
         isRead: filterBy.isRead || undefined,
         isStared: filterBy.isStared || undefined,
         isImportant: filterBy.isImportant || undefined,
+        isSnoozed: filterBy.isSnoozed || undefined,
         labels: filterBy.labels || []
     }
 }
@@ -319,52 +304,52 @@ function markAsUnread(mailId) {
 function toggleReadStatus(mailId) {
     return new Promise((resolve, reject) => {
         try {
-            const mails = _loadMailsFromStorage();
-            const mailIndex = mails.findIndex(mail => mail.id === mailId);
+            const mails = _loadMailsFromStorage()
+            const mailIndex = mails.findIndex(mail => mail.id === mailId)
 
             if (mailIndex >= 0) { // Check if the mail exists
-                mails[mailIndex].isRead = !mails[mailIndex].isRead; // Toggle isRead status
+                mails[mailIndex].isRead = !mails[mailIndex].isRead // Toggle isRead status
 
-                _saveMailsToStorage(mails); // Save the updated mails
-                resolve(mails[mailIndex]); // Resolve the promise with the updated mail
+                _saveMailsToStorage(mails) // Save the updated mails
+                resolve(mails[mailIndex]) // Resolve the promise with the updated mail
             } else {
-                reject(new Error('Mail not found')); // Reject the promise if the mail is not found
+                reject(new Error('Mail not found')) // Reject the promise if the mail is not found
             }
         } catch (error) {
-            reject(error); // Reject the promise if there's an error
+            reject(error) // Reject the promise if there's an error
         }
-    });
+    })
 }
 
 
 function changeMailType(mailId, type) {
     return new Promise((resolve, reject) => {
-        const mails = _loadMailsFromStorage();
-        const mailIndex = mails.findIndex(mail => mail.id === mailId);
+        const mails = _loadMailsFromStorage()
+        const mailIndex = mails.findIndex(mail => mail.id === mailId)
 
         if (mailIndex === -1) {
-            return reject('Mail not found');
+            return reject('Mail not found')
         }
 
         if (mails[mailIndex].type === type) {
-            return resolve(mails[mailIndex]);
+            return resolve(mails[mailIndex])
         }
 
-        mails[mailIndex].type = type;
-        _saveMailsToStorage(mails);
-        resolve(mails[mailIndex]);
-    });
+        mails[mailIndex].type = type
+        _saveMailsToStorage(mails)
+        resolve(mails[mailIndex])
+    })
 }
 
 function addMail(mail) {
     return new Promise((resolve, reject) => {
         try {
-            const mails = _loadMailsFromStorage();
-            mails.unshift(mail);
-            _saveMailsToStorage(mails);
-            resolve();
+            const mails = _loadMailsFromStorage()
+            mails.unshift(mail)
+            _saveMailsToStorage(mails)
+            resolve()
         } catch (error) {
-            reject(error);
+            reject(error)
         }
 
     })
@@ -373,69 +358,64 @@ function addMail(mail) {
 function removeMail(mailId) {
     return new Promise((resolve, reject) => {
         try {
-            const mails = _loadMailsFromStorage();
-            const mailIndex = mails.findIndex(mail => mail.id === mailId);
+            const mails = _loadMailsFromStorage()
+            const mailIndex = mails.findIndex(mail => mail.id === mailId)
 
             if (mailIndex >= 0) { // Check if the mail exists
                 mails.splice(mailIndex, 1) // Toggle isRead status
 
-                _saveMailsToStorage(mails); // Save the updated mails
-                resolve(mails[mailIndex]); // Resolve the promise with the updated mail
+                _saveMailsToStorage(mails) // Save the updated mails
+                resolve(mails[mailIndex]) // Resolve the promise with the updated mail
             } else {
-                reject(new Error('Mail not found')); // Reject the promise if the mail is not found
+                reject(new Error('Mail not found')) // Reject the promise if the mail is not found
             }
         } catch (error) {
-            reject(error); // Reject the promise if there's an error
+            reject(error) // Reject the promise if there's an error
         }
-    });
+    })
 }
 
 function toggleState(mailId, stateKey) {
     return new Promise((resolve, reject) => {
         try {
-            const mails = _loadMailsFromStorage();
-            const mailIndex = mails.findIndex(mail => mail.id === mailId);
+            const mails = _loadMailsFromStorage()
+            const mailIndex = mails.findIndex(mail => mail.id === mailId)
 
             if (mailIndex >= 0) {
-                mails[mailIndex][stateKey] = !mails[mailIndex][stateKey];
-                _saveMailsToStorage(mails);
-                resolve(mails[mailIndex]); // Ensure the updated mail object is resolved
+                mails[mailIndex][stateKey] = !mails[mailIndex][stateKey]
+                _saveMailsToStorage(mails)
+                resolve(mails[mailIndex]) // Ensure the updated mail object is resolved
             } else {
-                reject(new Error('Mail not found'));
+                reject(new Error('Mail not found'))
             }
         } catch (error) {
-            reject(error);
+            reject(error)
         }
-    });
-}
-
-function query(filterBy = { status: '', txt: '', isRead: undefined, isStared: undefined, isImportant: undefined, labels: [] }) {
-    let emails = _loadMailsFromStorage();
-    if (!emails.length) emails = _createMails();
-    if (filterBy) emails = _getFilteredMails(emails, filterBy);
-    return Promise.resolve(emails);
-}
-
-function _getFilteredMails(mails, filterBy) {
-    console.log('Filtering mails with:', filterBy) // Add this line
-    if (!mails || !Array.isArray(mails)) return []
-    if (!filterBy) return mails
-
-    const { status, txt, isRead, isStared, isImportant, labels } = filterBy
-
-    return mails.filter(mail => {
-        return (
-            (!status || mail.type === status) &&
-            (!txt || mail.subject.includes(txt) || mail.body.includes(txt)) &&
-            (isRead === undefined || mail.isRead === isRead) &&
-            (isStared === undefined || mail.isStared === isStared) &&
-            (isImportant === undefined || mail.isImportant === isImportant) &&
-            (!labels.length || labels.every(label => (mail.labels || []).includes(label)))
-        )
     })
 }
 
-function updateMail (mail) {
-    return storageService.put('emailsDB', mail);  
-    }
+function query(filterBy = { status: '', txt: '', isRead: undefined, isStared: undefined, isImportant: undefined, isSnoozed: undefined, labels: [] }) {
+    let emails = _loadMailsFromStorage()
+    if (!emails.length) emails = _createMails()
+
+    const { status, txt, isRead, isStared, isImportant, isSnoozed, labels } = filterBy
+    const filteredEmails = emails.filter(mail => {
+        return (
+            (!status || mail.type === status) &&
+            (!txt || mail.subject.includes(txt) || mail.body.includes(txt)
+                || mail.to.includes(txt) || mail.from.includes(txt)) &&
+            (isRead === undefined || mail.isRead === isRead) &&
+            (isStared === undefined || mail.isStared === isStared) &&
+            (isImportant === undefined || mail.isImportant === isImportant) &&
+            (isSnoozed === undefined || mail.isSnoozed === isSnoozed) &&
+            (!labels.length || labels.every(label => (mail.labels || []).includes(label)))
+        )
+    })
+
+    return Promise.resolve(filteredEmails)
+}
+
+function updateMail(mail) {
+    return storageService.put('emailsDB', mail)
+}
 

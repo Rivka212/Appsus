@@ -4,8 +4,7 @@ import { mailService } from "../services/mail.service.js"
 import { TrashAction, ToggleRead } from './MailActions.jsx'
 import { ComposeMail } from './ComposeMail.jsx'
 
-
-export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, showRecipient, setNewMail, closeModal, isMailClicked, setIsClicked, selectedMail, setSelectedMail }) {
+export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, showRecipient, openModal, closeModal, isMailClicked, selectedMail, setNewMail }) {
   const senderOrRecipient = mail.type === 'draft'
     ? `To: ${mail.to}`
     : (showRecipient ? `To: ${mail.to.split('@')[0]}` : mail.from.split('@')[0]);
@@ -13,21 +12,21 @@ export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, s
   const handleMailClick = (event) => {
     if (mail.type === 'draft') {
       event.preventDefault();
-      setSelectedMail(mail);
-      setIsClicked(true);
+      openModal();
     }
   };
 
   return (
     <div className="mail-preview">
       <Link to={mail.type !== 'draft' ? `/mail/details/${mail.id}` : '#'} onClick={handleMailClick}>
+        
         <span className="sender">{senderOrRecipient}</span>
-        <div className="txt-preview">
+        <div>
           <span className="subject">{mail.subject}</span>
           <p className="body">{mail.body}</p>
         </div>
         {isHovered ? (
-          <div className="action-icons">
+          <div>
             <TrashAction mail={mail} onActionComplete={onActionComplete} />
             <ToggleRead mailId={mail.id} isRead={mail.isRead} onToggleRead={onToggleRead} />
           </div>
@@ -43,16 +42,17 @@ export function MailPreview({ mail, isHovered, onActionComplete, onToggleRead, s
             initialBody: mail.body
           })}
           <ComposeMail
-            setNewMail={setNewMail}
+            setNewMail={setNewMail} // You may need to handle this appropriately
             closeModal={closeModal}
             initialRecipient={mail.to}
             initialSubject={mail.subject}
             initialBody={mail.body}
             draftId={mail.id}
+            onActionComplete={onActionComplete}
+            mail={mail}
           />
         </div>
       )}
     </div>
   );
 }
-

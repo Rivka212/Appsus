@@ -1,5 +1,5 @@
-
-export function MailHeader({ toggleSideBar }) {
+import { MailFilter } from "./MailFilter.jsx"
+export function MailHeader({ toggleSideBar , filterBy, onFilter}) {
 
 
     return <section className="mail-header">
@@ -8,12 +8,7 @@ export function MailHeader({ toggleSideBar }) {
             <img className="logo" src="./icons/gmail-logo.png" alt="" />
 
         </div>
-        <div className="search-container">
-            <span className="material-symbols-outlined search-icon">
-                search
-            </span>
-            <input type="search" placeholder="Search mail" />
-        </div>
+        <MailFilter filterBy={filterBy} onFilter={onFilter}/>
         <img className="user" src="./icons/User.png" alt="" />
 
 

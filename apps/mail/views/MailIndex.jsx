@@ -1,8 +1,8 @@
-import { MailList } from '../cmps/MailList.jsx';
-const { useOutletContext } = ReactRouterDOM;
+import { MailList } from '../cmps/MailList.jsx'
+const { useOutletContext } = ReactRouterDOM
 
 export function MailIndex() {
-  const { mails, criteria, handleToggleRead, handleToggleState, setNewMail } = useOutletContext();
+  const { mails, criteria, handleToggleRead, handleToggleState, setNewMail } = useOutletContext()
 
   return (
     <section className="mail-index">
@@ -14,5 +14,5 @@ export function MailIndex() {
         setNewMail={setNewMail}
       />
     </section>
-  );
+  )
 }

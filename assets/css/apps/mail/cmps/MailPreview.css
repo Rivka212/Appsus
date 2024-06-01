@@ -16,6 +16,11 @@
     align-items: center;
     margin: 0;
   }
+
+  .mail-preview a div {
+    display: flex;
+    gap: 5px;
+  }
   
   .mail-preview a .sender {
     white-space: nowrap;

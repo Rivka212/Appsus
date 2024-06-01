@@ -10,128 +10,106 @@ export function MailApp() {
     const [criteria, setCriteria] = useState(mailService.getDefaultFilter({}))
     const [mails, setMails] = useState([])
     const [readCount, setReadCount] = useState(0)
-    const [newMail, setNewMail] = useState(null); // State to track new mail
-    const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+    const [newMail, setNewMail] = useState(null)
+    const [isSideBarOpen, setIsSideBarOpen] = useState(true)
 
     useEffect(() => {
-        if (status === 'inbox') {
-            setReadCount(mailService.countIsRead(mails))
-        }
-    }, [mails, status])
-
-    useEffect(() => {
-        const filter = mailService.getDefaultFilter({});
+        const filter = mailService.getDefaultFilter({})
         switch (status) {
             case 'inbox':
-                filter.status = 'inbox';
-                break;
+                filter.status = 'inbox'
+                break
             case 'stared':
-                filter.isStared = true;
-                break;
+                filter.isStared = true
+                break
             case 'snoozed':
-                filter.isSnoozed = true;
-                break;
+                filter.isSnoozed = true
+                break
             case 'important':
-                filter.isImportant = true;
-                break;
+                filter.isImportant = true
+                break
             case 'sent':
-                filter.status = 'sent';
-                break;
+                filter.status = 'sent'
+                break
             case 'draft':
-                filter.status = 'draft';
-                break;
-            case 'categories':
-                filter.categories = true;
-                break;
+                filter.status = 'draft'
+                break
+            case 'labels':
+                filter.status = ''
+                break
             case 'spam':
-                filter.status = 'spam';
-                break;
+                filter.status = 'spam'
+                break
             case 'trash':
-                filter.status = 'trash';
-                break;
+                filter.status = 'trash'
+                break
             default:
-                filter.status = 'inbox';
+                filter.status = ''
         }
-        setCriteria(filter);
-    }, [status]);
-
+        setCriteria(filter)
+    }, [status])
 
     useEffect(() => {
-        debugger
-
         mailService.query(criteria)
-            .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
-            .catch(() => setMails([]));
-    }, [criteria]);
-    
+            .then(fetchedMails => {
+                setMails(mailService.sortEmailsByDate(fetchedMails))
+                if (criteria.status === 'inbox') {
+                    setReadCount(mailService.countIsRead(fetchedMails))
+                }
+            })
+            .catch(() => setMails([]))
+    }, [criteria, newMail])
 
-
-    useEffect(() => {
-        if (newMail) {
-            console.log('New mail detected in MailApp:', newMail);
-            mailService.query(criteria)
-                .then(fetchedMails => {
-                    console.log('Fetched mails after new mail:', fetchedMails);
-                    setMails(mailService.sortEmailsByDate(fetchedMails));
-                })
-                .catch(() => setMails([]));
+    const handleFilterChange = (newFilter) => {
+        if (newFilter.txt === '') {
+            setCriteria(mailService.getDefaultFilter({ status }))
+        } else {
+            setCriteria(prevCriteria => ({ ...prevCriteria, ...newFilter }))
         }
-    }, [newMail]);
+    }
 
-    console.log('New Mail:', newMail);
-
-
-    function toggleSideBar () {
-        console.log(isSideBarOpen)
-        setIsSideBarOpen(!isSideBarOpen);
-    };
-
+    const toggleSideBar = () => {
+        setIsSideBarOpen(!isSideBarOpen)
+    }
 
     const handleToggleState = (mailId, stateKey, newState) => {
-        console.log(`Toggling state for mailId: ${mailId}, stateKey: ${stateKey}, newState: ${newState}`);
         setMails(prevMails =>
             prevMails.map(mail =>
                 mail.id === mailId ? { ...mail, [stateKey]: newState } : mail
             )
-        );
+        )
 
-        const updatedCriteria = { ...criteria };
+        const updatedCriteria = { ...criteria }
         if (stateKey === 'isStared' && status === 'stared') {
-            updatedCriteria.isStared = true;
+            updatedCriteria.isStared = true
         } else if (stateKey === 'isImportant' && status === 'important') {
-            updatedCriteria.isImportant = true;
+            updatedCriteria.isImportant = true
         }
-        setCriteria(updatedCriteria);
+        setCriteria(updatedCriteria)
 
         mailService.query(updatedCriteria)
             .then(fetchedMails => setMails(mailService.sortEmailsByDate(fetchedMails)))
-            .catch(() => setMails([]));
-    };
-   
-
+            .catch(() => setMails([]))
+    }
 
     const handleToggleRead = (mailId, updatedIsRead) => {
         setMails(prevMails =>
             prevMails.map(mail =>
                 mail.id === mailId ? { ...mail, isRead: updatedIsRead } : mail
             )
-        );
-        setReadCount(prevReadCount => {
-            const newReadCount = mailService.countIsRead(mails);
-            return newReadCount;
-        })
-    };
+        )
+        setReadCount(mailService.countIsRead(mails))
+    }
 
     return (
-        <section >
-            <MailHeader toggleSideBar={toggleSideBar}/>
+        <section>
+            <MailHeader toggleSideBar={toggleSideBar} filterBy={criteria} onFilter={handleFilterChange} />
             <div className={`mail-app-main-layout ${isSideBarOpen ? 'open' : 'collapsed'}`}>
-                <MailSideBar readCount={readCount} setNewMail={setNewMail}  isOpen={isSideBarOpen}/>
+                <MailSideBar readCount={readCount} setNewMail={setNewMail} isOpen={isSideBarOpen} />
                 <main>
-                    <Outlet context={{ criteria, mails, status,setNewMail,  handleToggleRead, handleToggleState }} />
+                    <Outlet context={{ criteria, mails, status, setNewMail, handleToggleRead, handleToggleState }} />
                 </main>
             </div>
-
         </section>
-    );
+    )
 }

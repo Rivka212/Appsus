@@ -1,80 +1,73 @@
-const { useState, useEffect } = React;
-const { useOutletContext, Link } = ReactRouterDOM;
-import { mailService } from '../services/mail.service.js';
-import { MailPreview } from './MailPreview.jsx';
-import { ContextMenu } from './ContextMenu.jsx';
-import { ToggleState } from './MailActions.jsx';
+const { useState, useEffect } = React
+const { useOutletContext, Link } = ReactRouterDOM
+import { mailService } from '../services/mail.service.js'
+import { MailPreview } from './MailPreview.jsx'
+import { ContextMenu } from './ContextMenu.jsx'
+import { ToggleState } from './MailActions.jsx'
+
 
 export function MailList() {
-  const { criteria, mails: initialMails, handleToggleRead, handleToggleState, setNewMail } = useOutletContext();
-  const [mails, setMails] = useState(initialMails);
-  const [hoveredMailId, setHoveredMailId] = useState(null);
-  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
-  const [isMailClicked, setIsClicked] = useState(false);
-  const [selectedMail, setSelectedMail] = useState(null);
-
-//   useEffect(() => {
-//     console.log(isMailClicked, ' is mail clicked');
-// }, [isMailClicked]);
-
-// useEffect(() => {
-//     console.log(selectedMail, 'selected mail');
-// }, [selectedMail]);
-
-  function openModal() {
-    setIsClicked(true);
-  }
-
-  function closeModal() {
-    console.log('Closing modal...');
-    setIsClicked(false);
-    console.log(isMailClicked, ' is mail clicked')
-    setSelectedMail(null);
-    console.log(selectedMail, 'selelcted mail')
-  }
+  const { criteria, mails: initialMails, handleToggleRead, handleToggleState, setNewMail } = useOutletContext()
+  const [mails, setMails] = useState(initialMails)
+  const [hoveredMailId, setHoveredMailId] = useState(null)
+  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 })
+  const [isMailClicked, setIsClicked] = useState(false)
+  const [selectedMail, setSelectedMail] = useState(null)
 
   useEffect(() => {
-    setMails(initialMails);
-  }, [initialMails]);
+    setMails(initialMails)
+  }, [initialMails])
 
   useEffect(() => {
     mailService.query(criteria)
       .then(fetchedMails => setMails(fetchedMails))
-      .catch(() => setMails([]));
-  }, [criteria]);
+      .catch(() => setMails([]))
+  }, [criteria])
 
   const handleActionComplete = (mailId) => {
-    setMails((prevMails) => prevMails.filter((mail) => mail.id !== mailId));
-  };
+    setMails((prevMails) => prevMails.filter((mail) => mail.id !== mailId))
+  }
 
   const onToggleRead = (mailId, isRead) => {
-    handleToggleRead(mailId, isRead);
-  };
+    handleToggleRead(mailId, isRead)
+  }
 
   const onToggleState = (mailId, stateKey, newState) => {
-    handleToggleState(mailId, stateKey, newState);
-  };
+    handleToggleState(mailId, stateKey, newState)
+  }
 
   const handleMailClick = (mail, event) => {
     if (event.button === 2) {
       // Right-click
-      event.preventDefault();
-      setContextMenu({ visible: true, x: event.pageX, y: event.pageY });
+      event.preventDefault()
+      setContextMenu({ visible: true, x: event.pageX, y: event.pageY })
     } else {
       // Left-click
-      setSelectedMail(mail);
+      setSelectedMail(mail)
       if (mail.type === 'draft') {
-        event.preventDefault();
-        openModal();
+        event.preventDefault()
+        openModal()
       } else {
-        mailService.markAsRead(mail.id);
+        mailService.markAsRead(mail.id)
       }
     }
-  };
+  }
+
+  const openModal = () => {
+    setIsClicked(true)
+  }
+
+  const closeModal = () => {
+    console.log('Closing modal...')
+    setIsClicked(false)
+    console.log(isMailClicked, ' is mail clicked')
+    setSelectedMail(null)
+    console.log(selectedMail, 'selected mail')
+  }
 
   const handleContextMenuClose = () => {
-    setContextMenu({ visible: false, x: 0, y: 0 });
-  };
+    setContextMenu({ visible: false, x: 0, y: 0 })
+  }
 
   return (
     <section className="mail-list" onClick={handleContextMenuClose}>
@@ -115,12 +108,11 @@ export function MailList() {
               onActionComplete={handleActionComplete}
               onToggleRead={onToggleRead}
               showRecipient={mail.type === 'sent' || mail.type === 'draft'}
-              setNewMail={setNewMail}
+              openModal={openModal}
               closeModal={closeModal}
               isMailClicked={isMailClicked}
-              setIsClicked={setIsClicked}
               selectedMail={selectedMail}
-              setSelectedMail={setSelectedMail}
+              setNewMail={setNewMail}
             />
           </li>
         ))}
@@ -133,5 +125,5 @@ export function MailList() {
         />
       )}
     </section>
-  );
+  )
 }

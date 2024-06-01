@@ -1,8 +1,10 @@
+
 const{ NavLink, useLocation } = ReactRouterDOM
 import { ComposeBtn } from './ComposeBtn.jsx'
 import { utilService } from '../../../services/util.service.js'
 
 export function MailSideBar({  readCount, setNewMail, isOpen }) {
+
     const icons = {
         inbox: './icons/inbox.png',
         stared: './icons/starred.png',
@@ -22,7 +24,7 @@ export function MailSideBar({  readCount, setNewMail, isOpen }) {
         { name: 'important', icon: 'important' },
         { name: 'sent', icon: 'sent' },
         { name: 'draft', icon: 'draft' },
-        { name: 'categories', icon: 'categories' },
+        { name: 'labels', icon: 'categories' },
         { name: 'spam', icon: 'spam' },
         { name: 'trash', icon: 'trash' }
     ]
