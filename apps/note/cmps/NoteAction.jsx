@@ -28,7 +28,9 @@ export function NoteAction({ note, onRemove }) {
             })
     }
 
-   
+   function onSetNoteImg(note){
+
+   }
 
     function onSetNoteColor(note, newColor) {
         noteService.colorStyle(note, newColor)
@@ -45,7 +47,11 @@ export function NoteAction({ note, onRemove }) {
         <section className="action-note hidden">
             <img src={"../../../../img/more.png"} alt='' />
             <img src={"../../../../icons/download-file.png"} alt='' />
-            <img src={"../../../../img/picture.png"} alt='' />
+            <img src={"../../../../img/picture.png"} alt='' onClick={(ev) => {
+                 ev.stopPropagation(), fileInputRef.current.click()} } />
+           
+                {/* //   onSetNoteImg(note) */}
+            
             <img src={"../../../../img/palette.png"} alt=''
                onClick={() => handleColorPaletteToggle(note)} />
             {showColorPalette && <ColorInput noteId={note.id} {...noteColor} onSetNoteColor={onSetNoteColor} 

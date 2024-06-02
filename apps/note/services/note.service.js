@@ -45,6 +45,7 @@ function query(filterBy = { status: 'notes', txt: '' }) {
                 // console.log(note.info.txt);
                 console.log(notes);
             }
+            console.log(notes);
             return notes
         })
 }
@@ -123,6 +124,7 @@ function get(noteId) {
 }
 
 function updateNotePinnedStatus(noteId, newIsPinned) {
+    console.log(noteId, 'noteId');
     const notes = _loadNotesFromStorage()
     const note = notes.find((note) => note.id === noteId)
     if (note) {

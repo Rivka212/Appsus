@@ -1,97 +1,54 @@
-.note-todos ul > li{ 
-list-style-type: disc;
-margin: 5px;
-padding: 2px;
-min-height: 8px;
-border: none;
-border-radius: none;
+.note-todos ul>li {
+    list-style-type: disc;
+    margin: 5px;
+    padding: 2px;
+    min-height: 8px;
+    border: none;
+    border-radius: none;
 
-color: rgb(77, 73, 73);
+    color: rgb(77, 73, 73);
 
 }
 
-.note-todos ul > li:hover{
-   box-shadow:none; 
-border: none;   
+.note-todos ul>li:hover {
+    box-shadow: none;
+    border: none;
 }
 
 /* .note-todos h3{
     margin-bottom: 10px;
 } */
 
-.note-todos> input{
+.note-todos>input {
     color: rgb(59, 58, 58);
     background-color: black;
 }
 
 input[type="checkbox"] {
-    background-color: #1c1e1c; 
+    background-color: #1c1e1c;
 }
 
-.container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #fff;
-    border: 2px black solid;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-  
-  /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
-    background-color: #002B4E;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    background-color: rgb(251, 243, 243);
+    border: 1px solid #000;
+    border-radius: 3px;
 }
 
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
+input[type="checkbox"]:checked {
+    /* background-image:  ✔; */
+    background-image: '&#xf14a';
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #969996;
 }
 
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-  left: 6px;
-  top: 3px;
-  width: 5px;
-  height: 8px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(35deg);
-  -ms-transform: rotate(35deg);
-  transform: rotate(35deg);
-}
+/* .note-todos input[type="checkbox"]:checked> li{
+   inline-size: 1px;
+} */
+

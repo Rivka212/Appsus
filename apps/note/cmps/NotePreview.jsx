@@ -1,5 +1,5 @@
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 import { noteService } from '../services/note.service.js'
 import { NoteTxt } from "./dynamic-inputs/NoteTxt.jsx";
@@ -11,6 +11,8 @@ import { NoteAction } from "./NoteAction.jsx";
 export function NotePreview({ note, onRemove, onSetNotePinned}) {
     const [cmpType, setCmpType] = useState(null)
     const [isPinned, setIsPinned] = useState(note.isPinned)
+    const fileInputRef = useRef(null)
+
     // const [note, setNote] = useState()
 
     useEffect(() => {
@@ -49,6 +51,22 @@ export function NotePreview({ note, onRemove, onSetNotePinned}) {
         })
     }
 
+    function handleImageUpload(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const imageDataURL = reader.result;
+                onSetNoteImg(note, imageDataURL);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function onSetNoteImg(){
+console.log('hi');
+    }
+
 
     function onTogglePinned(noteId, newIsPinned) {
         console.log(noteId, newIsPinned);
@@ -68,7 +86,7 @@ export function NotePreview({ note, onRemove, onSetNotePinned}) {
             {/* // <article className={`note-preview ${editClass}`} onClick={onClick}> */}
             <div className="note-details">
                 <div className="note-dynamic-cmp">
-                    <DynamicCmp cmpType={cmpType} key={note.id} note={note} onUpdatedTodoNote={onUpdatedTodoNote}/>
+                    <DynamicCmp cmpType={cmpType} key={note.id} note={note} onUpdatedTodoNote={onUpdatedTodoNote} onSetNoteImg={onSetNoteImg}/>
                     {/* <DynamicCmp cmpType={cmpType} key={note.id}  {...note}  />/ */}
                 </div>
                 <span className="hidden">
@@ -89,11 +107,11 @@ export function NotePreview({ note, onRemove, onSetNotePinned}) {
 }
 
 function DynamicCmp(props) {
-    const { cmpType, onUpdatedTodoNote } = props
+    const { cmpType, onUpdatedTodoNote, onSetNoteImg } = props
     if (props.cmpType === 'NoteTxt') {
         return <NoteTxt {...props} />
     } else if (props.cmpType === 'NoteImg') {
-        return <NoteImg {...props} />
+        return <NoteImg {...props} onSetNoteImg={onSetNoteImg}/>
     } else if (props.cmpType === 'NoteVideo') {
         return <NoteVideo {...props} />
     } else if (props.cmpType === 'NoteTodos') {

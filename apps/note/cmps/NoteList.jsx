@@ -8,6 +8,7 @@ export function NoteList({ notes, onRemove, onSetNotePinned}) {
     //     backgroundColor: notes.style.backgroundColor,
     // })
 // console.log(notes);
+console.log(notes);
 
     return <section className="note-list">
         <ul>

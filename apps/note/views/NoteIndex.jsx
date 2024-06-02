@@ -91,6 +91,7 @@ export function NoteIndex() {
 
 
     function handleSetNotePinned(noteId, isPinned) {
+        console.log(noteId, 'noteId');
         const updatedNotes = noteService.query()
         // console.log(updatedNotes)
             .then(() => {
