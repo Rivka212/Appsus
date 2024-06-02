@@ -24,10 +24,11 @@ export const noteService = {
     getDefaultFilter,
     getFilterFromSearchParams,
     updatedTodoNote,
+    getNoteImg,
 }
 
 function query(filterBy = { status: 'notes', txt: '' }) {
-    console.log(filterBy, 'filterBy');
+    // console.log(filterBy, 'filterBy');
     return storageService.query(NOTE_KEY)
         .then(notes => {
             if (filterBy.status === 'notes' || !filterBy.status) {
@@ -45,7 +46,6 @@ function query(filterBy = { status: 'notes', txt: '' }) {
                 // console.log(note.info.txt);
                 console.log(notes);
             }
-            console.log(notes);
             return notes
         })
 }
@@ -144,6 +144,22 @@ function updateNotePinnedStatus(noteId, newIsPinned) {
 //     }
 //   return new Promise.resolve(notes)
 // }
+
+
+function getNoteImg(noteId, imageDataURL){
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    if (note) {
+        // info: {
+        //     url: 'http://some-img/me',
+        const updatedImgNote = { ...note, info:imageDataURL }
+        save(updatedImgNote)
+        return Promise.resolve(updatedImgNote)
+    } else {
+        return Promise.reject("Note not found")
+    }
+}
+
 
 
 function duplicate(noteCopy) {
