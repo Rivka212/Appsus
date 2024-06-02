@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-inline-end: 75px;
+    margin-inline-end: 48px;
 }
 
 .mail-header .fa-bars {
@@ -61,6 +61,7 @@
     padding: 10px 50px;
     font-size: 16px;
     flex-grow: 1;
+    max-width: 750px;
 }
 
 .mail-header input:focus {
