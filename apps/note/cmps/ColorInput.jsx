@@ -1,4 +1,5 @@
 
+
 export function ColorInput({ noteId, backgroundColor, showColorPalette, onSetNoteColor,handleColorPaletteToggle }) {
     const colors = [
         '#FAAFA8',

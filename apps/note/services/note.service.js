@@ -23,9 +23,10 @@ export const noteService = {
     updateNotePinnedStatus,
     getDefaultFilter,
     getFilterFromSearchParams,
+    updatedTodoNote,
 }
 
-function query(filterBy = { status: 'notes' }) {
+function query(filterBy = { status: 'notes', txt: '' }) {
     console.log(filterBy, 'filterBy');
     return storageService.query(NOTE_KEY)
         .then(notes => {
@@ -36,32 +37,45 @@ function query(filterBy = { status: 'notes' }) {
             } else if (filterBy.status === 'trash') {
                 notes = notes.filter(note => note.isTrashed)
             }
-            if (filterBy.status === 'notes' && filterBy.txt) {
+            if (filterBy.txt) {
+
                 console.log(filterBy.txt);
                 const regExp = new RegExp(filterBy.txt, 'i')
                 notes = notes.filter(note => regExp.test(note.info.txt))
+                // console.log(note.info.txt);
                 console.log(notes);
             }
+            console.log(notes);
             return notes
         })
 }
 
 
-function getDefaultFilter(filterBy = { txt: '' }) {
-    return { txt: filterBy.txt }
+function getDefaultFilter(filterBy = { status: 'notes', txt: '' }) {
+    console.log(filterBy);
+    return {
+        status: filterBy.status || 'notes',
+        txt: filterBy.txt || '',
+    }
 }
 
 function getFilterFromSearchParams(searchParams) {
     return {
+        // status,
         txt: searchParams.get('txt') || '',
     }
+    // getDefaultFilter(filterBy)
 }
 
-function getFilterStatus(notes, filterBy = { status: 'notes' }) {
+function getFilterStatus(notes, filterBy = { status: 'notes', txt: '' }) {
+    console.log(filterBy);
     if (filterBy.status === 'trash') {
-        notes = notes.filter(note => note.isTrashed);
+        notes = notes.filter(note => note.isTrashed)
     }
-    return Promise.resolve({ status: filterBy.status || 'notes' })
+    if (filterBy.txt) {
+        notes = notes.filter(note => note.info.txt)
+    }
+    return Promise.resolve({ status: filterBy.status || 'notes', txt: filterBy.txt || '' })
 }
 
 
@@ -110,6 +124,7 @@ function get(noteId) {
 }
 
 function updateNotePinnedStatus(noteId, newIsPinned) {
+    console.log(noteId, 'noteId');
     const notes = _loadNotesFromStorage()
     const note = notes.find((note) => note.id === noteId)
     if (note) {
@@ -143,6 +158,22 @@ function duplicate(noteCopy) {
     }
 }
 // note = storageService.find(NOTE_KEY, noteId)
+
+function updatedTodoNote(noteId, newTodo) {
+    console.log(noteId, newTodo);
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    if (note) {
+        const updatedNote = { ...note, info: newTodo }
+        console.log(updatedNote);
+        save(updatedNote)
+        return Promise.resolve(updatedNote)
+    } else {
+        return Promise.reject("Note not found")
+    }
+}
+
+
 
 
 function colorStyle(noteId, newColor) {
@@ -233,6 +264,9 @@ function _createNotes() {
                 id: 'n103',
                 type: 'NoteTodos',
                 isPinned: false,
+                style: {
+                    backgroundColor: '#B4DDD3'
+                },
                 info: {
                     title: 'Get my stuff together',
                     todos: [
