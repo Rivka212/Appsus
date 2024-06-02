@@ -7,7 +7,7 @@ import { mailService } from "../services/mail.service.js"
 export function MailApp() {
     const { status } = useParams()
     const navigate = useNavigate()
-    const [criteria, setCriteria] = useState(mailService.getDefaultFilter({ status: 'inbox'}))
+    const [criteria, setCriteria] = useState(mailService.getDefaultFilter({}))
     const [mails, setMails] = useState([])
     const [readCount, setReadCount] = useState(0)
     const [newMail, setNewMail] = useState(null)
@@ -35,7 +35,7 @@ export function MailApp() {
                 filter.status = 'draft'
                 break
             case 'labels':
-                filter.status = ''
+                filter.labels = ''
                 break
             case 'spam':
                 filter.status = 'spam'
@@ -46,28 +46,40 @@ export function MailApp() {
             default:
                 filter.status = ''
         }
+        console.log('Updated Filter:', filter);
+
         setCriteria(filter)
     }, [status])
 
     useEffect(() => {
+        debugger
+        console.log('Fetching mails with criteria:', criteria);
         mailService.query(criteria)
             .then(fetchedMails => {
-                setMails(mailService.sortEmailsByDate(fetchedMails))
+                console.log('Fetched Mails:', fetchedMails);
+                setMails(mailService.sortEmailsByDate(fetchedMails));
                 if (criteria.status === 'inbox') {
-                    setReadCount(mailService.countIsRead(fetchedMails))
+                    setReadCount(mailService.countIsRead(fetchedMails));
                 }
             })
-            .catch(() => setMails([]))
-    }, [criteria, newMail])
+            .catch(error => {
+                console.error('Error fetching mails:', error);
+                setMails([]);
+            });
+    }, [criteria, newMail]);
 
     const handleFilterChange = (newFilter) => {
+        console.log('New Filter:', newFilter);
         if (newFilter.txt === '') {
-            setCriteria(mailService.getDefaultFilter({ status }))
+            setCriteria(mailService.getDefaultFilter({ status }));
         } else {
-            setCriteria(prevCriteria => ({ ...prevCriteria, ...newFilter }))
+            setCriteria(prevCriteria => {
+                const updatedCriteria = { ...prevCriteria, ...newFilter };
+                console.log('Updated Criteria:', updatedCriteria);
+                return updatedCriteria;
+            });
         }
-    }
-
+    };
     const toggleSideBar = () => {
         setIsSideBarOpen(!isSideBarOpen)
     }
