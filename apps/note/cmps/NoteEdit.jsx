@@ -8,8 +8,7 @@ import { noteService } from '../services/note.service.js'
 export function NoteEdit() {
 
     const [note, setNote] = useState(noteService.getEmptyNote())
-    // const { notes} = useOutletContext()
- 
+    
     const navigate = useNavigate()
     const params = useParams()
     console.log(params);

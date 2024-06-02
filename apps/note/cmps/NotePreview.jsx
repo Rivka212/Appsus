@@ -14,6 +14,7 @@ export function NotePreview({ note, onRemove, onSetNotePinned}) {
     const fileInputRef = useRef(null)
 
     // const [note, setNote] = useState()
+    
 
     useEffect(() => {
         setCmpType(note.type)
@@ -28,8 +29,8 @@ export function NotePreview({ note, onRemove, onSetNotePinned}) {
     }
 
     useEffect(() => {
-        setIsPinned(note.isPinned); // Update isPinned when the note prop changes
-    }, [note]);
+        setIsPinned(note.isPinned)
+    }, [note])
 
     // useEffect(() => {
     //     if (isPinned) {

@@ -1,26 +1,20 @@
 const { useState, useEffect } = React
 
-export function NoteImg({note}){
-        const [image, setImage] = useState(null);
+export function NoteImg({note, onSetNoteImg}){
+        const [image, setImage] = useState(null)
     
-        function handleImageUpload(e){
-            const file = e.target.files[0]
-            const reader = new FileReader()
-    
-            reader.onload = () => {
-                setImage(reader.result)
-            }
-            if (file) {
-                reader.readAsDataURL(file)
-            }
-        }
+     
+function onSetNoteImg(){
+    console.log('hi');
+}
     
         return (  <section>
             <h3>{note.info.title}</h3>
             <div>
-                {/* <input type="file" onChange={handleImageUpload} />
-                {image && <img src={image} alt="" style={{ maxWidth: '200px' }} />} */}
-            </div>  </section>
+                {/* <input type="file" onChange={handleImageUpload} /> */}
+                {image && <img src={image} alt="" style={{ maxWidth: '200px' }} />}
+            </div>
+              </section>
         )
     }
     
