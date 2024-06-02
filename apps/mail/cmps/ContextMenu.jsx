@@ -1,14 +1,14 @@
 export function ContextMenu({ x, y, onHide }) {
   const icons = {
-    reply: '../../../../icons/reply.png',
-    forward: '../../../../icons/reply.png',
-    archive: '../../../../icons/archive.png',
-    trash: '../../../../icons/trash.png',
-    unread: '../../../../icons/mark unread.png',
-    snoozed: '../../../../icons/snoozed.png',
-    important: '../../../../icons/important.png',
-    categories: '../../../../icons/categories.png',
-    spam: '../../../../icons/spam.png',
+    reply: './icons/reply.png',
+    forward: './icons/reply.png',
+    archive: './icons/archive.png',
+    trash: './icons/trash.png',
+    unread: './icons/mark unread.png',
+    snoozed: './icons/snoozed.png',
+    important: './icons/important.png',
+    categories: './icons/categories.png',
+    spam: './icons/spam.png',
   };
 
   const items = [

@@ -1,18 +1,39 @@
 main {
-    background-color: white;
-    margin-block-start: 8px;
-    border-radius: 25px;
+  background-color: white;
+  margin-block-start: 4px;
+  border-radius: 25px;
+  overflow-x  : scroll;
 }
 
 .mail-app-main-layout {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 246px auto;
- 
-    padding-inline: 0 10px;
-    height: 100vh;
-     font-family: Roboto-Regular;
-     font-size: 14px;
-     background-color: var(--mail-bg1);
-     color: var(--mail-txt3);
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 246px auto;
+
+  padding-inline: 0 10px;
+  height: 100vh;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  background-color: var(--mail-bg1);
+  color: var(--mail-txt3);
+  transition: grid-template-columns 0.3s; /* Add transition here */
+}
+
+.mail-app-main-layout.collapsed {
+  grid-template-columns: 75px auto;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+
+  main {
+    width:100%;
   }
+
+.mail-app-main-layout, .mail-app-main-layout.collapsed {
+margin-inline: 0;
+    display: flex;
+    justify-content: center;
+    padding-inline: 5px;
+}
+}

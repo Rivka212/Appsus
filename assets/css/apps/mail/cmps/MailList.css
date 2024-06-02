@@ -1,7 +1,6 @@
  /* mail list */
  .mail-list{
-   width: 100%; /* Subtract padding from 100% */
-    /* 10px padding on both sides */
+   width: 100%;
  }
  
  .mail-list ul {
@@ -13,9 +12,14 @@
     overflow-y: none;
  }
 
- .mail-list li  {
+ .mail-list li{
+   border-bottom: 1px solid var(--mail-border)
+
+ }
+
+ .mail-list li , .mail-list a {
     display: flex;
-    justify-items: center;
+    justify-content: space-between ;
     align-items: center;
     gap: 10px;
 
@@ -23,7 +27,6 @@
     padding-block: 10px;
     padding: 10px; 
     position: relative; 
-    border-bottom: 1px solid var(--mail-border)
 
  }
 
@@ -66,25 +69,21 @@
     background-color: transparent;
     border: 2px solid rgb(184 181 181 / 54%);
     cursor: pointer;
+    position: relative;;
  }
 
- .checkmark::after {
-    content: '';
-    width: 8px;
-    height: 14px;
-    border: solid black;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    display: none;
- }
 
  .checkbox:checked~.checkmark::after {
     display: block;
  }
 
  .checkmark:after {
-    left: 9px;
-    top: 5px;
+   content: '';
+    
+   display: none;
+   position: absolute;
+    left: 3px;
+    top: 0px;
     width: 2px;
     height: 6px;
     border: solid var(--mail-txt3);
@@ -120,4 +119,19 @@
 
    box-shadow: 0px 2px 5px 1px #a3a2a252; /* Ensure the same box-shadow for is-read hover */
 
+}
+
+@media (max-width: 600px) {
+    .mail-list li{
+      height: 80px;
+    }
+
+     .mail-list a{
+      height: auto;
+    }
+
+    .mail-list li .checkmark,
+ .mail-list li .important-icon img {
+    display: none;
+ }
 }

@@ -1,0 +1,107 @@
+.mail-sidebar .compose-btn-container{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.mail-sidebar .compose-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+
+    padding: 25px;
+    margin-inline-start: 8px;
+    margin-block-start: 8px;
+
+    border:none;
+    border-radius: 15px;
+    max-width: 145px;
+    height: 60px;
+
+    font-size: 15px;
+    font-family: Roboto-Bold;
+    background-color: var(--mail2);
+    color: var(--mail-txt1);
+
+}
+
+.mail-sidebar .compose-btn.collapsed {
+    justify-content: center;
+    width:30px;
+}
+
+.mail-sidebar .compose-btn-container.collapsed {
+    padding-inline-start: 5px;
+
+}
+
+.mail-sidebar .compose-btn-container.collapsed .compose-btn {
+    width: 50px;
+}
+
+
+.mail-sidebar .compose-btn:hover{
+    box-shadow: 2px 3px 8px #8785856e;
+    transition: 0.2s;
+}
+
+.mail-sidebar .compose-btn img{
+    width: 22px;
+    height:22px
+}
+.swal-modal{
+    font-family: sans-serif;
+    width: 300px;
+    height: 190px;
+
+}
+
+.swal-title {
+    text-align: start;
+    color: #212121;
+    font-family: 'Roboto-Light';
+    font-size: 22px;
+    padding-top: 0;
+}
+
+.swal-text {
+    display: flex;
+    margin: 10px;
+    font-size:14px;
+    text-align: start;
+}
+.swal-button {
+    background-color: var(--mail-btn);
+    border-radius: 25px;
+}
+
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+
+.mail-sidebar .compose-btn {
+    justify-content: center;
+    width:150px;
+    background-color: var(--mail-bg6);
+
+}
+
+.mail-sidebar .compose-btn-container {
+    width: 200px;
+    position: fixed;
+    bottom: 20%;
+    display: inline !important;
+    z-index: 3;
+}
+
+.mail-sidebar .compose-btn-container.collapsed .compose-btn {
+    width: 140px;
+}
+
+.compose-btn .hidden{
+    display: inline !important;
+}
+
+
+}

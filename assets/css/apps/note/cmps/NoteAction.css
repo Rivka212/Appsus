@@ -2,7 +2,9 @@
 .action-note .color-input >.items-container {
     display: flex;
     /* gap: 10px; */
-    background-color: rgb(250, 252, 252);
+    width: 420px;
+    height: 35px;
+    background-color: rgb(246, 248, 248);
     padding: 5px;
     height: 35px;
     width: 421px;
@@ -31,7 +33,7 @@
     transition: .2s border-width;
 }
 
-.action-note .item:hover .item{
+.action-note .item:hover .item:hover{
     border-radius: 1px solid black;
 }
 

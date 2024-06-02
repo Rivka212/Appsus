@@ -1,77 +1,73 @@
-const { useState, useEffect } = React;
-const { useOutletContext, Link } = ReactRouterDOM;
-import { mailService } from '../services/mail.service.js';
-import { MailPreview } from './MailPreview.jsx';
-import { ContextMenu } from './ContextMenu.jsx';
+const { useState, useEffect } = React
+const { useOutletContext, Link } = ReactRouterDOM
+import { mailService } from '../services/mail.service.js'
+import { MailPreview } from './MailPreview.jsx'
+import { ContextMenu } from './ContextMenu.jsx'
+import { ToggleState } from './MailActions.jsx'
+
 
 export function MailList() {
-  const { mails: initialMails, status, handleToggleRead } = useOutletContext();
-  const [mails, setMails] = useState(initialMails);
-  const [hoveredMailId, setHoveredMailId] = useState(null);
-  const [emailState, setEmailState] = useState({ starred: {}, important: {} });
-  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
-  const [isRead, setIsRead] = useState(false);
+  const { criteria, mails: initialMails, handleToggleRead, handleToggleState, setNewMail } = useOutletContext()
+  const [mails, setMails] = useState(initialMails)
+  const [hoveredMailId, setHoveredMailId] = useState(null)
+  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 })
+  const [isMailClicked, setIsClicked] = useState(false)
+  const [selectedMail, setSelectedMail] = useState(null)
 
   useEffect(() => {
-    setMails(initialMails);
-  }, [initialMails, isRead]);
+    setMails(initialMails)
+  }, [initialMails])
+
+  useEffect(() => {
+    mailService.query(criteria)
+      .then(fetchedMails => setMails(fetchedMails))
+      .catch(() => setMails([]))
+  }, [criteria])
 
   const handleActionComplete = (mailId) => {
-    setMails((prevMails) => prevMails.filter((mail) => mail.id !== mailId));
-  };
+    setMails((prevMails) => prevMails.filter((mail) => mail.id !== mailId))
+  }
 
   const onToggleRead = (mailId, isRead) => {
-    handleToggleRead(mailId, isRead);
-  };
+    handleToggleRead(mailId, isRead)
+  }
 
-  const toggleEmail = (type, mailId) => {
-    setEmailState(prevState => ({
-      ...prevState,
-      [type]: {
-        ...prevState[type],
-        [mailId]: !prevState[type][mailId]
-      }
-    }));
-  };
+  const onToggleState = (mailId, stateKey, newState) => {
+    handleToggleState(mailId, stateKey, newState)
+  }
 
-  const renderEmailIcon = (type, mailId, icon, altText) => (
-    <img
-      src={emailState[type][mailId] ? icon.active : icon.inactive}
-      className={`${type} ${emailState[type][mailId] ? '' : 'unstarred'}`}
-      onClick={(ev) => {
-        ev.stopPropagation();
-        toggleEmail(type, mailId);
-      }}
-      alt={altText}
-    />
-  );
-
-  const handleMailClick = (mailId, event) => {
+  const handleMailClick = (mail, event) => {
     if (event.button === 2) {
       // Right-click
-      event.preventDefault();
-      setContextMenu({ visible: true, x: event.pageX, y: event.pageY });
+      event.preventDefault()
+      setContextMenu({ visible: true, x: event.pageX, y: event.pageY })
     } else {
       // Left-click
-      mailService.markAsRead(mailId);
+      setSelectedMail(mail)
+      if (mail.type === 'draft') {
+        event.preventDefault()
+        openModal()
+      } else {
+        mailService.markAsRead(mail.id)
+      }
     }
-  };
+  }
+
+  const openModal = () => {
+    setIsClicked(true)
+  }
+
+  const closeModal = () => {
+    console.log('Closing modal...')
+    setIsClicked(false)
+    console.log(isMailClicked, ' is mail clicked')
+    setSelectedMail(null)
+    console.log(selectedMail, 'selected mail')
+  }
 
   const handleContextMenuClose = () => {
-    setContextMenu({ visible: false, x: 0, y: 0 });
-  };
-
-  const icons = {
-    inbox: '../../../../icons/inbox.png',
-    starred: '../../../../icons/starred.png',
-    snoozed: '../../../../icons/snoozed.png',
-    important: '../../../../icons/important.png',
-    sent: '../../../../icons/sent.png',
-    draft: '../../../../icons/draft.png',
-    categories: '../../../../icons/categories.png',
-    spam: '../../../../icons/spam.png',
-    trash: '../../../../icons/trash.png'
-  };
+    setContextMenu({ visible: false, x: 0, y: 0 })
+  }
 
   return (
     <section className="mail-list" onClick={handleContextMenuClose}>
@@ -79,8 +75,8 @@ export function MailList() {
         {mails.map((mail) => (
           <li key={mail.id}
             className={mail.isRead ? "is-read" : ''}
-            onClick={(ev) => handleMailClick(mail.id, ev)}
-            onContextMenu={(ev) => handleMailClick(mail.id, ev)}
+            onClick={(ev) => handleMailClick(mail, ev)}
+            onContextMenu={(ev) => handleMailClick(mail, ev)}
             onMouseEnter={() => setHoveredMailId(mail.id)}
             onMouseLeave={() => setHoveredMailId(null)}
           >
@@ -90,21 +86,34 @@ export function MailList() {
                 <span className="checkmark"></span>
               </label>
               <span className="star-icon">
-                {renderEmailIcon('starred', mail.id, { active: '../../../icons/goldstar.svg', inactive: '../../../icons/star.svg' }, 'Toggle Starred')}
+                <ToggleState
+                  mailId={mail.id}
+                  stateKey="isStared"
+                  isStateActive={mail.isStared}
+                  onToggleState={onToggleState}
+                />
               </span>
               <span className="important-icon">
-                {renderEmailIcon('important', mail.id, { active: '../../../icons/important-gold.png', inactive: '../../../../icons/important.png' }, 'Toggle Important')}
+                <ToggleState
+                  mailId={mail.id}
+                  stateKey="isImportant"
+                  isStateActive={mail.isImportant}
+                  onToggleState={onToggleState}
+                />
               </span>
             </div>
-            <Link to={`/mail/details/${mail.id}`} >
-              <MailPreview
-                mail={mail}
-                isHovered={hoveredMailId === mail.id}
-                onActionComplete={handleActionComplete}
-                onToggleRead={onToggleRead}
-                showRecipient={mail.type === 'sent' || mail.originalType === 'sent'}
-              />
-            </Link>
+            <MailPreview
+              mail={mail}
+              isHovered={hoveredMailId === mail.id}
+              onActionComplete={handleActionComplete}
+              onToggleRead={onToggleRead}
+              showRecipient={mail.type === 'sent' || mail.type === 'draft'}
+              openModal={openModal}
+              closeModal={closeModal}
+              isMailClicked={isMailClicked}
+              selectedMail={selectedMail}
+              setNewMail={setNewMail}
+            />
           </li>
         ))}
       </ul>
@@ -116,5 +125,5 @@ export function MailList() {
         />
       )}
     </section>
-  );
+  )
 }

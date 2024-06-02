@@ -1,36 +1,98 @@
-.mail-preview{
+
+  .mail-preview {
+    display: flex;
+    width: 100%;
+  }
+
+
+  
+  .mail-preview a {
     display: grid;
     grid-template-columns:  1fr minmax(200px, 55vw) 1fr;
-    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
     gap: 10px;
-}
-.mail-preview div {
+    align-items: center;
+    margin: 0;
+  }
+
+  .mail-preview a div {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .mail-preview a .sender {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50px;
+  }
+
+  .mail-preview .txt-preview{
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-.sender{
-    width: 80px;
+    gap:10px;
+  }
+  
+  .mail-preview a .subject {
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.subject {
-    margin-left: 10px;
+  }
+  
+  .mail-preview a .body {
+    flex: 1;
     white-space: nowrap;
-}
-
-.body{
-    height: 14px;
-
     overflow: hidden;
-    font-family: Roboto-Regular;
     text-overflow: ellipsis;
+    font-family:Roboto-Regular ;
+    margin: 0;
+  }
+  
+  .mail-preview a .sent-time {
+    flex: 0 0 60px;
+    text-align: right;
     white-space: nowrap;
+  }
+
+  .mail-preview .action-icons{
+    display: flex;
+    flex-direction: row;
+
+    gap: 5px;
+  }
+
+  .mail-preview .action-icon{
+    cursor: pointer !important;
+  }
+
+  @media (max-width: 600px) {
+    .mail-preview a {
+        grid-template-columns: minmax(50px, 1fr) 10px 40px;
+        font-size: 16px;
+        gap: 10px;
+      }
+
+      .mail-preview a .sender{
+        grid-row:1;
+        width: 80vw;
+      }
+
+      .mail-preview a div {
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+  }
+
+  .mail-preview .sent-time{
+    font-size: 13px;
+  }
+
+    
+  .mail-preview a .body {
+    max-width: 50vw;
+    grid-template-columns: 1fr minmax(50px, 40vw) 1fr;
+  }
 
 }
-
-.sent-time {
-   justify-self: end; /* Align the content to the right */
-}
-

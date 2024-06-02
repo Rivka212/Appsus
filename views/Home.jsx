@@ -1,4 +1,4 @@
-
+import {hey} from '../'
 export function Home() {
     return <section className="home">
         <h1>Welcome to Appsus!</h1>
@@ -15,11 +15,11 @@ export function Home() {
             </div>
 
             <div className="card-info">
-                <img src="../img/pic1.jpg"></img>
+                <img src="./img/pic1.jpg"></img>
             </div>
 
             <div className="card-info">
-                <img src="../img/pic2.jpg"></img>
+                <img src="./img/pic2.jpg"></img>
             </div>
 
 
@@ -31,8 +31,9 @@ export function Home() {
             </div>
 
             <div className="card-info txt">
-                <h4> Seamless Integration</h4>
-                <p> Our app seamlessly integrates with your existing tools and platforms, ensuring a smooth transition and uninterrupted workflow. Connect with popular services like Google Drive, Dropbox, and more.
+                <h4> Enhanced Email Organization</h4>
+                <p>
+                    Sort, filter, and categorize your emails to manage your inbox more effectively. Prioritize important messages and minimize clutter for a streamlined email experience.
                 </p>
             </div>
 

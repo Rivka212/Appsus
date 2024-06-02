@@ -1,5 +1,21 @@
 .mail-sidebar {
     max-width: 256px;
+    transition: width 0.3s;
+}
+
+.mail-sidebar.collapsed {
+    width: 60px;
+    /* Collapsed width */
+}
+
+.mail-sidebar .active {
+    background-color: var(--mail-bg3);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.mail-sidebar.collapsed .active {
+    background-color: transparent;
 }
 
 .mail-sidebar ul {
@@ -20,24 +36,11 @@
 
 .mail-sidebar .mail-item {
     padding-inline-start: 26px;
-
-    padding-block: 6px;
 }
 
-.mail-item button {
-    text-transform: capitalize;
+.mail-sidebar.collapsed .mail-item {
+    padding-inline-start: 16px;
 }
-
-.mail-sidebar .active {
-    background-color: var(--mail-bg3);
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-} 
-
-.mail-sidebar .active button{
-    font-weight: bold;
-}
-
 
 .mail-sidebar .mail-item:hover {
     border-top-right-radius: 20px;
@@ -46,6 +49,7 @@
 }
 
 .mail-sidebar .mail-item button {
+    text-transform: capitalize;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -57,16 +61,72 @@
     background-color: transparent;
 }
 
+.mail-sidebar .active button {
+    font-weight: bold;
+}
+
+.mail-sidebar.collapsed .menu-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .menu-icon {
     width: 20px;
-    /* Adjust as needed */
     height: 20px;
-    /* Adjust as needed */
     margin-right: 10px;
-    /* Adjust as needed */
+    padding: 5px;
+}
+
+.mail-sidebar.collapsed .active .menu-icon {
+    background-color: var(--mail-bg3);
+    border-radius: 50%;
 }
 
 .read-count {
     font-size: 13px;
     font-weight: bold;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+    .mail-sidebar ul {
+        display: none;
+
+        /* Collapsed width */
+    }
+
+    .mail-sidebar .menu-text {
+        opacity: 0;
+        visibility: hidden;
+        font-size: 16px;
+    }
+
+    .mail-sidebar .active .menu-icon {
+        background-color: var(--mail-bg3);
+        border-radius: 50%;
+    }
+
+    .mail-sidebar.collapsed ul {
+        display: block;
+        position: fixed;
+        top: 20%; /* Full height from the top */
+        left: -80vw; /* Start off-screen */
+        font-size: 18px;
+        background-color: var(--mail-bg6);
+        height: 100vh;
+        width: 60vw; /* Expanded width */
+        max-width: 80vw; /* Ensure it expands to 80% of the viewport width */
+        z-index: 4;
+        transform: translateX(80vw); /* Slide in from the left */
+
+    }
+
+    .mail-sidebar.collapsed .menu-text {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mail-sidebar.collapsed .mail-item {
+        padding-block: 10px;
+    }
 }
