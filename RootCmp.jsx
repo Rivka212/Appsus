@@ -30,7 +30,7 @@ export function App() {
                 <Route path="/note" element={<NoteIndex />}>
                     {/* <Route index element={<NoteIndex />} /> */}
                     <Route path=":status" element={<NoteIndex />} />
-                    <Route path="edit/:noteId" element={<NoteEdit />} />
+                    {/* <Route path="edit/:noteId" element={<NoteEdit />} /> */}
                 </Route>
             </Routes>
             <UserMsg />

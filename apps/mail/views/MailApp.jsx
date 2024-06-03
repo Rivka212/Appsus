@@ -52,7 +52,7 @@ export function MailApp() {
     }, [status])
 
     useEffect(() => {
-        debugger
+    
         console.log('Fetching mails with criteria:', criteria);
         mailService.query(criteria)
             .then(fetchedMails => {

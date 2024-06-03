@@ -90,9 +90,9 @@ export function NoteIndex() {
     }
 
 
-function handleSetNotePinned(noteId, isPinned){
-            const updatedNotes = noteService.query()
-            console.log(updatedNotes)
+    function handleSetNotePinned(noteId, isPinned) {
+        const updatedNotes = noteService.query()
+        console.log(updatedNotes)
             .then(() => {
                 setNotes(updatedNotes)
                 console.log(updatedNotes)
@@ -103,10 +103,29 @@ function handleSetNotePinned(noteId, isPinned){
             })
     }
 
+    // const [selectedNote, setSelectedNote] = useState(null);
 
-    function handleNoteClick(noteId) {
+    const handleNoteClick = (noteId) => {
+        console.log('noteId', noteId);
         setSelectedNote(noteId)
     }
+
+    // const handleSaveChanges = (updatedNote) => {
+    //     // כאן נשלח את ההערה המעודכנת לפונקציה המתאימה
+    //     // שתשמור אותה בעץ הדפים או בשרת
+    //     // ונאפס את ההערה הנבחרת
+    //     setSelectedNote(null);
+    // };
+
+    const handleCloseModal = () => {
+        // נאפס את ההערה הנבחרת בלי לשמור שינויים
+        setSelectedNote(null)
+    }
+
+
+    // function handleNoteClick(noteId) {
+    //     setSelectedNote(noteId)
+    // }
 
     return <section>
         <NoteHeader notes={notes} filterBy={filterBy} onFilter={onSetFilterBy} />
@@ -114,9 +133,16 @@ function handleSetNotePinned(noteId, isPinned){
             <NoteSideBar onChange={handleChange} status={status} />
             <main>
                 <NoteAdd noteId={selectedNote} />
-                <NoteList notes={notes} onRemove={removeNote} onSetNotePinned={handleSetNotePinned} />
+                <NoteList notes={notes} onRemove={removeNote} onSetNotePinned={handleSetNotePinned} onNoteClick={handleNoteClick}/>
             </main>
         </section>
+        {selectedNote && (
+            <NoteEdit
+                noteId={selectedNote}
+                onClose={handleCloseModal}
+               
+            />
+        )}
     </section>
 }
 
