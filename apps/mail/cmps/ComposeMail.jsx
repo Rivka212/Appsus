@@ -75,6 +75,9 @@ export function ComposeMail({ closeModal, setNewMail, initialRecipient = '', ini
     }
 
     function saveDraft() {
+
+        if (!body && !recipient && !subject) return
+        
         const draft = {
             id: draftId || utilService.makeId(),
             to: recipient,
