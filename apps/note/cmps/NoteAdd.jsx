@@ -5,7 +5,7 @@ import { noteService } from '../services/note.service.js'
 import { AccordionInput } from './AccordionInput.jsx'
 import { NoteEdit } from './NoteEdit.jsx'
 
-export function NoteAdd({ noteId }) {
+export function NoteAdd({ noteId, onAddNote }) {
 
     const [note, setNote] = useState(noteService.getEmptyNote())
     const [isExpanded, setIsExpanded] = useState(false)
@@ -30,14 +30,13 @@ export function NoteAdd({ noteId }) {
 
     function onSaveNote(ev) {
         setIsExpanded(!isExpanded)
-        //  setIsShowModal((prevIsShowModal) => !prevIsShowModal)
-        console.log(ev.target.value);
         if (!ev.target.value === 'Empty note')
-            console.log(ev);
         ev.preventDefault()
         noteService.save(note)
+        console.log(note)
             .then(() => {
                 setNote(note)
+                onAddNote(note.id)
             })
         // .catch(() => {
         //     // showErrorMsg('Couldnt save')

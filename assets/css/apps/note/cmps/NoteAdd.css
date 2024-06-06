@@ -72,9 +72,9 @@ font-size: 20px;
     filter: grayscale(0%);
 }
 
-/* .input-container .expanded .icon-text>img{
+.input-container .input-title .expanded .icon-text >img{
 display: block;
-} */
+}
 
 
 
@@ -86,7 +86,7 @@ display: block;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 10px; /* מרחק משמאל */
+    left: 10px; 
     display: flex;
     align-items: center;
 }

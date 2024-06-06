@@ -5,7 +5,7 @@ const { useParams, useNavigate } = ReactRouter
 // import { NoteIndex } from '../views/NoteIndex.jsx'
 import { noteService } from '../services/note.service.js'
 
-export function NoteEdit({noteId, onClose}) {
+export function NoteEdit({noteId, onClose, onEditNote}) {
 
     const [note, setNote] = useState(noteService.getEmptyNote())
 
@@ -20,10 +20,7 @@ export function NoteEdit({noteId, onClose}) {
         noteService.getNoteById(noteId)
         .then(note => setNote(note))
 }, [])
-    //     noteService.get(noteId)
-    //         .then(note => setNote(note))
-    // }, [])
-    // [params.noteId]
+   
     function onSaveNote(ev) {
         console.log(ev);
         ev.preventDefault()
@@ -31,6 +28,7 @@ export function NoteEdit({noteId, onClose}) {
             .then(() => {
                 setNote(note)
                  onClose()
+                 onEditNote(note)
             })
         // .catch(() => {
         //     // showErrorMsg('Couldnt save')

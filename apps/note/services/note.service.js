@@ -1,4 +1,5 @@
 // note service
+import { axios } from '../../../lib/axios.js';
 
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
@@ -25,6 +26,8 @@ export const noteService = {
     getFilterFromSearchParams,
     updatedTodoNote,
     getNoteImg,
+    updateNoteWithImage,
+    getArchive,
 }
 
 function query(filterBy = { status: 'notes', txt: '' }) {
@@ -37,6 +40,8 @@ function query(filterBy = { status: 'notes', txt: '' }) {
                 // console.log(notes);
             } else if (filterBy.status === 'trash') {
                 notes = notes.filter(note => note.isTrashed)
+            } else if (filterBy.status === 'archive') {
+                notes = notes.filter(note => note.isArchive)
             }
             if (filterBy.txt) {
 
@@ -71,6 +76,8 @@ function getFilterStatus(notes, filterBy = { status: 'notes', txt: '' }) {
     console.log(filterBy);
     if (filterBy.status === 'trash') {
         notes = notes.filter(note => note.isTrashed)
+    } else if (filterBy.status === 'archive') {
+        notes = notes.filter(note => note.isArchive)
     }
     if (filterBy.txt) {
         notes = notes.filter(note => note.info.txt)
@@ -152,7 +159,13 @@ function getNoteImg(noteId, imageDataURL){
     if (note) {
         // info: {
         //     url: 'http://some-img/me',
-        const updatedImgNote = { ...note, info:imageDataURL }
+        // updateNoteWithImage(note.id, imageDataURL)
+        // .then((updatedNote) => {
+        const updatedImgNote = { ...note, info: { ...note.info, url: imageDataURL } }
+    // })
+    .catch((error) => {
+        console.error('Error updating note with image:', error);
+    })
         save(updatedImgNote)
         return Promise.resolve(updatedImgNote)
     } else {
@@ -161,10 +174,19 @@ function getNoteImg(noteId, imageDataURL){
 }
 
 
+function updateNoteWithImage(noteId, imageDataURL) {
+    return axios.put(`/api/notes/${noteId}/image`, { imageDataURL })
+        .then(response => response.data)
+        .catch(error => {
+            throw error.response.data;
+        })
+}
 
-function duplicate(noteCopy) {
+
+
+function duplicate(noteId) {
     const notes = _loadNotesFromStorage()
-    const note = notes.find((note) => note.id === noteCopy.id)
+    const note = notes.find((note) => note.id === noteId)
     if (note) {
         const duplicatedNote = { ...note, id: '' }
         save(duplicatedNote)
@@ -220,6 +242,17 @@ function remove(noteId) {
     // return storageService.remove(NOTE_KEY, noteId)
 }
 
+function getArchive(noteId){
+    const notes = _loadNotesFromStorage()
+    const note = notes.find((note) => note.id === noteId)
+    if (note) {
+        note.isArchive = true
+        query()
+        save(note)
+    }
+    return Promise.resolve(note)
+}
+
 function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
@@ -259,6 +292,7 @@ function _createNotes() {
                 },
                 isTrashed: true,
                 trashDate: '',
+                isArchive:false,
 
             },
             {
@@ -275,6 +309,7 @@ function _createNotes() {
                 },
                 isTrashed: false,
                 trashDate: '',
+                isArchive:false,
             },
             {
                 id: 'n103',
@@ -292,6 +327,7 @@ function _createNotes() {
                 },
                 isTrashed: false,
                 trashDate: '',
+                isArchive:false,
             },
             {
                 id: 'n104',
@@ -311,6 +347,7 @@ function _createNotes() {
                 },
                 isTrashed: false,
                 trashDate: '',
+                isArchive:false,
             },
             {
                 id: 'n105',
@@ -325,6 +362,7 @@ function _createNotes() {
                 },
                 isTrashed: false,
                 trashDate: '',
+                isArchive:false,
             },
             {
                 id: 'n106',
@@ -341,6 +379,7 @@ function _createNotes() {
                 },
                 isTrashed: false,
                 trashDate: '',
+                isArchive:false,
             },
             {
                 id: 'n107',
@@ -358,6 +397,7 @@ function _createNotes() {
                 },
                 isTrashed: true,
                 trashDate: '',
+                isArchive:false,
             }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)

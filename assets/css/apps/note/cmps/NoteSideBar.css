@@ -48,7 +48,7 @@
  }
 
 
- .note-sidebar .note-teams li:first-child > img{
+ .note-sidebar .note-teams > li:first-of-type .team-icon {
     border-radius: 50%;
     background-color: #feefc3;
     filter: none;

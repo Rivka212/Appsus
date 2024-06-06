@@ -5,7 +5,8 @@ const { useState, useEffect } = React
         const { info } = note
         const [todos, setTodos] = useState(info.todos)
     
-        function handleCheckboxChange(index, isChecked) {
+        function handleCheckboxChange(index, isChecked,ev) {
+            ev.stopPropagation()
             console.log(isChecked, 'isChecked');
             console.log(index, note);
             const updatedTodos = [...todos]
@@ -36,7 +37,7 @@ const { useState, useEffect } = React
                             type="checkbox"
                             id={`todos-${index}`}
                             checked={todos.doneAt}
-                            onChange={(ev) => handleCheckboxChange(index, ev.target.checked)}
+                            onChange={(ev) =>{ev.stopPropagation(), handleCheckboxChange(index, ev.target.checked,ev)}}
                          /> 
                        
                       

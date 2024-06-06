@@ -2,117 +2,124 @@ const { useState, useEffect, useRef } = React
 import { noteService } from '../services/note.service.js'
 import { ColorInput } from "./ColorInput.jsx";
 
-export function NoteAction({ note, onRemove }) {
+export function NoteAction({ note, onRemove,onNoteChange}) {
     const [notes, setNotes] = useState([])
     const [noteColor, setNoteColor] = useState({ backgroundColor: '#101010' })
     const [showColorPalette, setShowColorPalette] = useState(false)
-    const [newNote, setNewNote] = useState(null)
-    const fileInputRef = useRef()
+    const [newNote, setNewNote] = useState(null) 
     const [fileInputVisible, setFileInputVisible] = useState(false);
-
+const fileInputRef = useRef()
 
     // useEffect(() => {
     //     fileInputRef.current.click()
     // }, [])
 
     // const { duplicatedNote } = useParams()
+    
+    // useEffect(() => {
+    //     if (noteColor) {
+    //         setNotes(prevNote => ({ ...prevNote, noteColor }))
+    //     }
+    // }, [noteColor])
 
     // useEffect(() => {
     //     if (duplicatedNote) {
-    //         setNoteColor(prevColor => ({ ...prevColor, duplicatedNote }))
+    //         setNotes(prevNote => ({ ...prevNote, duplicatedNote }))
     //     }
     // }, [duplicatedNote])
 
-    function onDuplicate(note) {
-        noteService.duplicate(note)
-            .then((duplicatedNote) => {
-                setNotes(prevNotes => [...prevNotes, duplicatedNote])
-            })
-            .catch(err => {
-                console.log('err:', err)
-                // showErrorMsg('There was a problem')
-            })
+    function onDuplicate(noteId) {
+        onNoteChange(noteId, 'duplicate')
+
+        // noteService.duplicate(note)
+        //     .then((duplicatedNote) => {
+        //         console.log(duplicatedNote);
+        //         console.log(note.id);
+        //         //  setNotes(prevNotes => [...prevNotes, duplicatedNote])
+        //         onNoteChange(note.id,'duplicate',duplicatedNote)
+        //     })
+        //     .catch(err => {
+        //         console.log('err:', err)
+        //         // showErrorMsg('There was a problem')
+        //     })
+
+        //     console.log(notes);
     }
 
-    function onSetNoteImg(note, imageDataURL) {
-        console.log('bii');
-        noteService.getNoteImg(note.id, imageDataURL)
-        const updatedNote = { ...note, info: { ...note.info, url: imageDataURL } }
-    }
+    // function onSetNoteImg(note, imageDataURL) {
+    //     onNoteChange(note, 'getImg', imageDataURL )
+    //     console.log('bii');
+    //     noteService.getNoteImg(note.id, imageDataURL)
+    //     const updatedNote = { ...note, info: { ...note.info, url: imageDataURL } }
+    // }
 
 
-    function handleImageUpload() {
-
+    function handleImageUpload(ev) {
         console.log('ev');
+        ev.stopPropagation()
         const file = ev.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
                 const imageDataURL = reader.result;
-                onSetNoteImg(note, imageDataURL)
+                onNoteChange(note.id, 'getImg', imageDataURL )
             }
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file)
         }
     }
 
-    function onSetNoteColor(note, newColor) {
-        noteService.colorStyle(note, newColor)
-            .then((newColor) => {
-                setNoteColor(prevColor => ({ ...prevColor, ...newColor }))
-            })
+    function onSetNoteColor(noteId, newColor) {
+         onNoteChange(noteId,'color', newColor)
     }
+
 
     function handleColorPaletteToggle() {
         setShowColorPalette(!showColorPalette)
     }
 
-    function handleImage(ev, note) {
-        console.log(note, ev)
+    function onGetArchive(noteId, ev){
+        onNoteChange(noteId,'archive')
+    }
+
+    function handleImage(ev) {
+        ev.stopPropagation()
         setFileInputVisible(true)
-        // ev.preventDefault()
-        // console.log(fileInputRef.current);
-        fileInputRef.current.click()
         if (fileInputRef.current) {
-            console.log(fileInputRef.current)
-        }
+            fileInputRef.current.click()
+           }
+           ev.preventDefault()
     }
 
     return (
         <section className="action-note hidden">
 
             <img src={"../../../../img/more.png"} alt='' />
-            <img src={"../../../../icons/download-file.png"} alt='' />
-            {/* <label className="file-input-label"> */}
+            <img src={"../../../../icons/download-file.png"} alt='' onClick={(ev) => {
+                ev.stopPropagation(), onGetArchive(note.id, ev)
+            }}/>
             <img src={"../../../../img/picture.png"} alt='' onClick={(ev) => {
                 ev.stopPropagation(), handleImage(ev)
             }}
                 className="file-button" />
 
-            {/* //   handleImageUpload(ev) onSetNoteImg(note)} */}
-            {/* //  fileInputRef.current.click()}}/> */}
-
             {fileInputVisible && (
                 <input className='file-input'
-                    // <input type="file" onChange={handleImageUpload} />
-
-                    // autoFocus
+                
                     ref={fileInputRef}
                     type="file"
-                    style={{ display: fileInputVisible ? 'block' : 'none' }}
-
-                    // style={{ display: 'none' }}
+                    style={{ display:'none' }}
                     accept="image/*"
                     onChange={handleImageUpload} />)}
 
             <img src={"../../../../img/palette.png"} alt=''
-                onClick={() => handleColorPaletteToggle(note)} />
+                onClick={(ev) => {ev.stopPropagation(), handleColorPaletteToggle(note)}}/>
             {showColorPalette && <ColorInput noteId={note.id} {...noteColor} onSetNoteColor={onSetNoteColor}
                 handleColorPaletteToggle={handleColorPaletteToggle} />}
             {/* //   onClick={(event) => onColor(event, note)} /> */}
             {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
             <img src={"../../../../img/copy.png"} alt=''
                 onClick={(ev) => {
-                    ev.stopPropagation(), onDuplicate(note)
+                    ev.stopPropagation(), onDuplicate(note.id)
                 }} />
             <img src={"../../../../img/delete.png"} alt=''
                 onClick={(ev) => {

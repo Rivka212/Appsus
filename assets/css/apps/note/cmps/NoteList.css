@@ -4,7 +4,7 @@
      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
      grid-gap: 17px;
      margin: 20px;
-     /* grid-auto-rows: min-content; */
+     grid-auto-rows: min-content;
 
  }
 .note-list h3{

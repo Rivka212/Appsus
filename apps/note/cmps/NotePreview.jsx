@@ -8,7 +8,7 @@ import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
 import { NoteTodos } from "./dynamic-inputs/NoteTodos.jsx";
 import { NoteAction } from "./NoteAction.jsx";
 
-export function NotePreview({ note, onRemove, onSetNotePinned}) {
+export function NotePreview({ note, onRemove, onSetNotePinned, onNoteChange}) {
     const [cmpType, setCmpType] = useState(null)
     const [isPinned, setIsPinned] = useState(note.isPinned)
     const fileInputRef = useRef(null)
@@ -101,7 +101,7 @@ console.log('hi');
             </div>
             {/* <img src={`../assets/img/${note.info.url}.png`} alt='' /> */}
             <section className="action-note hidden">
-                <NoteAction note={note} onRemove={onRemove} />
+                <NoteAction note={note} onRemove={onRemove} onNoteChange={onNoteChange}/>
             </section>
         </article>
     )

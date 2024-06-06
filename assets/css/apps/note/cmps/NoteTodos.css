@@ -9,6 +9,9 @@
     color: rgb(77, 73, 73);
 
 }
+.note-todos >ul{
+    padding-inline-start: 2px;
+}
 
 .note-todos ul>li:hover {
     box-shadow: none;

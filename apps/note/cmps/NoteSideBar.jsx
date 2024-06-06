@@ -20,7 +20,7 @@ export function NoteSideBar({ onChange, status }) {
                 {teams.map(team =>
                     <NavLink to={`/note/${team.type}`} className="active" key={team.type}>
                         <li className={`note-teams ${status === team.type ? 'active' : ''}`}>
-                            <img src={`../../../../icons/${team.icon}.png`} alt='' />
+                            <img src={`../../../../icons/${team.icon}.png`} alt='' className="team-icon" />
                             <span className="name-teams hidden">{team.type}</span>
                         </li>
                     </NavLink>
@@ -29,17 +29,16 @@ export function NoteSideBar({ onChange, status }) {
         </section>
     )
 }
-    // activeclassName   onClick={() => onChange(team.type)}
 
-    // return (
-    //     <section className="note-sidebar">
-    //         <ul>
-    //             {teams.map(team =>
-    //                 <li key={team.type} className="note-teams" onClick={() => onChange(team.type)}>
-    //                     <img src={`../../../../icons/${team.icon}.png`} alt='' />
-    //                     <span className="name-teams hidden">{team.type}</span>
-    //                 </li>
-    //             )}
-    //         </ul>
-    //     </section>
-    // )
+// return (
+//     <section className="note-sidebar">
+//         <ul>
+//             {teams.map(team =>
+//                 <li key={team.type} className="note-teams" onClick={() => onChange(team.type)}>
+//                     <img src={`../../../../icons/${team.icon}.png`} alt='' />
+//                     <span className="name-teams hidden">{team.type}</span>
+//                 </li>
+//             )}
+//         </ul>
+//     </section>
+// )
