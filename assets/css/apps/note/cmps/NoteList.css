@@ -7,9 +7,8 @@
      grid-auto-rows: min-content;
 
  }
-.note-list h3{
+/* .note-list h3{
     /* min-height: 80px;, */
-}
 
  .note-list ul>li {
      padding: 10px;

@@ -1,6 +1,5 @@
-
 .note-sidebar {
-    max-width: 256px;
+    max-width: 250px;
 }
 
 .note-sidebar ul {
@@ -9,9 +8,10 @@
     padding-inline-start: 0;
 }
 
-.note-sidebar:hover{
-    /* border: 1px solid gray; */
-    box-shadow: 2px 2px 5px  rgba(0, 0, 0, 0.2); 
+.note-sidebar:hover {
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+
+
 }
 
 .note-sidebar img {
@@ -34,7 +34,7 @@
 
 .note-sidebar .note-teams:hover {
     border-top-right-radius: 25px;
-    border-bottom-right-radius:25px;
+    border-bottom-right-radius: 25px;
     background-color: rgb(246, 239, 239);
 }
 
@@ -45,20 +45,16 @@
 
 .note-sidebar img {
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(150%);
- }
-
-
- .note-sidebar .note-teams > li:first-of-type .team-icon {
-    border-radius: 50%;
-    background-color: #feefc3;
-    filter: none;
-}  
-.note-sidebar .note-teams:hover>li:first-of-type{
-    background-color: #feefc3;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius:25px;
 }
 
-/* .note-sidebar:hover .note-teams:hover > img {
-   background-color: aquamarine;
-} */
+a .active img:first-of-type {
+    filter: none;
+    background-color: #feefc3;
+    border-radius: 50%;
+}
+
+.note-sidebar:hover a .active:first-of-type {
+    background-color: #feefc3;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
