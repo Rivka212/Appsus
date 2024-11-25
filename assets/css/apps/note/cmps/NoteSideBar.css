@@ -47,7 +47,7 @@
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(150%);
 }
 
-a:first-of-type img {
+.note-sidebar a:first-of-type img {
     filter: none;
     background-color: #feefc3;
     border-radius: 50%;

@@ -20,7 +20,7 @@ export function NoteSideBar({ onChange, status }) {
                 {teams.map(team =>
                     <NavLink to={`/note/${team.type}`} className="active" key={team.type}>
                         <li className={`note-teams ${status === team.type ? 'active' : ''}`}>
-                            <img src={`../../../icons/${team.icon}.png`} alt='' className="team-icon" />
+                            <img src={`./icons/${team.icon}.png`} alt='' className="team-icon" />
                             <span className="name-teams hidden">{team.type}</span>
                         </li>
                     </NavLink>
