@@ -91,8 +91,8 @@ console.log('hi');
                     {/* <DynamicCmp cmpType={cmpType} key={note.id}  {...note}  />/ */}
                 </div>
                 <span className="hidden">
-                    <img src={isPinned ? "../../../../img/thumbtack01.png" :
-                        "../../../../img/thumbtack0.png"} alt=''
+                    <img src={isPinned ? "../../../img/thumbtack01.png" :
+                        "../../../img/thumbtack0.png"} alt=''
                         onClick={(ev) => {
                             ev.stopPropagation(), handleToggle(note)
                         }} />

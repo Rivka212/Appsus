@@ -93,11 +93,11 @@ const fileInputRef = useRef()
     return (
         <section className="action-note hidden">
 
-            <img src={"../../../../img/more.png"} alt='' />
-            <img src={"../../../../icons/download-file.png"} alt='' onClick={(ev) => {
+            <img src={"../../../img/more.png"} alt='' />
+            <img src={"../../../icons/download-file.png"} alt='' onClick={(ev) => {
                 ev.stopPropagation(), onGetArchive(note.id, ev)
             }}/>
-            <img src={"../../../../img/picture.png"} alt='' onClick={(ev) => {
+            <img src={"../../../img/picture.png"} alt='' onClick={(ev) => {
                 ev.stopPropagation(), handleImage(ev)
             }}
                 className="file-button" />
@@ -111,17 +111,17 @@ const fileInputRef = useRef()
                     accept="image/*"
                     onChange={handleImageUpload} />)}
 
-            <img src={"../../../../img/palette.png"} alt=''
+            <img src={"../../../img/palette.png"} alt=''
                 onClick={(ev) => {ev.stopPropagation(), handleColorPaletteToggle(note)}}/>
             {showColorPalette && <ColorInput noteId={note.id} {...noteColor} onSetNoteColor={onSetNoteColor}
                 handleColorPaletteToggle={handleColorPaletteToggle} />}
             {/* //   onClick={(event) => onColor(event, note)} /> */}
             {/* <img src={"../../../../icons/person_add.png"} alt='' /> */}
-            <img src={"../../../../img/copy.png"} alt=''
+            <img src={"../../../img/copy.png"} alt=''
                 onClick={(ev) => {
                     ev.stopPropagation(), onDuplicate(note.id)
                 }} />
-            <img src={"../../../../img/delete.png"} alt=''
+            <img src={"../../../img/delete.png"} alt=''
                 onClick={(ev) => {
                     ev.stopPropagation(), onRemove(ev, note.id)
                 }} />
